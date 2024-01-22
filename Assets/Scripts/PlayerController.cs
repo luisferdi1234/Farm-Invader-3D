@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerConroller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //SerializedFields
     [SerializeField] Rigidbody rb;
     [SerializeField] float moveSpeed = 5f;
-    [SerializeField] SphereCollider sphereCollider;
 
-    private Transform carriedItem;
+    //Item variables
+    public GameObject nearestItem;
+    private GameObject heldItem;
 
     //Cinemachine
     private CinemachineVirtualCamera vcam;
@@ -21,6 +22,7 @@ public class PlayerConroller : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     private InputAction move;
     private InputAction fire;
+    private bool FirePressed;
 
     private void Awake()
     {
@@ -41,7 +43,7 @@ public class PlayerConroller : MonoBehaviour
 
         fire = playerControls.Player.Fire;
         fire.Enable();
-        fire.started += ctx => Fire();
+        fire.performed += Fire;
     }
 
     private void OnDisable()
@@ -55,6 +57,7 @@ public class PlayerConroller : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
+        Debug.Log(heldItem);
     }
 
     private void FixedUpdate()
@@ -62,8 +65,34 @@ public class PlayerConroller : MonoBehaviour
         rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Fire(InputAction.CallbackContext context)
     {
-        fire.performed.Invoke();
+        if (nearestItem != null)
+        {
+            if (heldItem == nearestItem.gameObject)
+            {
+                // If the nearest item is the same as the held item, unparent it
+                heldItem.tag = "Item";
+                heldItem.transform.parent = null;
+                heldItem.GetComponent<SphereCollider>().enabled = true;
+                heldItem = null;
+            }
+            else if (heldItem == null)
+            {
+                // Parent the new nearest item to the player
+                nearestItem.transform.parent = gameObject.transform;
+                heldItem = nearestItem.gameObject;
+                heldItem.tag = "HeldItem";
+                nearestItem.GetComponent<SphereCollider>().enabled = false;
+            }
+        }
+        else if (heldItem != null)
+        {
+            heldItem.tag = "Item";
+            nearestItem = null;
+            heldItem.transform.parent = null;
+            heldItem.GetComponent<SphereCollider>().enabled = true;
+            heldItem = null;
+        }
     }
 }
