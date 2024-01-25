@@ -15,11 +15,28 @@ public class Cow : MonoBehaviour
             Debug.Log("Apple Detected!");
             agent.SetDestination(other.gameObject.transform.position);
         }
+        else if (other.gameObject.name == "Alien" && Vector3.Distance(gameObject.transform.position, other.gameObject.transform.position) <= 2f)
+        {
+            PlayerController pController = other.gameObject.GetComponent<PlayerController>();
+            pController.nearestItem = gameObject;
+            pController.itemRadius = GetComponent<CapsuleCollider>().radius;
+        }
+        else if(other.gameObject.name == "Alien" && Vector3.Distance(gameObject.transform.position, other.gameObject.transform.position) >= 2f)
+        {
+            PlayerController pController = other.gameObject.GetComponent<PlayerController>();
+            pController.nearestItem = null;
+            pController.itemRadius = 0;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        agent.SetDestination(transform.position);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController pController = other.gameObject.GetComponent<PlayerController>();
+            pController.nearestItem = null;
+            pController.itemRadius = 0;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -6,13 +6,22 @@ public class Item : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        PlayerController pController = other.gameObject.GetComponent<PlayerController>();
-        pController.nearestItem = gameObject;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController pController = other.gameObject.GetComponent<PlayerController>();
+            pController.nearestItem = gameObject;
+            pController.itemRadius = GetComponent<SphereCollider>().radius;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerController pController = other.gameObject.GetComponent<PlayerController>();
-        pController.nearestItem = null;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController pController = other.gameObject.GetComponent<PlayerController>();
+            pController.nearestItem = null;
+            pController.itemRadius = 0;
+        }
+
     }
 }
