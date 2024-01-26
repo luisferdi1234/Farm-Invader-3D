@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float rotationSpeed = 30f;
     public float rotationRange = 70;
     public int direction = 1; //1 for clockwise, -1 for counter-clockwise
+    public float startingRotation = 0f;
 
     protected EnemyStateMachine stateMachine;
 

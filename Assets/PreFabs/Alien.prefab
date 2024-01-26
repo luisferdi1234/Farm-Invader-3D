@@ -218,7 +218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7357207700857239952}
   moveSpeed: 8
+  cowSlowDown: 1
   nearestItem: {fileID: 0}
+  heldItem: {fileID: 0}
   itemRadius: 0
 --- !u!114 &7357207700857239955
 MonoBehaviour:

@@ -17,6 +17,7 @@ public class PatrolState : EnemyState
     {
         currentObject = gameObject;
         currentEnemy = gameObject.GetComponent<Enemy>();
+        currentRotation = currentEnemy.startingRotation;
     }
 
     public void OnUpdate()

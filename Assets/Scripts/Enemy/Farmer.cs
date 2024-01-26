@@ -9,12 +9,17 @@ public class Farmer : Enemy
     [SerializeField] float detectionAngle = 50f;
     [SerializeField] float maxRayDistance = 20f;
     [SerializeField] LayerMask obstacleMask;
+    [SerializeField] float differentRotation = 0f;
 
     private float idleTimer = 0f;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        if (differentRotation != startingRotation)
+        {
+            startingRotation = differentRotation;
+        }
     }
 
     // Update is called once per frame

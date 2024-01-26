@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     //SerializedFields
     [SerializeField] Rigidbody rb;
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float cowSlowDown = 2f;
 
     //Item variables
     public GameObject nearestItem;
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             heldItem.GetComponent<NavMeshAgent>().enabled = false;
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
-            moveSpeed = 5f;
+            moveSpeed = cowSlowDown;
         }
         //Get all colliders attached to this GameObject
         Collider[] allColliders = heldItem.GetComponents<Collider>();
