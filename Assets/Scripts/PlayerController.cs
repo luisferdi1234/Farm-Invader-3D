@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     //Item variables
     public GameObject nearestItem;
-    private GameObject heldItem;
+    public GameObject heldItem;
     public float itemRadius;
 
     //Cinemachine
@@ -81,69 +81,61 @@ public class PlayerController : MonoBehaviour
         {
             if (heldItem == nearestItem.gameObject)
             {
-                if (heldItem.name == "Cow")
-                {
-                    heldItem.GetComponent<NavMeshAgent>().enabled = true;
-                    heldItem.GetComponent<Rigidbody>().isKinematic = true;
-                    moveSpeed = 10f;
-                }
-                // If the nearest item is the same as the held item, unparent it
-                heldItem.tag = "Item";
-                heldItem.transform.parent = null;
-                heldItem.transform.position = transform.position + transform.forward * itemRadius;
-                nearestItem = null;
-
-                //Get all colliders attached to the
-                Collider[] allColliders = heldItem.GetComponents<Collider>();
-                // Disable each collider
-                foreach (Collider collider in allColliders)
-                {
-                    collider.enabled = true;
-                }
-                heldItem = null;
+                ReleaseItem();
             }
             else if (heldItem == null)
             {
-                // Parent the new nearest item to the player
-                nearestItem.transform.parent = gameObject.transform;
-                heldItem = nearestItem.gameObject;
-                heldItem.tag = "HeldItem";
-                if (heldItem.name == "Cow")
-                {
-                    heldItem.GetComponent<NavMeshAgent>().enabled = false;
-                    heldItem.GetComponent<Rigidbody>().isKinematic = false;
-                    moveSpeed = 5f;
-                }
-                //Get all colliders attached to this GameObject
-                Collider[] allColliders = heldItem.GetComponents<Collider>();
-                // Disable each collider
-                foreach (Collider collider in allColliders)
-                {
-                    collider.enabled = false;
-                }
+                GrabItem();
             }
         }
         else if (heldItem != null)
         {
-            if (heldItem.name == "Cow")
-            {
-                heldItem.GetComponent<NavMeshAgent>().enabled = true;
-                heldItem.GetComponent<Rigidbody>().isKinematic = true;
-                moveSpeed = 10f;
-            }
-            heldItem.tag = "Item";
-            nearestItem = null;
-            heldItem.transform.parent = null;
-            heldItem.transform.position = transform.position + transform.forward * itemRadius;
-            //Get all colliders attached to the
-            Collider[] allColliders = heldItem.GetComponents<Collider>();
-            // Disable each collider
-            foreach (Collider collider in allColliders)
-            {
-                collider.enabled = true;
-            }
-            heldItem = null;
-            nearestItem = null;
+           ReleaseItem();
+        }
+    }
+
+    private void ReleaseItem()
+    {
+        if (heldItem.name.Contains("Cow"))
+        {
+            Cow cow = heldItem.GetComponent<Cow>();
+            heldItem.GetComponent<NavMeshAgent>().enabled = true;
+            heldItem.GetComponent<NavMeshAgent>().SetDestination(heldItem.transform.position);
+            heldItem.GetComponent<Rigidbody>().isKinematic = true;
+            moveSpeed = 10f;
+        }
+        heldItem.tag = "Item";
+        nearestItem = null;
+        heldItem.transform.parent = null;
+        heldItem.transform.position = transform.position + transform.forward * itemRadius;
+        //Get all colliders attached to the
+        Collider[] allColliders = heldItem.GetComponents<Collider>();
+        // Enable each collider
+        foreach (Collider collider in allColliders)
+        {
+            collider.enabled = true;
+        }
+        heldItem = null;
+    }
+
+    private void GrabItem()
+    {
+        // Parent the new nearest item to the player
+        nearestItem.transform.parent = gameObject.transform;
+        heldItem = nearestItem.gameObject;
+        heldItem.tag = "HeldItem";
+        if (heldItem.name.Contains("Cow"))
+        {
+            heldItem.GetComponent<NavMeshAgent>().enabled = false;
+            heldItem.GetComponent<Rigidbody>().isKinematic = false;
+            moveSpeed = 5f;
+        }
+        //Get all colliders attached to this GameObject
+        Collider[] allColliders = heldItem.GetComponents<Collider>();
+        // Disable each collider
+        foreach (Collider collider in allColliders)
+        {
+            collider.enabled = false;
         }
     }
 }

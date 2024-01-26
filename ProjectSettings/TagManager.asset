@@ -7,6 +7,7 @@ TagManager:
   - Item
   - HeldItem
   - Apple
+  - Cow
   layers:
   - Default
   - TransparentFX

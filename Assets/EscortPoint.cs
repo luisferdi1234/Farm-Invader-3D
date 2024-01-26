@@ -11,7 +11,7 @@ public class EscortPoint : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Cow")
+        if(other.gameObject.tag == "Item" && other.gameObject.name.Contains("Cow"))
         {
             canvas.enabled = true;
         }
