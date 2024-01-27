@@ -15,7 +15,7 @@ public class Cow : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name == "Apple" && other.CompareTag("Item"))
+        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item"))
         {
             Debug.Log("Apple Detected!");
             agent.SetDestination(other.gameObject.transform.position);

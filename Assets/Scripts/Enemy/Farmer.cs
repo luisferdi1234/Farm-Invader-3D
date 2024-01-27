@@ -56,6 +56,10 @@ public class Farmer : Enemy
                 stateMachine.ChangeState(new ChaseState(), gameObject);
             }
         }
+        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
+        {
+            stateMachine.ChangeState(new ReturnState(), gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -66,6 +70,10 @@ public class Farmer : Enemy
         }
     }
 
+    /// <summary>
+    /// Checks to see if the player is within the line of sight of the farmer
+    /// </summary>
+    /// <returns></returns>
     bool CheckLineOfSight()
     {
         // Calculate the vector to the player

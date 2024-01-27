@@ -147,12 +147,14 @@ MonoBehaviour:
   rotationSpeed: 60
   rotationRange: 90
   direction: 1
+  startingRotation: 0
   sphereCollider: {fileID: 3004396910328261686}
   detectionAngle: 30
   maxRayDistance: 30
   obstacleMask:
     serializedVersion: 2
     m_Bits: 192
+  differentRotation: 0
 --- !u!195 &1230191435126461136
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 300
@@ -218,7 +220,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
+  m_Intensity: 2
   m_Range: 18
   m_SpotAngle: 60
   m_InnerSpotAngle: 4
@@ -255,7 +257,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1271
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0

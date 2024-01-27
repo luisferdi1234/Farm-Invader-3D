@@ -7,7 +7,7 @@ public class EscortPoint : MonoBehaviour
     Canvas canvas;
     private void Start()
     {
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        canvas = GameObject.Find("WinScreenCanvas").GetComponent<Canvas>();
     }
     private void OnTriggerEnter(Collider other)
     {

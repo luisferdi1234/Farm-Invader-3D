@@ -11,12 +11,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float cowSlowDown = 2f;
+    [SerializeField] float maxInvisTime = 3f;
+    [SerializeField] Material alienSkin;
 
     //Item variables
     public GameObject nearestItem;
     public GameObject heldItem;
     public float itemRadius;
 
+    //Invisibility variables
+    public float invisTime = 0;
+    public float invisibilityCooldown = 0f;
+    public float maxInvisCooldown = 15f;
+    private bool InvisInUse = false;
+    private bool startInvisCooldown = false;
     //Cinemachine
     private CinemachineVirtualCamera vcam;
 
@@ -25,6 +33,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     private InputAction move;
     private InputAction fire;
+    private InputAction invisible;
 
     private void Awake()
     {
@@ -46,6 +55,10 @@ public class PlayerController : MonoBehaviour
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+
+        invisible = playerControls.Player.Invisible;
+        invisible.Enable();
+        invisible.performed += Invisible;
     }
 
     private void OnDisable()
@@ -68,7 +81,8 @@ public class PlayerController : MonoBehaviour
         {
             heldItem.transform.position = transform.position + transform.forward * itemRadius;
         }
-        Debug.Log(heldItem);
+
+        UpdateInvisibility();
     }
 
     private void FixedUpdate()
@@ -76,6 +90,10 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
     }
 
+    /// <summary>
+    /// Handles the fire button being pressed
+    /// </summary>
+    /// <param name="context"></param>
     private void Fire(InputAction.CallbackContext context)
     {
         if (nearestItem != null)
@@ -93,6 +111,80 @@ public class PlayerController : MonoBehaviour
         {
            ReleaseItem();
         }
+    }
+
+    /// <summary>
+    /// Handles the invisble buttone being pressed
+    /// </summary>
+    /// <param name="context"></param>
+    private void Invisible(InputAction.CallbackContext context)
+    {
+        if (invisibilityCooldown == 0f && invisTime == 0f)
+        {
+            InvisInUse = true;
+            // Cast a ray downwards from the player's position
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit))
+            {
+                // Check if the hit object has a renderer
+                Renderer renderer = hit.collider.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    // Get the material of the object below the player
+                    Material materialBelowPlayer = renderer.material;
+
+                    // Change the player's material to the materialBelowPlayer
+                    ChangePlayerMaterial(materialBelowPlayer);
+                }
+                gameObject.tag = "Invisible";
+            }
+        }
+        else if (invisTime != 0f)
+        {
+            TurnOffInvisibility();
+        }
+    }
+
+    /// <summary>
+    /// Updates invisibility variables and cooldowns after activation
+    /// </summary>
+    private void UpdateInvisibility()
+    {
+        if (InvisInUse)
+        {
+            invisTime += Time.deltaTime;
+        }
+        if (invisTime >= maxInvisTime)
+        {
+            TurnOffInvisibility();
+        }
+        if (startInvisCooldown)
+        {
+            invisibilityCooldown += Time.deltaTime;
+        }
+        if (invisibilityCooldown >= maxInvisCooldown)
+        {
+            startInvisCooldown = false;
+            invisibilityCooldown = 0;
+        }
+    }
+
+    private void TurnOffInvisibility()
+    {
+        gameObject.tag = "Player";
+        InvisInUse = false;
+        ChangePlayerMaterial(alienSkin);
+        startInvisCooldown = true;
+        invisTime = 0;
+    }
+
+    private void ChangePlayerMaterial(Material newMaterial)
+    {
+        // Assuming your player has a Renderer component
+        Renderer playerRenderer = GetComponent<Renderer>();
+
+        // Change the player's material
+        playerRenderer.material = newMaterial;
     }
 
     private void ReleaseItem()
