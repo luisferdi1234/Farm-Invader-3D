@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         spawnOrientation = transform.rotation;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         stateMachine.UpdateState();
     }
