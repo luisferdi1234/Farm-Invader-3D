@@ -8,6 +8,11 @@ public class CowCollisionDetection : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Item") && collision.gameObject.name.Contains("Apple"))
         {
+            GameObject gemApple = gameObject.GetComponentInChildren<Cow>().gemApple;
+            if (gemApple != null)
+            {
+                Destroy(gameObject.GetComponentInChildren<Cow>().gemApple);
+            }
             Destroy(collision.gameObject);
         }
     }

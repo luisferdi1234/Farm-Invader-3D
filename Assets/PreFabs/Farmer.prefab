@@ -165,8 +165,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 12
-  m_Acceleration: 20
+  m_Speed: 14
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 300
   m_StoppingDistance: 0
@@ -220,7 +220,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 18
   m_SpotAngle: 60
   m_InnerSpotAngle: 4

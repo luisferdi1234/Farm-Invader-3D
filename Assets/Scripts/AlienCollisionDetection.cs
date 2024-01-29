@@ -31,7 +31,9 @@ public class AlienCollisionDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        playerController.nearestItem = null;
-        playerController.itemRadius = 0;
+        if (playerController.heldItem == null)
+        {
+            playerController.nearestItem = null;
+        }
     }
 }

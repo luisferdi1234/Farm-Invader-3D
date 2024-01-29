@@ -72,6 +72,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
+        UpdateInvisibility();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
+
         // Calculate rotation to look at the movement direction
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.y));
 
@@ -79,15 +86,8 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         if (heldItem != null)
         {
-            heldItem.transform.position = transform.position + transform.forward * itemRadius;
+            heldItem.transform.position = transform.position + transform.forward * (itemRadius);
         }
-
-        UpdateInvisibility();
-    }
-
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
     }
 
     /// <summary>
@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviour
             collider.enabled = true;
         }
         heldItem = null;
+        itemRadius = 0;
     }
 
     private void GrabItem()
@@ -217,14 +218,28 @@ public class PlayerController : MonoBehaviour
         nearestItem.transform.parent = gameObject.transform;
         heldItem = nearestItem.gameObject;
         heldItem.tag = "HeldItem";
+
+        //Sets the item radius
+        if (heldItem.GetComponent<Item>().sphereCollider != null)
+        {
+            itemRadius = heldItem.GetComponent<Item>().sphereCollider.radius;
+        }
+        else if (heldItem.GetComponent<Item>().capsuleCollider != null)
+        {
+            itemRadius = heldItem.GetComponent<Item>().capsuleCollider.radius;
+        }
+
+        //Changes variables for if the item is a cow
         if (heldItem.name.Contains("Cow"))
         {
             heldItem.GetComponent<NavMeshAgent>().enabled = false;
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             moveSpeed = cowSlowDown;
         }
+
         //Get all colliders attached to this GameObject
         Collider[] allColliders = heldItem.GetComponents<Collider>();
+
         // Disable each collider
         foreach (Collider collider in allColliders)
         {
