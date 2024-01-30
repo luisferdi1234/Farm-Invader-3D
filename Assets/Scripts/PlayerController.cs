@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         if (heldItem != null)
         {
-            heldItem.transform.position = transform.position + transform.forward * (itemRadius);
+            heldItem.transform.position = transform.position + transform.forward * (itemRadius) * 2;
         }
     }
 
@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
         heldItem.tag = "Item";
         nearestItem = null;
         heldItem.transform.parent = null;
-        heldItem.transform.position = transform.position + transform.forward * itemRadius;
+        heldItem.transform.position = transform.position + transform.forward * itemRadius * 2;
         //Get all colliders attached to the
         Collider[] allColliders = heldItem.GetComponents<Collider>();
         // Enable each collider

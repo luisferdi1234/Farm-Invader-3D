@@ -218,8 +218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7357207700857239952}
   moveSpeed: 10
-  cowSlowDown: 3
-  maxInvisTime: 3
+  cowSlowDown: 4
+  maxInvisTime: 2
   alienSkin: {fileID: 2100000, guid: 72b5948266ba0c0489e230927ab06d71, type: 2}
   nearestItem: {fileID: 0}
   heldItem: {fileID: 0}

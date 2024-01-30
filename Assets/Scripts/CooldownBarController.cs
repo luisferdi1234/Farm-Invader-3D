@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CooldownBarController : MonoBehaviour
 {
+    [SerializeField] GameObject childText;
+    TextMeshProUGUI cooldownText;
+
     public float invisibilityCooldown = 0f; // Set the cooldown time in seconds
     private float maxCooldownTime = 15f;
     private Image cooldownBar;
@@ -12,7 +16,7 @@ public class CooldownBarController : MonoBehaviour
     private PlayerController playerController;
 
     private Color startColor = Color.red;
-    private Color endColor = Color.green;
+    private Color endColor = Color.blue;
 
     void Start()
     {
@@ -20,14 +24,14 @@ public class CooldownBarController : MonoBehaviour
         player = GameObject.Find("Alien").gameObject;
         playerController = player.GetComponent<PlayerController>();
 
+        cooldownText = childText.GetComponent<TextMeshProUGUI>();
+        cooldownText.text = maxCooldownTime.ToString("F2");
+
         // Update the cooldown values from the PlayerController
         invisibilityCooldown = playerController.invisibilityCooldown;
         maxCooldownTime = playerController.maxInvisCooldown;
 
-        cooldownBar.color = Color.green;
-
-        // Update the cooldown bar after setting initial values
-        UpdateCooldownBar();
+        cooldownBar.color = endColor;
     }
 
     void Update()
@@ -47,10 +51,11 @@ public class CooldownBarController : MonoBehaviour
     /// </summary>
     void UpdateCooldownBar()
     {
+        cooldownText.text = invisibilityCooldown.ToString("F2");
         float fillAmount = Mathf.Clamp01(invisibilityCooldown / maxCooldownTime);
         cooldownBar.fillAmount = fillAmount;
 
-        if (fillAmount == 1)
+        if (fillAmount >= 1)
         {
             cooldownBar.color = Color.blue;
         }
