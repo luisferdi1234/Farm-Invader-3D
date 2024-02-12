@@ -9,18 +9,30 @@ public class Cow : MonoBehaviour
     public SphereCollider sphereCollider;
     public NavMeshAgent agent;
     public GameObject gemApple;
+    private GameObject closestApple;
 
     private void Start()
     {
         agent = transform.parent.GetComponent<NavMeshAgent>();
         sphereCollider = GetComponent<SphereCollider>();
     }
+
+    private void Update()
+    {
+        if (agent.isActiveAndEnabled && closestApple == null && agent.destination != transform.position)
+        {
+            agent.SetDestination(transform.position);
+            Destroy(gemApple);
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item"))
         {
             Debug.Log("Apple Detected!");
-            agent.SetDestination(other.gameObject.transform.position);
+            closestApple = other.gameObject;
+            agent.SetDestination(closestApple.transform.position);
+            
         }
         if (gemApple == null)
         {
@@ -38,6 +50,7 @@ public class Cow : MonoBehaviour
         {
             if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<PlayerController>().heldItem != null && other.gameObject.GetComponent<PlayerController>().heldItem.name.Contains("Apple"))
             {
+                closestApple = null;
                 Destroy(gemApple);
             }
         }
