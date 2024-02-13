@@ -258,3 +258,4 @@ MonoBehaviour:
   foodLove: {fileID: 1000010728489230, guid: 8b40cffea67202d4bbf662b25de4c94a, type: 3}
   sphereCollider: {fileID: 2649730312743525219}
   agent: {fileID: 771562223506458726}
+  gemApple: {fileID: 0}

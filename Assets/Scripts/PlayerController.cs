@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         }
         if (heldItem != null)
         {
-            heldItem.transform.position = transform.position + transform.forward * (itemRadius) * 2;
+            heldItem.transform.position = transform.position + transform.forward * itemRadius * 2;
         }
     }
 
@@ -220,16 +220,6 @@ public class PlayerController : MonoBehaviour
         nearestItem.transform.parent = gameObject.transform;
         heldItem = nearestItem.gameObject;
         heldItem.tag = "HeldItem";
-
-        //Sets the item radius
-        if (heldItem.GetComponent<Item>().sphereCollider != null)
-        {
-            itemRadius = heldItem.GetComponent<Item>().sphereCollider.radius;
-        }
-        else if (heldItem.GetComponent<Item>().capsuleCollider != null)
-        {
-            itemRadius = heldItem.GetComponent<Item>().capsuleCollider.radius;
-        }
 
         //Changes variables for if the item is a cow
         if (heldItem.name.Contains("Cow"))

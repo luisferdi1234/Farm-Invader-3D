@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class Cow : MonoBehaviour
 {
     [SerializeField] GameObject foodLove;
-    public SphereCollider sphereCollider;
-    public NavMeshAgent agent;
-    public GameObject gemApple;
+    [HideInInspector] public SphereCollider sphereCollider;
+    [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public GameObject gemApple;
     private GameObject closestApple;
 
     private void Start()
@@ -32,13 +32,14 @@ public class Cow : MonoBehaviour
             Debug.Log("Apple Detected!");
             closestApple = other.gameObject;
             agent.SetDestination(closestApple.transform.position);
+            Debug.Log(agent.destination);
             
         }
         if (gemApple == null)
         {
             if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<PlayerController>().heldItem != null && other.gameObject.GetComponent<PlayerController>().heldItem.name.Contains("Apple"))
             {
-                gemApple = Instantiate(foodLove, transform.position + transform.forward * -1f, transform.rotation);
+                gemApple = Instantiate(foodLove, transform.position + transform.forward + transform.up * 1.5f, transform.rotation);
                 gemApple.transform.parent = transform;
             }
         }
