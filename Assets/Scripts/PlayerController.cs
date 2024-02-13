@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cowSlowDown = 2f;
     [SerializeField] float maxInvisTime = 3f;
     [SerializeField] Material alienSkin;
+    [SerializeField] Material invisibilityMaterial;
 
     //Item variables
     public GameObject nearestItem;
@@ -124,26 +125,18 @@ public class PlayerController : MonoBehaviour
         if (invisibilityCooldown == 0f && invisTime == 0f)
         {
             InvisInUse = true;
-            // Cast a ray downwards from the player's position
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit))
-            {
-                // Check if the hit object has a renderer
-                Renderer renderer = hit.collider.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    // Get the material of the object below the player
-                    Material materialBelowPlayer = renderer.material;
-
-                    // Change the player's material to the materialBelowPlayer
-                    ChangePlayerMaterial(materialBelowPlayer);
-                }
-                gameObject.tag = "Invisible";
-            }
-        }
-        else if (invisTime != 0f)
-        {
-            TurnOffInvisibility();
+            gameObject.tag = "Invisible";
+            //Changes Material
+            ChangePlayerMaterial(invisibilityMaterial);
+            // Toggle the visibility by changing the shader properties
+            invisibilityMaterial.SetFloat("_Mode", 2); // Assuming "_Mode" controls the transparency in your shader
+            invisibilityMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            invisibilityMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            invisibilityMaterial.SetInt("_ZWrite", 0);
+            invisibilityMaterial.DisableKeyword("_ALPHATEST_ON");
+            invisibilityMaterial.EnableKeyword("_ALPHABLEND_ON");
+            invisibilityMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            invisibilityMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
         }
     }
 
