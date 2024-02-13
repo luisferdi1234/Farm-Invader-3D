@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4832935558446430437}
   - component: {fileID: 8175749054170278891}
   - component: {fileID: 8143966885418760942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Apple Detection
   m_TagString: Cow
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5764161229923370427}
   - component: {fileID: 7501535457581754826}
   - component: {fileID: 8191834986618278199}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: UpdatedCow
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3461914321245999966}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b67308453204bc14eb58257f7f7081c1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

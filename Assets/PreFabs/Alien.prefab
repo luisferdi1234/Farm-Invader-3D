@@ -163,7 +163,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7357207700857239963}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b67308453204bc14eb58257f7f7081c1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7357207700857239952}
   moveSpeed: 10
-  cowSlowDown: 4
+  cowSlowDown: 5
   maxInvisTime: 2
   alienSkin: {fileID: 2100000, guid: 72b5948266ba0c0489e230927ab06d71, type: 2}
   nearestItem: {fileID: 0}

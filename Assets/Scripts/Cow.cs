@@ -32,7 +32,6 @@ public class Cow : MonoBehaviour
             Debug.Log("Apple Detected!");
             closestApple = other.gameObject;
             agent.SetDestination(closestApple.transform.position);
-            Debug.Log(agent.destination);
             
         }
         if (gemApple == null)
