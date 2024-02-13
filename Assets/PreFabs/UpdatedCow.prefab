@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8175749054170278891}
   - component: {fileID: 8143966885418760942}
   m_Layer: 9
-  m_Name: Apple Detection
+  m_Name: Item Detection
   m_TagString: Cow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
