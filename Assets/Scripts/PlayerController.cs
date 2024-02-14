@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxInvisTime = 3f;
     [SerializeField] Material alienSkin;
     [SerializeField] Material invisibilityMaterial;
+    [SerializeField] GameObject rightHand;
+    [SerializeField] GameObject alienModel;
 
     //Item variables
     public GameObject nearestItem;
@@ -26,6 +28,11 @@ public class PlayerController : MonoBehaviour
     public float maxInvisCooldown = 15f;
     private bool InvisInUse = false;
     private bool startInvisCooldown = false;
+    private SkinnedMeshRenderer skineedMeshRenderer;
+
+    //Animator
+    private Animator animator;
+
     //Cinemachine
     private CinemachineVirtualCamera vcam;
 
@@ -45,6 +52,12 @@ public class PlayerController : MonoBehaviour
         vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         vcam.Follow = gameObject.transform;
         vcam.LookAt = gameObject.transform;
+
+        //Renderer for Invisibility
+        skineedMeshRenderer = alienModel.GetComponent<SkinnedMeshRenderer>();
+
+        //Animator
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -79,6 +92,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
+
+        //Sets walk to idle and idle to walk
+        animator.SetFloat("Velocity", rb.velocity.magnitude);
+
         if (moveDirection != Vector3.zero)
         {
             // Calculate rotation to look at the movement direction
@@ -89,7 +106,7 @@ public class PlayerController : MonoBehaviour
         }
         if (heldItem != null)
         {
-            heldItem.transform.position = transform.position + transform.forward * itemRadius * 2;
+            heldItem.transform.position = rightHand.transform.position;
         }
     }
 
@@ -128,15 +145,6 @@ public class PlayerController : MonoBehaviour
             gameObject.tag = "Invisible";
             //Changes Material
             ChangePlayerMaterial(invisibilityMaterial);
-            // Toggle the visibility by changing the shader properties
-            invisibilityMaterial.SetFloat("_Mode", 2); // Assuming "_Mode" controls the transparency in your shader
-            invisibilityMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            invisibilityMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            invisibilityMaterial.SetInt("_ZWrite", 0);
-            invisibilityMaterial.DisableKeyword("_ALPHATEST_ON");
-            invisibilityMaterial.EnableKeyword("_ALPHABLEND_ON");
-            invisibilityMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            invisibilityMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
         }
     }
 
@@ -175,11 +183,8 @@ public class PlayerController : MonoBehaviour
 
     private void ChangePlayerMaterial(Material newMaterial)
     {
-        // Assuming your player has a Renderer component
-        Renderer playerRenderer = GetComponent<Renderer>();
-
         // Change the player's material
-        playerRenderer.material = newMaterial;
+        skineedMeshRenderer.material = newMaterial;
     }
 
     private void ReleaseItem()
@@ -195,7 +200,7 @@ public class PlayerController : MonoBehaviour
         heldItem.tag = "Item";
         nearestItem = null;
         heldItem.transform.parent = null;
-        heldItem.transform.position = transform.position + transform.forward * itemRadius * 2;
+        heldItem.transform.position = transform.position + transform.forward + (transform.up / 2) * itemRadius;
         //Get all colliders attached to the
         Collider[] allColliders = heldItem.GetComponents<Collider>();
         // Enable each collider
@@ -210,7 +215,7 @@ public class PlayerController : MonoBehaviour
     private void GrabItem()
     {
         // Parent the new nearest item to the player
-        nearestItem.transform.parent = gameObject.transform;
+        nearestItem.transform.parent = rightHand.transform;
         heldItem = nearestItem.gameObject;
         heldItem.tag = "HeldItem";
 
