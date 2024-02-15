@@ -10,6 +10,10 @@ public class Farmer : Enemy
     [SerializeField] float maxRayDistance = 20f;
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float differentRotation = 0f;
+    [SerializeField] public GameObject spine;
+    [HideInInspector] public Animator animator;
+
+    private int previousSound;
 
     private float idleTimer = 0f;
     // Start is called before the first frame update
@@ -20,6 +24,7 @@ public class Farmer : Enemy
         {
             startingRotation = differentRotation;
         }
+        animator = GetComponent<Animator>();
     }
 
     protected override void FixedUpdate()
@@ -38,11 +43,17 @@ public class Farmer : Enemy
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(IdleState) && idleTimer >= 1f)
         {
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Returning", false);
+            animator.SetBool("Patrolling", true);
             stateMachine.ChangeState(new PatrolState(), gameObject);
             idleTimer = 0f;
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(IdleState))
         {
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Returning", false);
+            animator.SetBool("Patrolling", true);
             idleTimer += Time.deltaTime;
         }
     }
@@ -52,11 +63,21 @@ public class Farmer : Enemy
         {
             if (CheckLineOfSight())
             {
+                animator.SetBool("Chasing", true);
+                animator.SetBool("Patrolling", false);
+                animator.SetBool("Returning", false);
+                agent.speed = 16;
+                AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 stateMachine.ChangeState(new ChaseState(), gameObject);
             }
         }
         else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
         {
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Patrolling", false);
+            animator.SetBool("Returning", true);
+            agent.speed = 8;
+            AudioManager.instance.PlayRandomAudioClip("returnSounds");
             stateMachine.ChangeState(new ReturnState(), gameObject);
         }
     }

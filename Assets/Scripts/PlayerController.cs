@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Material alienSkin;
     [SerializeField] Material invisibilityMaterial;
     [SerializeField] GameObject rightHand;
+    [SerializeField] GameObject spine;
     [SerializeField] GameObject alienModel;
 
     //Item variables
@@ -106,7 +107,14 @@ public class PlayerController : MonoBehaviour
         }
         if (heldItem != null)
         {
-            heldItem.transform.position = rightHand.transform.position;
+            if (heldItem.name.Contains("Cow"))
+            {
+                heldItem.transform.position = spine.transform.position + spine.transform.forward * itemRadius * 2;
+            }
+            else
+            {
+                heldItem.transform.position = rightHand.transform.position;
+            }
         }
     }
 
@@ -145,6 +153,10 @@ public class PlayerController : MonoBehaviour
             gameObject.tag = "Invisible";
             //Changes Material
             ChangePlayerMaterial(invisibilityMaterial);
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -195,6 +207,7 @@ public class PlayerController : MonoBehaviour
             heldItem.GetComponent<NavMeshAgent>().enabled = true;
             heldItem.GetComponent<NavMeshAgent>().SetDestination(heldItem.transform.position);
             heldItem.GetComponent<Rigidbody>().isKinematic = true;
+            animator.SetBool("CarryingCow", false);
             moveSpeed = 10f;
         }
         heldItem.tag = "Item";
@@ -215,16 +228,25 @@ public class PlayerController : MonoBehaviour
     private void GrabItem()
     {
         // Parent the new nearest item to the player
-        nearestItem.transform.parent = rightHand.transform;
         heldItem = nearestItem.gameObject;
         heldItem.tag = "HeldItem";
 
         //Changes variables for if the item is a cow
         if (heldItem.name.Contains("Cow"))
         {
+            animator.SetBool("CarryingCow", true);
             heldItem.GetComponent<NavMeshAgent>().enabled = false;
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             moveSpeed = cowSlowDown;
+            // Set the initial relative rotation of the cow when picked up
+            Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
+            heldItem.transform.localRotation = Quaternion.Euler(relativeRotation);
+            heldItem.transform.parent = spine.transform;
+            AudioManager.instance.PlayRandomAudioClip("cowSounds");
+        }
+        else
+        {
+            heldItem.transform.parent = rightHand.transform;
         }
 
         //Get all colliders attached to this GameObject

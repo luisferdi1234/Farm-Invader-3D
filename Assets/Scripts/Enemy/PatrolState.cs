@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,25 +11,28 @@ public class PatrolState : EnemyState
 {
     private GameObject currentObject;
     private Enemy currentEnemy;
+    private Farmer currentFarmer;
+    private GameObject spine;
     float rotation;
     private float currentRotation = 0f;
     public void OnEnter(GameObject gameObject)
     {
         currentObject = gameObject;
         currentEnemy = gameObject.GetComponent<Enemy>();
+        currentFarmer = gameObject.GetComponent<Farmer>();
+        spine = currentFarmer.spine;
         currentRotation = currentEnemy.startingRotation;
     }
 
     public void OnUpdate()
     {
-        rotation = currentEnemy.rotationSpeed * Time.deltaTime;
+        rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
         currentObject.transform.Rotate(Vector3.up * rotation);
-
         currentRotation += rotation;
         // Check if rotation exceeds the range, change direction if needed
-        if (Mathf.Abs(currentRotation) >= currentEnemy.rotationRange)
+        if (currentRotation >= currentEnemy.maxRotation || currentRotation <= currentEnemy.minRotation)
         {
-            currentEnemy.rotationSpeed *= -1; // Change direction
+            currentEnemy.direction *= -1; // Change direction
         }
     }
 

@@ -2,20 +2,26 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PT_NPC_Mat
   m_Shader: {fileID: 4800000, guid: 5fdb92501eac48d4a87329098a14e790, type: 3}
-  m_ShaderKeywords: _METALICON_ON _SMOOTHNESSON_ON
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _METALICON_ON
+  - _SMOOTHNESSON_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -47,6 +53,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _CEL1POWER: 0.15
     - _CEL1SIZE: 0.1
@@ -81,13 +88,13 @@ Material:
     - _CEL1COLOR: {r: 1, g: 1, b: 1, a: 0}
     - _CEL2COLOR: {r: 1, g: 1, b: 1, a: 0}
     - _CEL3COLOR: {r: 1, g: 1, b: 1, a: 0}
-    - _CLOTH1COLOR: {r: 1.2378799, g: 1.2378799, b: 1.2378799, a: 0}
+    - _CLOTH1COLOR: {r: 0.01647373, g: 0.18041894, b: 0.49891835, a: 0}
     - _CLOTH1COLOR1: {r: 0, g: 0.1792453, b: 0.05062231, a: 0}
-    - _CLOTH2COLOR: {r: 0.6132076, g: 0.39048594, b: 0.39373732, a: 0}
+    - _CLOTH2COLOR: {r: 0.024519395, g: 0.18968453, b: 0.2735849, a: 0}
     - _CLOTH2COLOR1: {r: 1, g: 0, b: 0, a: 0}
-    - _CLOTH3COLOR: {r: 0.3490566, g: 0.106353186, b: 0, a: 0}
+    - _CLOTH3COLOR: {r: 0.09714311, g: 0.24685487, b: 0.5566038, a: 0}
     - _CLOTH3COLOR1: {r: 0.3962264, g: 0.3391397, b: 0.2710039, a: 0}
-    - _CLOTH4COLOR: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
+    - _CLOTH4COLOR: {r: 0.4339623, g: 0.01842292, b: 0.01842292, a: 0}
     - _CLOTH4COLOR1: {r: 0.2011392, g: 0.3773585, b: 0.3739074, a: 0}
     - _COATOFARMSCOLOR: {r: 1, g: 0, b: 0, a: 0}
     - _EYESCOLOR: {r: 0.003935064, g: 0.009433985, b: 0.0017354974, a: 1}
@@ -120,6 +127,7 @@ Material:
     - _OTHERCOLOR1: {r: 0.5188679, g: 0.4637216, b: 0.3206212, a: 0}
     - _SCLERACOLOR: {r: 0.9056604, g: 0.8159487, b: 0.8159487, a: 0}
     - _SCLERACOLOR1: {r: 0.9056604, g: 0.8159487, b: 0.8159487, a: 0}
-    - _SKINCOLOR: {r: 0.8372809, g: 0.5654934, b: 0.48658735, a: 1}
+    - _SKINCOLOR: {r: 0.6514058, g: 0.22322798, b: 0.09305898, a: 1}
     - _SKINCOLOR1: {r: 2.02193, g: 1.0081, b: 0.6199315, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

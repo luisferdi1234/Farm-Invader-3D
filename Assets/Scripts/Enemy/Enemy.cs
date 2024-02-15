@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour
     protected GameObject player;
     protected Vector3 spawnPoint;
     protected Quaternion spawnOrientation;
-    public float rotationSpeed = 30f;
-    public float rotationRange = 70;
+    public float rotationSpeed = 60f;
+    public float rotationRange = 90f;
     public int direction = 1; //1 for clockwise, -1 for counter-clockwise
     public float startingRotation = 0f;
+    public float maxRotation;
+    public float minRotation;
 
     protected EnemyStateMachine stateMachine;
 
@@ -25,6 +27,8 @@ public class Enemy : MonoBehaviour
         stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
         spawnPoint = gameObject.transform.position;
         spawnOrientation = transform.rotation;
+        maxRotation = startingRotation + rotationRange;
+        minRotation = startingRotation - rotationRange;
     }
 
     protected virtual void FixedUpdate()
@@ -59,5 +63,10 @@ public class Enemy : MonoBehaviour
     {
         // Smoothly rotate using Quaternion.Slerp
         transform.rotation = Quaternion.Slerp(transform.rotation, spawnOrientation, rotationSpeed * Time.deltaTime);
+    }
+
+    public GameObject GetCurrentEnemy()
+    {
+        return gameObject;
     }
 }

@@ -80,7 +80,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.08796
+      value: 8.912041
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -88,11 +88,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.583832
+      value: -16.916168
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalRotation.x
@@ -100,7 +100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalRotation.z
@@ -112,7 +112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -324,11 +324,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2073586033723909645}
   moveSpeed: 10
-  cowSlowDown: 5
-  maxInvisTime: 2
+  cowSlowDown: 4
+  maxInvisTime: 1
   alienSkin: {fileID: 2100000, guid: 5e8e7bd4816dc58469cac1166f868334, type: 2}
   invisibilityMaterial: {fileID: 2100000, guid: 8c1b0ce2fb5569e4f8cd2055a74af8ab, type: 2}
   rightHand: {fileID: 782018899615813195}
+  spine: {fileID: 4236907191796813809}
   alienModel: {fileID: 2664311040544215342}
   nearestItem: {fileID: 0}
   heldItem: {fileID: 0}
@@ -366,5 +367,10 @@ GameObject:
 --- !u!4 &2954170276989191329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
+  m_PrefabInstance: {fileID: 3419898197051974474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4236907191796813809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7657966619581158213, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
   m_PrefabInstance: {fileID: 3419898197051974474}
   m_PrefabAsset: {fileID: 0}
