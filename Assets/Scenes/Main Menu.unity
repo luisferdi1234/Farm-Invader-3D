@@ -1298,11 +1298,13 @@ MonoBehaviour:
 
     Press X to pick up items and cows
 
-    Avoid farmers and
-    escort cow to spaceship at the end of the level
+    Press Square to
+    cloak
 
-    Use cosmic apples to lure
-    cows towards you'
+    Avoid farmers and escort cow to spaceship at the end of the level
+
+    Use
+    cosmic apples to lure cows towards you'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

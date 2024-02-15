@@ -34,6 +34,14 @@ public class AudioManager : MonoBehaviour
     {
         if (audioClipsDictionary.ContainsKey(listName) && audioClipsDictionary[listName].Count > 0)
         {
+            if (listName == "cowSounds")
+            {
+                audioSource.volume = 1.0f;
+            }
+            else
+            {
+                audioSource.volume = .5f;
+            }
             int selection = Random.Range(0, audioClipsDictionary[listName].Count - 1);
 
             // Exclude the previous sound index
