@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class AudioManager : MonoBehaviour
 
     Dictionary<string, List<AudioClip>> audioClipsDictionary = new Dictionary<string, List<AudioClip>>();
 
-    private AudioSource audioSource;
+    [SerializeField] AudioSource cowSource;
+    [SerializeField] AudioSource farmerSource;
 
     public void Start()
     {
         instance = this;
-        audioSource = GetComponent<AudioSource>();
         //Adds audio clip lists to the dictionary
         audioClipsDictionary.Add("chaseSounds", chaseSounds);
         audioClipsDictionary.Add("returnSounds", returnSounds);
@@ -36,27 +37,31 @@ public class AudioManager : MonoBehaviour
         {
             if (listName == "cowSounds")
             {
-                audioSource.volume = 1.0f;
+                PlaySound(cowSource, listName);
             }
             else
             {
-                audioSource.volume = .5f;
+                PlaySound(farmerSource, listName);
             }
-            int selection = Random.Range(0, audioClipsDictionary[listName].Count - 1);
-
-            // Exclude the previous sound index
-            selection = (selection >= previousSound) ? selection + 1 : selection;
-
-            // Update the previous sound index
-            previousSound = selection;
-
-            //Play the sound
-            AudioClip randomClip = audioClipsDictionary[listName][selection];
-            audioSource.PlayOneShot(randomClip);
         }
         else
         {
             Debug.LogError($"AudioManager: No audio clips found in the list {listName}");
         }
+    }
+
+    public void PlaySound(AudioSource audioSource, string listName)
+    {
+        int selection = Random.Range(0, audioClipsDictionary[listName].Count - 1);
+
+        // Exclude the previous sound index
+        selection = (selection >= previousSound) ? selection + 1 : selection;
+
+        // Update the previous sound index
+        previousSound = selection;
+
+        //Play the sound
+        AudioClip randomClip = audioClipsDictionary[listName][selection];
+        audioSource.PlayOneShot(randomClip);
     }
 }

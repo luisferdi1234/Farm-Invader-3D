@@ -16,6 +16,10 @@ public class Farmer : Enemy
     private int previousSound;
 
     private float idleTimer = 0f;
+
+    private float searchTimer = 0f;
+
+    private bool inChase = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -33,7 +37,20 @@ public class Farmer : Enemy
 
         Debug.Log(stateMachine.GetCurrentState());
 
-        if (stateMachine.GetCurrentState().GetType() == typeof(ReturnState))
+        if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState) && inChase)
+        {
+            searchTimer += Time.deltaTime;
+            if (searchTimer >= 3f)
+            {
+                animator.SetBool("Chasing", false);
+                animator.SetBool("Patrolling", false);
+                animator.SetBool("Returning", true);
+                stateMachine.ChangeState(new ReturnState(), gameObject);
+                searchTimer = 0f;
+                inChase = false;
+            }
+        }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ReturnState))
         {
             float positionThreshold = 0.5f;
             if (Vector3.Distance(gameObject.transform.position, base.GetSpawnPoint()) <= positionThreshold)
@@ -59,6 +76,7 @@ public class Farmer : Enemy
     }
     void OnTriggerStay(Collider other)
     {
+        //Changes to Chase State after spotting player
         if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
             if (CheckLineOfSight())
@@ -66,24 +84,24 @@ public class Farmer : Enemy
                 animator.SetBool("Chasing", true);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
-                agent.speed = 16;
-                AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 stateMachine.ChangeState(new ChaseState(), gameObject);
+                inChase = true;
             }
         }
+        //Patrols area after losing sight of player
         else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
         {
             animator.SetBool("Chasing", false);
-            animator.SetBool("Patrolling", false);
-            animator.SetBool("Returning", true);
-            agent.speed = 8;
+            animator.SetBool("Patrolling", true);
+            animator.SetBool("Returning", false);
+            stateMachine.ChangeState(new PatrolState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("returnSounds");
-            stateMachine.ChangeState(new ReturnState(), gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        //Changes to return state after getting out of range from player
         if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(PatrolState))
         {
             stateMachine.ChangeState(new ReturnState(), gameObject);

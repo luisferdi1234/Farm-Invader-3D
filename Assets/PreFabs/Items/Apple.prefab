@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 8974332200867063318}
   - component: {fileID: 1101320673773349604}
   - component: {fileID: 7501469768885539921}
+  - component: {fileID: 4960838956053205682}
   m_Layer: 8
   m_Name: Apple
   m_TagString: Item
@@ -322,3 +323,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 1101320673773349604}
   capusleCollider: {fileID: 0}
+--- !u!114 &4960838956053205682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368342871380174103}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.8759048, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

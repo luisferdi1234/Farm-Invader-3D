@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
         // Parent the new nearest item to the player
         heldItem = nearestItem.gameObject;
         heldItem.tag = "HeldItem";
-
+        heldItem.GetComponent<Outline>().enabled = false;
         //Changes variables for if the item is a cow
         if (heldItem.name.Contains("Cow"))
         {

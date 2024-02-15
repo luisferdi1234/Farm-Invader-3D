@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273603091578002939}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.449, z: 0}
+  m_LocalRotation: {x: -0.46404168, y: 0.53354096, z: 0.46404102, w: 0.5335403}
+  m_LocalPosition: {x: 0.65911686, y: -0.084704794, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8895252778852946116}
+  m_Father: {fileID: 780637488654041303}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &387270400119562869
 Light:
@@ -371,7 +371,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8515622520135137272, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7489421510902298059}
     - targetCorrespondingSourceObject: {fileID: 4540202536532130718, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
@@ -394,6 +394,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4375008386186621828}
   m_SourcePrefab: {fileID: 100100000, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
+--- !u!4 &780637488654041303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8515622520135137272, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
+  m_PrefabInstance: {fileID: 9005211580524885807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4898502553323982001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4540202536532130718, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
@@ -463,8 +468,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.3
-  m_Speed: 20
-  m_Acceleration: 20
+  m_Speed: 12
+  m_Acceleration: 24
   avoidancePriority: 50
   m_AngularSpeed: 300
   m_StoppingDistance: 0
@@ -529,8 +534,3 @@ MonoBehaviour:
   differentRotation: 0
   spine: {fileID: 7806541355594925578}
   animator: {fileID: 0}
---- !u!4 &8895252778852946116 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
-  m_PrefabInstance: {fileID: 9005211580524885807}
-  m_PrefabAsset: {fileID: 0}

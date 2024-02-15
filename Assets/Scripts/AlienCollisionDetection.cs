@@ -16,6 +16,7 @@ public class AlienCollisionDetection : MonoBehaviour
     {
         if (playerController.heldItem == null && other.CompareTag("Item"))
         {
+            other.GetComponent<Outline>().enabled = true;
             if (other.name.Contains("Cow"))
             {
                 playerController.nearestItem = other.gameObject;
@@ -31,8 +32,9 @@ public class AlienCollisionDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (playerController.heldItem == null)
+        if (playerController.heldItem == null && other.CompareTag("Item"))
         {
+            other.GetComponent<Outline>().enabled = false;
             playerController.nearestItem = null;
         }
     }
