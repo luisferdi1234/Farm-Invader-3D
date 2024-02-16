@@ -148,4 +148,12 @@ public class Farmer : Enemy
             return false;
         }
     }
+
+    /// <summary>
+    /// Plays Grass Sound using animation event
+    /// </summary>
+    private void PlayGrassSound()
+    {
+        AudioManager.instance.PlayRandomAudioClip("grassSounds");
+    }
 }
