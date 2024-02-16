@@ -42,6 +42,7 @@ public class Farmer : Enemy
             searchTimer += Time.deltaTime;
             if (searchTimer >= 3f)
             {
+                animator.enabled = true;
                 animator.SetBool("Chasing", false);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", true);
@@ -81,6 +82,7 @@ public class Farmer : Enemy
         {
             if (CheckLineOfSight())
             {
+                animator.enabled = true;
                 animator.SetBool("Chasing", true);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
@@ -91,6 +93,7 @@ public class Farmer : Enemy
         //Patrols area after losing sight of player
         else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
         {
+            animator.enabled = true;
             animator.SetBool("Chasing", false);
             animator.SetBool("Patrolling", true);
             animator.SetBool("Returning", false);
@@ -118,7 +121,7 @@ public class Farmer : Enemy
         Vector3 toPlayer = player.transform.position - transform.position;
 
         // Calculate the angle between the enemy's forward vector and the vector to the player
-        float angle = Vector3.Angle(transform.forward, toPlayer);
+        float angle = Vector3.Angle(spine.transform.up, toPlayer);
 
         // Check if the angle is within the allowed range
         if (angle <= detectionAngle)

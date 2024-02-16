@@ -15,6 +15,7 @@ public class PatrolState : EnemyState
     private GameObject spine;
     float rotation;
     private float currentRotation = 0f;
+    private float turnOffTimer = 0f;
     public void OnEnter(GameObject gameObject)
     {
         currentObject = gameObject;
@@ -26,8 +27,20 @@ public class PatrolState : EnemyState
 
     public void OnUpdate()
     {
+        if (turnOffTimer >= .2f)
+        {
+            if (currentFarmer.animator.enabled)
+            {
+                currentFarmer.animator.enabled = false;
+            }
+        }
+        else
+        {
+            turnOffTimer += Time.deltaTime;
+        }
+
         rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
-        currentObject.transform.Rotate(Vector3.up * rotation);
+        spine.transform.Rotate(Vector3.right * rotation);
         currentRotation += rotation;
         // Check if rotation exceeds the range, change direction if needed
         if (currentRotation >= currentEnemy.maxRotation || currentRotation <= currentEnemy.minRotation)
@@ -38,6 +51,6 @@ public class PatrolState : EnemyState
 
     public void OnExit()
     {
-
+        turnOffTimer = 0f;
     }
 }
