@@ -12,37 +12,48 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> chaseSounds;
     [SerializeField] List<AudioClip> returnSounds;
     [SerializeField] List<AudioClip> cowSounds;
+    [SerializeField] List<AudioClip> audioClips;
 
-    Dictionary<string, List<AudioClip>> audioClipsDictionary = new Dictionary<string, List<AudioClip>>();
+    Dictionary<string, List<AudioClip>> audioClipsListDictionary = new Dictionary<string, List<AudioClip>>();
+    Dictionary<string, AudioClip> audioClipDictionary = new Dictionary<string, AudioClip>();
 
-    [SerializeField] AudioSource cowSource;
-    [SerializeField] AudioSource farmerSource;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource alienCharge;
 
     public void Start()
     {
         instance = this;
         //Adds audio clip lists to the dictionary
-        audioClipsDictionary.Add("chaseSounds", chaseSounds);
-        audioClipsDictionary.Add("returnSounds", returnSounds);
-        audioClipsDictionary.Add("cowSounds", cowSounds);
+        audioClipsListDictionary.Add("chaseSounds", chaseSounds);
+        audioClipsListDictionary.Add("returnSounds", returnSounds);
+        audioClipsListDictionary.Add("cowSounds", cowSounds);
+        foreach(AudioClip clip in audioClips)
+        {
+            audioClipDictionary.Add(clip.name, clip);
+        }
+    }
+
+    /// <summary>
+    /// Plays a specific sound
+    /// </summary>
+    /// <param name="soundName"></param>
+    /// <param name="volume"></param>
+    public void PlaySpecificSound(string soundName, float volume)
+    {
+        audioSource.volume = volume;
+        audioSource.PlayOneShot(audioClipDictionary[soundName]);
     }
 
     /// <summary>
     /// Grabs audio from dictionary and plays a random sound
     /// </summary>
     /// <param name="listName"></param>
-    public void PlayRandomAudioClip(string listName)
+    public void PlayRandomAudioClip(string listName, float volume)
     {
-        if (audioClipsDictionary.ContainsKey(listName) && audioClipsDictionary[listName].Count > 0)
+        if (audioClipsListDictionary.ContainsKey(listName) && audioClipsListDictionary[listName].Count > 0)
         {
-            if (listName == "cowSounds")
-            {
-                PlaySound(cowSource, listName);
-            }
-            else
-            {
-                PlaySound(farmerSource, listName);
-            }
+            audioSource.volume = volume;
+            PlaySound(audioSource, listName);
         }
         else
         {
@@ -52,7 +63,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(AudioSource audioSource, string listName)
     {
-        int selection = Random.Range(0, audioClipsDictionary[listName].Count - 1);
+        int selection = Random.Range(0, audioClipsListDictionary[listName].Count - 1);
 
         // Exclude the previous sound index
         selection = (selection >= previousSound) ? selection + 1 : selection;
@@ -61,7 +72,24 @@ public class AudioManager : MonoBehaviour
         previousSound = selection;
 
         //Play the sound
-        AudioClip randomClip = audioClipsDictionary[listName][selection];
+        AudioClip randomClip = audioClipsListDictionary[listName][selection];
         audioSource.PlayOneShot(randomClip);
+    }
+
+    public void PlayAlienCharge()
+    {
+        if (alienCharge.isPlaying)
+        {
+            alienCharge.UnPause();
+        }
+        else
+        {
+            alienCharge.Play();
+        }
+    }
+
+    public void PauseAlienCharge()
+    {
+        alienCharge.Pause();
     }
 }

@@ -6,4 +6,5 @@ public class Item : MonoBehaviour
 {
     [SerializeField] public SphereCollider sphereCollider;
     [SerializeField] public CapsuleCollider capusleCollider;
+    [SerializeField] public GameObject lightning;
 }

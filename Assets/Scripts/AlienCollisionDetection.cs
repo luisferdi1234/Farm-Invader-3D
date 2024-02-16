@@ -36,6 +36,11 @@ public class AlienCollisionDetection : MonoBehaviour
         {
             other.GetComponent<Outline>().enabled = false;
             playerController.nearestItem = null;
+            if(other.GetComponent<Item>().lightning != null && other.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
+            {
+                other.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
+                AudioManager.instance.PauseAlienCharge();
+            }
         }
     }
 }

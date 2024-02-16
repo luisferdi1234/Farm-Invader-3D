@@ -23,13 +23,15 @@ public class PlayerController : MonoBehaviour
     public GameObject heldItem;
     public float itemRadius;
 
-    //Invisibility variables
-    public float invisTime = 0;
-    public float invisibilityCooldown = 0f;
-    public float maxInvisCooldown = 15f;
+    //Gadget variables
+    [HideInInspector] public float invisTime = 0;
+    [HideInInspector] public float invisibilityCooldown = 0f;
+    [HideInInspector] public float Energy = 3f;
+    public float maxEnergy = 3f;
     private bool InvisInUse = false;
     private bool startInvisCooldown = false;
     private SkinnedMeshRenderer skineedMeshRenderer;
+
 
     //Animator
     private Animator animator;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private InputAction move;
     private InputAction fire;
     private InputAction invisible;
+    private InputAction recharge;
 
     private void Awake()
     {
@@ -74,6 +77,9 @@ public class PlayerController : MonoBehaviour
         invisible = playerControls.Player.Invisible;
         invisible.Enable();
         invisible.performed += Invisible;
+
+        recharge = playerControls.Player.Recharge;
+        recharge.Enable();
     }
 
     private void OnDisable()
@@ -81,6 +87,8 @@ public class PlayerController : MonoBehaviour
         //Input System
         move.Disable();
         fire.Disable();
+        invisible.Disable();
+        recharge.Disable();
     }
 
     // Update is called once per frame
@@ -88,6 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         moveDirection = move.ReadValue<Vector2>();
         UpdateInvisibility();
+        Recharge();
     }
 
     private void FixedUpdate()
@@ -142,21 +151,44 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles the invisble buttone being pressed
+    /// Handles the invisble button being pressed
     /// </summary>
     /// <param name="context"></param>
     private void Invisible(InputAction.CallbackContext context)
     {
-        if (invisibilityCooldown == 0f && invisTime == 0f)
+        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy)
         {
             InvisInUse = true;
             gameObject.tag = "Invisible";
+            AudioManager.instance.PlaySpecificSound("AlienCloak", 1f);
             //Changes Material
             ChangePlayerMaterial(invisibilityMaterial);
         }
-        else
+    }
+
+    /// <summary>
+    /// Refills player energy while near a cow
+    /// </summary>
+    private void Recharge()
+    {
+        if (nearestItem != null && nearestItem.name.Contains("Cow") && Energy < maxEnergy && recharge.ReadValue<float>() > 0.5f)
         {
-            return;
+            AudioManager.instance.PlayAlienCharge();
+            particleAttractorLinear particles = nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
+            nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
+            particles.target = transform;
+            Energy += Time.deltaTime;
+            if (Energy > maxEnergy)
+            {
+                AudioManager.instance.PauseAlienCharge();
+                nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
+                Energy = maxEnergy;
+            }
+        }
+        else if (nearestItem != null && nearestItem.name.Contains("Cow") && nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
+        {
+            AudioManager.instance.PauseAlienCharge();
+            nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
         }
     }
 
@@ -173,17 +205,11 @@ public class PlayerController : MonoBehaviour
         {
             TurnOffInvisibility();
         }
-        if (startInvisCooldown)
-        {
-            invisibilityCooldown += Time.deltaTime;
-        }
-        if (invisibilityCooldown >= maxInvisCooldown)
-        {
-            startInvisCooldown = false;
-            invisibilityCooldown = 0;
-        }
     }
 
+    /// <summary>
+    /// Handles all the variable changes associated with invisibility running out
+    /// </summary>
     private void TurnOffInvisibility()
     {
         gameObject.tag = "Player";
@@ -191,14 +217,22 @@ public class PlayerController : MonoBehaviour
         ChangePlayerMaterial(alienSkin);
         startInvisCooldown = true;
         invisTime = 0;
+        Energy = 0;
     }
 
+    /// <summary>
+    /// Changes player material to new material
+    /// </summary>
+    /// <param name="newMaterial"></param>
     private void ChangePlayerMaterial(Material newMaterial)
     {
         // Change the player's material
         skineedMeshRenderer.material = newMaterial;
     }
 
+    /// <summary>
+    /// Lets go of the item you are currently holding
+    /// </summary>
     private void ReleaseItem()
     {
         if (heldItem.name.Contains("Cow"))
@@ -225,10 +259,14 @@ public class PlayerController : MonoBehaviour
         itemRadius = 0;
     }
 
+    /// <summary>
+    /// Grabs the nearest item
+    /// </summary>
     private void GrabItem()
     {
         // Parent the new nearest item to the player
         heldItem = nearestItem.gameObject;
+        nearestItem = null;
         heldItem.tag = "HeldItem";
         heldItem.GetComponent<Outline>().enabled = false;
         //Changes variables for if the item is a cow
@@ -242,7 +280,7 @@ public class PlayerController : MonoBehaviour
             Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
             heldItem.transform.localRotation = Quaternion.Euler(relativeRotation);
             heldItem.transform.parent = spine.transform;
-            AudioManager.instance.PlayRandomAudioClip("cowSounds");
+            AudioManager.instance.PlayRandomAudioClip("cowSounds", 1f);
         }
         else
         {
