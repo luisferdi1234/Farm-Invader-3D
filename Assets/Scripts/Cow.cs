@@ -31,7 +31,7 @@ public class Cow : MonoBehaviour
         {
             Debug.Log("Apple Detected!");
             closestApple = other.gameObject;
-            AudioManager.instance.PlayRandomAudioClip("cowSounds", 1f);
+            AudioManager.instance.PlayRandomAudioClip("cowSounds");
             agent.SetDestination(closestApple.transform.position);
             
         }

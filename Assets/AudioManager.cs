@@ -19,6 +19,9 @@ public class AudioManager : MonoBehaviour
     Dictionary<string, AudioClip> audioClipDictionary = new Dictionary<string, AudioClip>();
 
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource cowSource;
+    [SerializeField] AudioSource farmerSource;
+    [SerializeField] AudioSource grassSource;
     [SerializeField] AudioSource alienCharge;
 
     public void Start()
@@ -50,12 +53,22 @@ public class AudioManager : MonoBehaviour
     /// Grabs audio from dictionary and plays a random sound
     /// </summary>
     /// <param name="listName"></param>
-    public void PlayRandomAudioClip(string listName, float volume)
+    public void PlayRandomAudioClip(string listName)
     {
         if (audioClipsListDictionary.ContainsKey(listName) && audioClipsListDictionary[listName].Count > 0)
         {
-            audioSource.volume = volume;
-            PlaySound(audioSource, listName);
+            if (listName == "chaseSounds" || listName == "returnSounds")
+            {
+                PlaySound(farmerSource, listName);
+            }
+            else if (listName == "cowSounds")
+            {
+                PlaySound(cowSource, listName);
+            }
+            else if (listName == "grassSounds")
+            {
+                PlaySound(grassSource, listName);
+            }
         }
         else
         {

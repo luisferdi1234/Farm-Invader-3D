@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
             Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
             heldItem.transform.localRotation = Quaternion.Euler(relativeRotation);
             heldItem.transform.parent = spine.transform;
-            AudioManager.instance.PlayRandomAudioClip("cowSounds", 1f);
+            AudioManager.instance.PlayRandomAudioClip("cowSounds");
         }
         else
         {
@@ -295,5 +295,10 @@ public class PlayerController : MonoBehaviour
         {
             collider.enabled = false;
         }
+    }
+
+    private void PlayGrassSound()
+    {
+        AudioManager.instance.PlayRandomAudioClip("grassSounds");
     }
 }

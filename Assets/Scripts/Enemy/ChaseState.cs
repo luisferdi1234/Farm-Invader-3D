@@ -16,7 +16,7 @@ public class ChaseState : EnemyState
         agent = currentObject.GetComponent<NavMeshAgent>();
         player = currentEnemy.GetPlayer();
         agent.speed = 16;
-        AudioManager.instance.PlayRandomAudioClip("chaseSounds", .5f);
+        AudioManager.instance.PlayRandomAudioClip("chaseSounds");
     }
 
     public void OnUpdate()

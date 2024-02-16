@@ -98,7 +98,7 @@ public class Farmer : Enemy
             animator.SetBool("Patrolling", true);
             animator.SetBool("Returning", false);
             stateMachine.ChangeState(new PatrolState(), gameObject);
-            AudioManager.instance.PlayRandomAudioClip("returnSounds", .5f);
+            AudioManager.instance.PlayRandomAudioClip("returnSounds");
         }
     }
 
