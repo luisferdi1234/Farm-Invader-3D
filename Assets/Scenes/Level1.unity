@@ -4446,6 +4446,11 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: c3edd4700f0609d4587ce60b50cab618, type: 3}
   - {fileID: 8300000, guid: 646966907095aa242b351042779e9b7d, type: 3}
+  grassSounds:
+  - {fileID: 8300000, guid: fefd4052ebe710e429dee6bf5c0a6d79, type: 3}
+  - {fileID: 8300000, guid: 96b787b36a92f91498e18ebf3435135f, type: 3}
+  - {fileID: 8300000, guid: 99689accf24f59f4ba2d3df9a63ab81e, type: 3}
+  - {fileID: 8300000, guid: 8cb991bea1aa2bf4387e51e417d65284, type: 3}
   audioSource: {fileID: 917013595}
   alienCharge: {fileID: 917013598}
 --- !u!4 &917013594
@@ -5312,7 +5317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943319118635655176, guid: 19a00cfd4d183284db38fab3cecd30e4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.250004
+      value: 51.96
       objectReference: {fileID: 0}
     - target: {fileID: 7943319118635655176, guid: 19a00cfd4d183284db38fab3cecd30e4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5320,7 +5325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943319118635655176, guid: 19a00cfd4d183284db38fab3cecd30e4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.649877
+      value: 12.65
       objectReference: {fileID: 0}
     - target: {fileID: 7943319118635655176, guid: 19a00cfd4d183284db38fab3cecd30e4, type: 3}
       propertyPath: m_LocalRotation.w

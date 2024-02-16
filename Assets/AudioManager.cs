@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> returnSounds;
     [SerializeField] List<AudioClip> cowSounds;
     [SerializeField] List<AudioClip> audioClips;
+    [SerializeField] List<AudioClip> grassSounds;
 
     Dictionary<string, List<AudioClip>> audioClipsListDictionary = new Dictionary<string, List<AudioClip>>();
     Dictionary<string, AudioClip> audioClipDictionary = new Dictionary<string, AudioClip>();
@@ -27,6 +28,7 @@ public class AudioManager : MonoBehaviour
         audioClipsListDictionary.Add("chaseSounds", chaseSounds);
         audioClipsListDictionary.Add("returnSounds", returnSounds);
         audioClipsListDictionary.Add("cowSounds", cowSounds);
+        audioClipsListDictionary.Add("grassSounds", grassSounds);
         foreach(AudioClip clip in audioClips)
         {
             audioClipDictionary.Add(clip.name, clip);
