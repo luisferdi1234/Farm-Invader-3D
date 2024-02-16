@@ -4445,6 +4445,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fc066deab4dc2d140b48756ffeb5166e, type: 3}
   audioClips:
   - {fileID: 8300000, guid: c3edd4700f0609d4587ce60b50cab618, type: 3}
+  - {fileID: 8300000, guid: 646966907095aa242b351042779e9b7d, type: 3}
   audioSource: {fileID: 917013595}
   alienCharge: {fileID: 917013598}
 --- !u!4 &917013594

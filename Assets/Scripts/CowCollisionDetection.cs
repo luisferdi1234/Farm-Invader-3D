@@ -13,6 +13,7 @@ public class CowCollisionDetection : MonoBehaviour
             {
                 Destroy(gameObject.GetComponentInChildren<Cow>().gemApple);
             }
+            AudioManager.instance.PlaySpecificSound("AppleCrunch", .5f);
             Destroy(collision.gameObject);
         }
     }
