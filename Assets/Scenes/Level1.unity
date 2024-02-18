@@ -8383,6 +8383,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1686131771}
     m_Modifications:
     - target: {fileID: 3283281276425415112, guid: 73d15824df90f794980fc147a6205045, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283281276425415112, guid: 73d15824df90f794980fc147a6205045, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40
       objectReference: {fileID: 0}
@@ -8422,6 +8426,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7692698036137544162, guid: 73d15824df90f794980fc147a6205045, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d1f57eda9d14fa40bcb386027cc601f, type: 2}
+    - target: {fileID: 8418820416089486917, guid: 73d15824df90f794980fc147a6205045, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2e422fbf172d574428da155947699f30, type: 2}
     - target: {fileID: 8526512625210252498, guid: 73d15824df90f794980fc147a6205045, type: 3}
       propertyPath: m_Name
       value: Escort Point

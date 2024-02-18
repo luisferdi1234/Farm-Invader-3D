@@ -39,6 +39,7 @@ public class Cow : MonoBehaviour
         {
             if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<PlayerController>().heldItem != null && other.gameObject.GetComponent<PlayerController>().heldItem.name.Contains("Apple"))
             {
+                AudioManager.instance.PlayRandomAudioClip("cowSounds");
                 gemApple = Instantiate(foodLove, transform.position + transform.forward + transform.up * 1.5f, transform.rotation);
                 gemApple.transform.parent = transform;
             }
