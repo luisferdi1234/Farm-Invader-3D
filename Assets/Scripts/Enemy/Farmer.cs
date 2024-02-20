@@ -34,7 +34,7 @@ public class Farmer : Enemy
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
+        animator.SetFloat("Velocity", agent.velocity.magnitude);
         Debug.Log(stateMachine.GetCurrentState());
 
         if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState) && inChase)
@@ -97,6 +97,7 @@ public class Farmer : Enemy
             animator.SetBool("Chasing", false);
             animator.SetBool("Patrolling", true);
             animator.SetBool("Returning", false);
+
             stateMachine.ChangeState(new PatrolState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("returnSounds");
         }
