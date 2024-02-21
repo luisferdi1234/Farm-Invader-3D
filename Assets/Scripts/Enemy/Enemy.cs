@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent;
     protected GameObject player;
     protected Vector3 spawnPoint;
     protected Quaternion spawnOrientation;

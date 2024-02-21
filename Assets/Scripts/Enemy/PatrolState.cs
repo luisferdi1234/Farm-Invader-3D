@@ -27,25 +27,24 @@ public class PatrolState : EnemyState
 
     public void OnUpdate()
     {
-        if (turnOffTimer >= .2f)
+        if (turnOffTimer >= .2f && currentEnemy.agent.velocity.magnitude < 1)
         {
             if (currentFarmer.animator.enabled)
             {
                 currentFarmer.animator.enabled = false;
             }
+            rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
+            spine.transform.Rotate(Vector3.right * rotation);
+            currentRotation += rotation;
+            // Check if rotation exceeds the range, change direction if needed
+            if (currentRotation >= currentEnemy.maxRotation || currentRotation <= currentEnemy.minRotation)
+            {
+                currentEnemy.direction *= -1; // Change direction
+            }
         }
         else
         {
             turnOffTimer += Time.deltaTime;
-        }
-
-        rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
-        spine.transform.Rotate(Vector3.right * rotation);
-        currentRotation += rotation;
-        // Check if rotation exceeds the range, change direction if needed
-        if (currentRotation >= currentEnemy.maxRotation || currentRotation <= currentEnemy.minRotation)
-        {
-            currentEnemy.direction *= -1; // Change direction
         }
     }
 
