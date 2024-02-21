@@ -27,7 +27,7 @@ public class PatrolState : EnemyState
 
     public void OnUpdate()
     {
-        if (turnOffTimer >= .2f && currentEnemy.agent.velocity.magnitude < 1)
+        if (turnOffTimer >= .2f)
         {
             if (currentFarmer.animator.enabled)
             {
@@ -42,7 +42,7 @@ public class PatrolState : EnemyState
                 currentEnemy.direction *= -1; // Change direction
             }
         }
-        else
+        else if (currentEnemy.agent.velocity.magnitude < 1)
         {
             turnOffTimer += Time.deltaTime;
         }
