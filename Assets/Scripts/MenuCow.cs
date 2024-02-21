@@ -12,7 +12,7 @@ public class MenuCow : MonoBehaviour
     void Start()
     {
         // Randomize the warp direction on startup
-        warpDirection = Random.insideUnitCircle.normalized; ;
+        warpDirection = Random.insideUnitCircle.normalized;
 
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
@@ -23,6 +23,13 @@ public class MenuCow : MonoBehaviour
 
     void Update()
     {
+        if (rb.velocity.magnitude == 0)
+        {
+            // Randomize the warp direction on startup
+            warpDirection = Random.insideUnitCircle.normalized;
+            // Give the object an initial burst of movement in x and y directions
+            rb.velocity = new Vector3(warpDirection.x, warpDirection.y, 0) * initialSpeed;
+        }
         // Check if the object is outside of the camera space
         if (!IsInCameraView())
         {
