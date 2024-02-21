@@ -19,6 +19,8 @@ public class Farmer : Enemy
 
     private float searchTimer = 0f;
 
+    [SerializeField] float maxSearchTime = 3f;
+
     private bool inChase = false;
     // Start is called before the first frame update
     protected override void Start()
@@ -39,16 +41,19 @@ public class Farmer : Enemy
 
         if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState) && inChase)
         {
-            searchTimer += Time.deltaTime;
-            if (searchTimer >= 3f)
+            if (agent.velocity.magnitude < 1)
             {
-                animator.enabled = true;
-                animator.SetBool("Chasing", false);
-                animator.SetBool("Patrolling", false);
-                animator.SetBool("Returning", true);
-                stateMachine.ChangeState(new ReturnState(), gameObject);
-                searchTimer = 0f;
-                inChase = false;
+                searchTimer += Time.deltaTime;
+                if (searchTimer >= maxSearchTime)
+                {
+                    animator.enabled = true;
+                    animator.SetBool("Chasing", false);
+                    animator.SetBool("Patrolling", false);
+                    animator.SetBool("Returning", true);
+                    stateMachine.ChangeState(new ReturnState(), gameObject);
+                    searchTimer = 0f;
+                    inChase = false;
+                }
             }
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ReturnState))
