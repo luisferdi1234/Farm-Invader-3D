@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameIntro : MonoBehaviour
 {
     [SerializeField] GameObject menu;
+    [SerializeField] GameObject cow;
     public void FadeOutCompleted()
     {
         menu.SetActive(true);
+        cow.SetActive(true);
     }
 }
