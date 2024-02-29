@@ -468,11 +468,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.3
-  m_Speed: 12
-  m_Acceleration: 24
+  m_Speed: 15
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 300
-  m_StoppingDistance: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -519,6 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135106bb1bbc0154f9870d130e46ec44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   rotationSpeed: 60
   rotationRange: 90
   direction: 1
@@ -534,3 +535,4 @@ MonoBehaviour:
   differentRotation: 0
   spine: {fileID: 7806541355594925578}
   animator: {fileID: 0}
+  maxSearchTime: 4

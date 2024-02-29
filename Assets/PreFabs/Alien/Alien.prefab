@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2073586033723909645}
-  moveSpeed: 10
+  moveSpeed: 9
   cowSlowDown: 4
   maxInvisTime: 1
   alienSkin: {fileID: 2100000, guid: 5e8e7bd4816dc58469cac1166f868334, type: 2}
@@ -339,7 +339,8 @@ MonoBehaviour:
   itemRadius: 0
   invisTime: 0
   invisibilityCooldown: 0
-  maxInvisCooldown: 15
+  Energy: 3
+  maxEnergy: 3
 --- !u!95 &-5728082641939378750
 Animator:
   serializedVersion: 7
