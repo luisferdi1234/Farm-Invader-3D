@@ -8,6 +8,12 @@ public class Item : MonoBehaviour
     [SerializeField] public CapsuleCollider capusleCollider;
     [SerializeField] public GameObject lightning;
     [SerializeField] public bool hasAbility = false;
+    [SerializeField] public bool stackable = false;
     [SerializeField] public bool isReusable = true;
     [SerializeField] public int numberOfUses = -1;
+
+    public virtual void UseAbility()
+    {
+        //Enter ability code
+    }
 }

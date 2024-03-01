@@ -5,37 +5,37 @@ using UnityEngine;
 
 public class AlienCollisionDetection : MonoBehaviour
 {
-    PlayerController playerController;
+    Inventory inventory;
     private float idleTimer = 0f;
     private void Start()
     {
-        playerController = transform.parent.GetComponent<PlayerController>();
+        inventory = transform.parent.GetComponent<Inventory>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (playerController.heldItem == null && other.CompareTag("Item"))
+        if (inventory.heldItem == null && other.CompareTag("Item"))
         {
             other.GetComponent<Outline>().enabled = true;
             if (other.name.Contains("Cow"))
             {
-                playerController.nearestItem = other.gameObject;
-                playerController.itemRadius = other.GetComponent<CapsuleCollider>().radius;
+                inventory.nearestItem = other.gameObject;
+                inventory.itemRadius = other.GetComponent<CapsuleCollider>().radius;
             }
             else if (other.name.Contains("Apple"))
             {
-                playerController.nearestItem = other.gameObject;
-                playerController.itemRadius = other.GetComponent<SphereCollider>().radius;
+                inventory.nearestItem = other.gameObject;
+                inventory.itemRadius = other.GetComponent<SphereCollider>().radius;
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (playerController.heldItem == null && other.CompareTag("Item"))
+        if (inventory.heldItem == null && other.CompareTag("Item"))
         {
             other.GetComponent<Outline>().enabled = false;
-            playerController.nearestItem = null;
+            inventory.nearestItem = null;
             if(other.GetComponent<Item>().lightning != null && other.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
             {
                 other.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();

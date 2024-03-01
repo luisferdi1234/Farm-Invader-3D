@@ -9,19 +9,14 @@ public class PlayerController : MonoBehaviour
 {
     //SerializedFields
     [SerializeField] Rigidbody rb;
-    [SerializeField] float moveSpeed = 10f;
-    [SerializeField] float cowSlowDown = 2f;
+    [SerializeField] public float maxMoveSpeed = 9f;
+    [SerializeField] public float cowSlowDown = 2f;
     [SerializeField] float maxInvisTime = 3f;
     [SerializeField] Material alienSkin;
     [SerializeField] Material invisibilityMaterial;
-    [SerializeField] GameObject rightHand;
-    [SerializeField] GameObject spine;
     [SerializeField] GameObject alienModel;
 
-    //Item variables
-    public GameObject nearestItem;
-    public GameObject heldItem;
-    public float itemRadius;
+    [HideInInspector] public float moveSpeed = 9f;
 
     //Gadget variables
     [HideInInspector] public float invisTime = 0;
@@ -30,7 +25,8 @@ public class PlayerController : MonoBehaviour
     public float maxEnergy = 3f;
     private bool InvisInUse = false;
     private bool startInvisCooldown = false;
-    private SkinnedMeshRenderer skineedMeshRenderer;
+    private SkinnedMeshRenderer skinnedMeshRenderer;
+    private Inventory inventory;
 
 
     //Animator
@@ -43,7 +39,6 @@ public class PlayerController : MonoBehaviour
     public PlayerControls playerControls;
     Vector3 moveDirection = Vector3.zero;
     private InputAction move;
-    private InputAction fire;
     private InputAction invisible;
     private InputAction recharge;
 
@@ -58,10 +53,13 @@ public class PlayerController : MonoBehaviour
         vcam.LookAt = gameObject.transform;
 
         //Renderer for Invisibility
-        skineedMeshRenderer = alienModel.GetComponent<SkinnedMeshRenderer>();
+        skinnedMeshRenderer = alienModel.GetComponent<SkinnedMeshRenderer>();
 
         //Animator
         animator = gameObject.GetComponent<Animator>();
+
+        //Inventory
+        inventory = gameObject.GetComponent<Inventory>();
     }
 
     private void OnEnable()
@@ -69,10 +67,6 @@ public class PlayerController : MonoBehaviour
         //Input System
         move = playerControls.Player.Move;
         move.Enable();
-
-        fire = playerControls.Player.Fire;
-        fire.Enable();
-        fire.performed += Fire;
 
         invisible = playerControls.Player.Invisible;
         invisible.Enable();
@@ -86,7 +80,6 @@ public class PlayerController : MonoBehaviour
     {
         //Input System
         move.Disable();
-        fire.Disable();
         invisible.Disable();
         recharge.Disable();
     }
@@ -114,40 +107,6 @@ public class PlayerController : MonoBehaviour
             // Smoothly rotate towards the target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
-        if (heldItem != null)
-        {
-            if (heldItem.name.Contains("Cow"))
-            {
-                heldItem.transform.position = spine.transform.position + spine.transform.forward * itemRadius * 2;
-            }
-            else
-            {
-                heldItem.transform.position = rightHand.transform.position;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Handles the fire button being pressed
-    /// </summary>
-    /// <param name="context"></param>
-    private void Fire(InputAction.CallbackContext context)
-    {
-        if (nearestItem != null)
-        {
-            if (heldItem == nearestItem.gameObject)
-            {
-                ReleaseItem();
-            }
-            else if (heldItem == null)
-            {
-                GrabItem();
-            }
-        }
-        else if (heldItem != null)
-        {
-           ReleaseItem();
-        }
     }
 
     /// <summary>
@@ -156,7 +115,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="context"></param>
     private void Invisible(InputAction.CallbackContext context)
     {
-        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy && (heldItem == null || !heldItem.name.Contains("Cow")))
+        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy && (inventory.heldItem == null || !inventory.heldItem.name.Contains("Cow")))
         {
             InvisInUse = true;
             gameObject.tag = "Invisible";
@@ -171,24 +130,24 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Recharge()
     {
-        if (nearestItem != null && nearestItem.name.Contains("Cow") && Energy < maxEnergy && recharge.ReadValue<float>() > 0.5f)
+        if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && Energy < maxEnergy && recharge.ReadValue<float>() > 0.5f)
         {
             AudioManager.instance.PlayAlienCharge();
-            particleAttractorLinear particles = nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
-            nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
+            particleAttractorLinear particles = inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
+            inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
             particles.target = transform;
             Energy += Time.deltaTime;
             if (Energy > maxEnergy)
             {
                 AudioManager.instance.PauseAlienCharge();
-                nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
+                inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
                 Energy = maxEnergy;
             }
         }
-        else if (nearestItem != null && nearestItem.name.Contains("Cow") && nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
+        else if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
         {
             AudioManager.instance.PauseAlienCharge();
-            nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
+            inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
         }
     }
 
@@ -227,74 +186,7 @@ public class PlayerController : MonoBehaviour
     private void ChangePlayerMaterial(Material newMaterial)
     {
         // Change the player's material
-        skineedMeshRenderer.material = newMaterial;
-    }
-
-    /// <summary>
-    /// Lets go of the item you are currently holding
-    /// </summary>
-    private void ReleaseItem()
-    {
-        if (heldItem.name.Contains("Cow"))
-        {
-            Cow cow = heldItem.GetComponent<Cow>();
-            heldItem.GetComponent<NavMeshAgent>().enabled = true;
-            heldItem.GetComponent<NavMeshAgent>().SetDestination(heldItem.transform.position);
-            heldItem.GetComponent<Rigidbody>().isKinematic = true;
-            animator.SetBool("CarryingCow", false);
-            moveSpeed = 10f;
-        }
-        heldItem.tag = "Item";
-        nearestItem = null;
-        heldItem.transform.parent = null;
-        heldItem.transform.position = transform.position + transform.forward + (transform.up / 2) * itemRadius;
-        //Get all colliders attached to the
-        Collider[] allColliders = heldItem.GetComponents<Collider>();
-        // Enable each collider
-        foreach (Collider collider in allColliders)
-        {
-            collider.enabled = true;
-        }
-        heldItem = null;
-        itemRadius = 0;
-    }
-
-    /// <summary>
-    /// Grabs the nearest item
-    /// </summary>
-    private void GrabItem()
-    {
-        // Parent the new nearest item to the player
-        heldItem = nearestItem.gameObject;
-        nearestItem = null;
-        heldItem.tag = "HeldItem";
-        heldItem.GetComponent<Outline>().enabled = false;
-        //Changes variables for if the item is a cow
-        if (heldItem.name.Contains("Cow"))
-        {
-            animator.SetBool("CarryingCow", true);
-            heldItem.GetComponent<NavMeshAgent>().enabled = false;
-            heldItem.GetComponent<Rigidbody>().isKinematic = false;
-            moveSpeed = cowSlowDown;
-            // Set the initial relative rotation of the cow when picked up
-            Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
-            heldItem.transform.localRotation = Quaternion.Euler(relativeRotation);
-            heldItem.transform.parent = spine.transform;
-            AudioManager.instance.PlayRandomAudioClip("cowSounds");
-        }
-        else
-        {
-            heldItem.transform.parent = rightHand.transform;
-        }
-
-        //Get all colliders attached to this GameObject
-        Collider[] allColliders = heldItem.GetComponents<Collider>();
-
-        // Disable each collider
-        foreach (Collider collider in allColliders)
-        {
-            collider.enabled = false;
-        }
+        skinnedMeshRenderer.material = newMaterial;
     }
 
     /// <summary>

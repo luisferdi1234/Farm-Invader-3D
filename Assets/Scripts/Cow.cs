@@ -37,7 +37,7 @@ public class Cow : MonoBehaviour
         }
         if (gemApple == null)
         {
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<PlayerController>().heldItem != null && other.gameObject.GetComponent<PlayerController>().heldItem.name.Contains("Apple"))
+            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().heldItem != null && other.gameObject.GetComponent<Inventory>().heldItem.name.Contains("Apple"))
             {
                 AudioManager.instance.PlayRandomAudioClip("cowSounds");
                 gemApple = Instantiate(foodLove, transform.position + transform.forward + transform.up * 1.5f, transform.rotation);
@@ -50,7 +50,7 @@ public class Cow : MonoBehaviour
     {
         if (gemApple != null)
         {
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<PlayerController>().heldItem != null && other.gameObject.GetComponent<PlayerController>().heldItem.name.Contains("Apple"))
+            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().heldItem != null && other.gameObject.GetComponent<Inventory>().heldItem.name.Contains("Apple"))
             {
                 closestApple = null;
                 Destroy(gemApple);
