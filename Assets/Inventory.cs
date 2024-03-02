@@ -91,6 +91,7 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void Fire(InputAction.CallbackContext context)
     {
+
         //Check if cow is the nearby object
         if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
         {
@@ -98,20 +99,22 @@ public class Inventory : MonoBehaviour
             GrabItem(3, 0);
 
         }
-        else if (nearestItem != null)
+        else if (nearestItem != null && inventorySlots[3, 0] == null)
         {
             //Checks for an empty inventory slot
             for (int i = 1; i < inventorySlots.GetLength(0); i++)
             {
+                //If item slot available put it in first slot
                 if (inventorySlots[i, 0] == null)
                 {
                     currentInventorySlot = i;
                     GrabItem(i, 0);
                     break;
                 }
+                //Else, check to see if item can be stacked
                 else if (inventorySlots[i, 0].GetComponent<Item>().itemName == nearestItem.GetComponent<Item>().itemName)
                 {
-                    for (int j = 1; i < inventorySlots.GetLength(1); j++)
+                    for (int j = 1; j < inventorySlots.GetLength(1); j++)
                     {
                         if (inventorySlots[i, j] == null)
                         {
@@ -138,12 +141,15 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryRight(InputAction.CallbackContext context)
     {
-        currentInventorySlot += 1;
-        if (currentInventorySlot > inventorySlots.GetLength(0) - 1)
+        if (!inventorySlots[currentInventorySlot, 0].name.Contains("Cow"))
         {
-            currentInventorySlot = 0;
+            currentInventorySlot += 1;
+            if (currentInventorySlot > inventorySlots.GetLength(0) - 1)
+            {
+                currentInventorySlot = 0;
+            }
+            Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
         }
-        Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
     }
 
     /// <summary>
@@ -152,12 +158,15 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryLeft(InputAction.CallbackContext context)
     {
-        currentInventorySlot -= 1;
-        if (currentInventorySlot <= 0)
+        if (!inventorySlots[currentInventorySlot, 0].name.Contains("Cow"))
         {
-            currentInventorySlot = inventorySlots.GetLength(0) - 1;
+            currentInventorySlot -= 1;
+            if (currentInventorySlot <= 0)
+            {
+                currentInventorySlot = inventorySlots.GetLength(0) - 1;
+            }
+            Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
         }
-        Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
     }
 
     /// <summary>
@@ -289,6 +298,5 @@ public class Inventory : MonoBehaviour
         inventorySlots[3, 0].GetComponent<Rigidbody>().isKinematic = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;
-        inventorySlots[3, 0] = null;
     }
 }

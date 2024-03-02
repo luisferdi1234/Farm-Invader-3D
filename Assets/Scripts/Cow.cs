@@ -27,7 +27,7 @@ public class Cow : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && !agent.hasPath)
+        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && !agent.hasPath && gemApple == null)
         {
             Debug.Log("Apple Detected!");
             closestApple = other.gameObject;
