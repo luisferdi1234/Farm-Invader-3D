@@ -17,16 +17,7 @@ public class AlienCollisionDetection : MonoBehaviour
         if (other.CompareTag("Item"))
         {
             other.GetComponent<Outline>().enabled = true;
-            if (other.name.Contains("Cow"))
-            {
-                inventory.nearestItem = other.gameObject;
-                inventory.itemRadius = other.GetComponent<CapsuleCollider>().radius;
-            }
-            else if (other.name.Contains("Apple"))
-            {
-                inventory.nearestItem = other.gameObject;
-                inventory.itemRadius = other.GetComponent<SphereCollider>().radius;
-            }
+            inventory.nearestItem = other.gameObject;
         }
     }
 

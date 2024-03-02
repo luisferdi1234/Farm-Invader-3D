@@ -11,23 +11,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] public float maxMoveSpeed = 9f;
     [SerializeField] public float cowSlowDown = 2f;
-    [SerializeField] float maxInvisTime = 3f;
-    [SerializeField] Material alienSkin;
-    [SerializeField] Material invisibilityMaterial;
     [SerializeField] GameObject alienModel;
 
     [HideInInspector] public float moveSpeed = 9f;
 
     //Gadget variables
-    [HideInInspector] public float invisTime = 0;
-    [HideInInspector] public float invisibilityCooldown = 0f;
-    [HideInInspector] public float Energy = 3f;
-    public float maxEnergy = 3f;
-    private bool InvisInUse = false;
-    private bool startInvisCooldown = false;
-    private SkinnedMeshRenderer skinnedMeshRenderer;
     private Inventory inventory;
-
+    private Item currentItem;
 
     //Animator
     private Animator animator;
@@ -39,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public PlayerControls playerControls;
     Vector3 moveDirection = Vector3.zero;
     private InputAction move;
-    private InputAction invisible;
+    private InputAction useAbility;
     private InputAction recharge;
 
     private void Awake()
@@ -51,9 +41,6 @@ public class PlayerController : MonoBehaviour
         vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         vcam.Follow = gameObject.transform;
         vcam.LookAt = gameObject.transform;
-
-        //Renderer for Invisibility
-        skinnedMeshRenderer = alienModel.GetComponent<SkinnedMeshRenderer>();
 
         //Animator
         animator = gameObject.GetComponent<Animator>();
@@ -68,9 +55,9 @@ public class PlayerController : MonoBehaviour
         move = playerControls.Player.Move;
         move.Enable();
 
-        invisible = playerControls.Player.Invisible;
-        invisible.Enable();
-        invisible.performed += Invisible;
+        useAbility = playerControls.Player.UseAbility;
+        useAbility.Enable();
+        useAbility.performed += UseAbility;
 
         recharge = playerControls.Player.Recharge;
         recharge.Enable();
@@ -80,15 +67,22 @@ public class PlayerController : MonoBehaviour
     {
         //Input System
         move.Disable();
-        invisible.Disable();
+        useAbility.Disable();
         recharge.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (inventory.inventorySlots[inventory.currentInventorySlot, 0] == null)
+        {
+            currentItem = null;
+        }
+        else
+        {
+            currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
+        }
         moveDirection = move.ReadValue<Vector2>();
-        UpdateInvisibility();
         Recharge();
     }
 
@@ -113,15 +107,11 @@ public class PlayerController : MonoBehaviour
     /// Handles the invisble button being pressed
     /// </summary>
     /// <param name="context"></param>
-    private void Invisible(InputAction.CallbackContext context)
+    private void UseAbility(InputAction.CallbackContext context)
     {
-        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy && (inventory.inventorySlots[inventory.currentInventorySlot, 0] == null || !inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Cow")))
+        if (currentItem != null && currentItem.hasAbility)
         {
-            InvisInUse = true;
-            gameObject.tag = "Invisible";
-            AudioManager.instance.PlaySpecificSound("AlienCloak", 1f);
-            //Changes Material
-            ChangePlayerMaterial(invisibilityMaterial);
+            inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>().UseAbility();
         }
     }
 
@@ -130,18 +120,18 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Recharge()
     {
-        if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && Energy < maxEnergy && recharge.ReadValue<float>() > 0.5f)
+        if (recharge.ReadValue<float>() > 0.5f && inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && currentItem != null && currentItem.isRechargeable && currentItem.energy < currentItem.maxEnergy)
         {
             AudioManager.instance.PlayAlienCharge();
             particleAttractorLinear particles = inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
             inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
             particles.target = transform;
-            Energy += Time.deltaTime;
-            if (Energy > maxEnergy)
+            currentItem.energy += Time.deltaTime;
+            if (currentItem.energy > currentItem.maxEnergy)
             {
                 AudioManager.instance.PauseAlienCharge();
                 inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
-                Energy = maxEnergy;
+                currentItem.energy = currentItem.maxEnergy;
             }
         }
         else if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
@@ -149,44 +139,6 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PauseAlienCharge();
             inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
         }
-    }
-
-    /// <summary>
-    /// Updates invisibility variables and cooldowns after activation
-    /// </summary>
-    private void UpdateInvisibility()
-    {
-        if (InvisInUse)
-        {
-            invisTime += Time.deltaTime;
-        }
-        if (invisTime >= maxInvisTime)
-        {
-            TurnOffInvisibility();
-        }
-    }
-
-    /// <summary>
-    /// Handles all the variable changes associated with invisibility running out
-    /// </summary>
-    private void TurnOffInvisibility()
-    {
-        gameObject.tag = "Player";
-        InvisInUse = false;
-        ChangePlayerMaterial(alienSkin);
-        startInvisCooldown = true;
-        invisTime = 0;
-        Energy = 0;
-    }
-
-    /// <summary>
-    /// Changes player material to new material
-    /// </summary>
-    /// <param name="newMaterial"></param>
-    private void ChangePlayerMaterial(Material newMaterial)
-    {
-        // Change the player's material
-        skinnedMeshRenderer.material = newMaterial;
     }
 
     /// <summary>

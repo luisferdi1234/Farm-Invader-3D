@@ -55,7 +55,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Invisible"",
+                    ""name"": ""UseAbility"",
                     ""type"": ""Button"",
                     ""id"": ""b1e27c6f-ec88-467d-99aa-cea5919a4e24"",
                     ""expectedControlType"": ""Button"",
@@ -229,7 +229,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Invisible"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -240,7 +240,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Invisible"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -941,7 +941,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Invisible = m_Player.FindAction("Invisible", throwIfNotFound: true);
+        m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
         m_Player_Recharge = m_Player.FindAction("Recharge", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
@@ -1022,7 +1022,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Invisible;
+    private readonly InputAction m_Player_UseAbility;
     private readonly InputAction m_Player_Recharge;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_InventoryRight;
@@ -1034,7 +1034,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Invisible => m_Wrapper.m_Player_Invisible;
+        public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
         public InputAction @Recharge => m_Wrapper.m_Player_Recharge;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
@@ -1057,9 +1057,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Invisible.started += instance.OnInvisible;
-            @Invisible.performed += instance.OnInvisible;
-            @Invisible.canceled += instance.OnInvisible;
+            @UseAbility.started += instance.OnUseAbility;
+            @UseAbility.performed += instance.OnUseAbility;
+            @UseAbility.canceled += instance.OnUseAbility;
             @Recharge.started += instance.OnRecharge;
             @Recharge.performed += instance.OnRecharge;
             @Recharge.canceled += instance.OnRecharge;
@@ -1085,9 +1085,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Invisible.started -= instance.OnInvisible;
-            @Invisible.performed -= instance.OnInvisible;
-            @Invisible.canceled -= instance.OnInvisible;
+            @UseAbility.started -= instance.OnUseAbility;
+            @UseAbility.performed -= instance.OnUseAbility;
+            @UseAbility.canceled -= instance.OnUseAbility;
             @Recharge.started -= instance.OnRecharge;
             @Recharge.performed -= instance.OnRecharge;
             @Recharge.canceled -= instance.OnRecharge;
@@ -1285,7 +1285,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnInvisible(InputAction.CallbackContext context);
+        void OnUseAbility(InputAction.CallbackContext context);
         void OnRecharge(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnInventoryRight(InputAction.CallbackContext context);

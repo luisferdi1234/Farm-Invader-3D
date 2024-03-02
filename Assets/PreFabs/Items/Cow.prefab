@@ -223,11 +223,14 @@ MonoBehaviour:
   sphereCollider: {fileID: 0}
   capusleCollider: {fileID: 8191834986618278199}
   lightning: {fileID: 7305998302906637635}
+  isRechargeable: 0
   hasAbility: 0
   stackable: 0
   isReusable: 1
   numberOfUses: -1
   itemName: Cow
+  maxEnergy: 3
+  energy: 3
 --- !u!54 &5764161229923370427
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -289,7 +292,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 2
-  m_Center: {x: 0.0036770701, y: 0.7879247, z: 0.18635759}
+  m_Center: {x: 0.0036770701, y: 0.5, z: 0.18635759}
 --- !u!114 &4889869611502234606
 MonoBehaviour:
   m_ObjectHideFlags: 0

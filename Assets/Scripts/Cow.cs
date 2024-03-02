@@ -27,11 +27,10 @@ public class Cow : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && !agent.hasPath && gemApple == null)
+        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && agent.destination == transform.position)
         {
             Debug.Log("Apple Detected!");
             closestApple = other.gameObject;
-            AudioManager.instance.PlayRandomAudioClip("cowSounds");
             agent.SetDestination(closestApple.transform.position);
             
         }

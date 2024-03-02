@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour
     //0,0 slot is always for cloak
     //3,0 slot is always for cow
 
+    [SerializeField] GameObject cloak;
+
     //Grabs game objects to allow items to look like they're being carried
     [SerializeField] GameObject spine;
     [SerializeField] GameObject rightHand;
@@ -19,9 +21,11 @@ public class Inventory : MonoBehaviour
     public GameObject nearestItem;
     public float itemRadius;
     public int currentInventorySlot = 0;
+    private int prevInventorySlot = 0;
     [HideInInspector] public bool hasApple = false;
 
     //Input System Variable
+    PlayerControls playerControls;
     private InputAction fire;
     private InputAction inventoryRight;
     private InputAction inventoryLeft;
@@ -34,6 +38,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        inventorySlots[0, 0] = cloak;
     }
     /// <summary>
     /// Enables Input System variables
@@ -43,15 +48,18 @@ public class Inventory : MonoBehaviour
         playerController = GetComponent<PlayerController>();
 
         //Input System
-        fire = playerController.playerControls.Player.Fire;
+        playerControls = new PlayerControls();
+
+        //Input System
+        fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
 
-        inventoryRight = playerController.playerControls.Player.InventoryRight;
+        inventoryRight = playerControls.Player.InventoryRight;
         inventoryRight.Enable();
         inventoryRight.performed += InventoryRight;
 
-        inventoryLeft = playerController.playerControls.Player.InventoryLeft;
+        inventoryLeft = playerControls.Player.InventoryLeft;
         inventoryLeft.Enable();
         inventoryLeft.performed += InventoryLeft;
     }
@@ -95,12 +103,20 @@ public class Inventory : MonoBehaviour
         //Check if cow is the nearby object
         if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
         {
+            if (inventorySlots[currentInventorySlot, 0] != null)
+            {
+                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                {
+                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                }
+                inventorySlots[currentInventorySlot, 0].SetActive(false);
+            }
             currentInventorySlot = 3;
             GrabItem(3, 0);
-
         }
         else if (nearestItem != null && inventorySlots[3, 0] == null)
         {
+            prevInventorySlot = currentInventorySlot;
             //Checks for an empty inventory slot
             for (int i = 1; i < inventorySlots.GetLength(0); i++)
             {
@@ -128,9 +144,14 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-        else if (inventorySlots[currentInventorySlot, 0] != null)
+        else if (currentInventorySlot != 0 && inventorySlots[currentInventorySlot, 0] != null)
         {
+            string itemName = inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName;
             ReleaseItem();
+            if (itemName == "Cow")
+            {
+                currentInventorySlot = 0;
+            }
         }
         Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
     }
@@ -141,12 +162,26 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryRight(InputAction.CallbackContext context)
     {
-        if (!inventorySlots[currentInventorySlot, 0].name.Contains("Cow"))
+        if (inventorySlots[3, 0] == null)
         {
+            prevInventorySlot = currentInventorySlot;
+            if (inventorySlots[currentInventorySlot, 0] != null)
+            {
+                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                {
+                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                }
+                inventorySlots[currentInventorySlot, 0].SetActive(false);
+            }
             currentInventorySlot += 1;
-            if (currentInventorySlot > inventorySlots.GetLength(0) - 1)
+            if (currentInventorySlot > inventorySlots.GetLength(0) - 2)
             {
                 currentInventorySlot = 0;
+            }
+            if (inventorySlots[currentInventorySlot, 0] != null)
+            {
+                inventorySlots[currentInventorySlot, 0].SetActive(true);
+                ChangeItemRadius();
             }
             Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
         }
@@ -158,12 +193,26 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryLeft(InputAction.CallbackContext context)
     {
-        if (!inventorySlots[currentInventorySlot, 0].name.Contains("Cow"))
+        if (inventorySlots[3,0] == null)
         {
-            currentInventorySlot -= 1;
-            if (currentInventorySlot <= 0)
+            prevInventorySlot = currentInventorySlot;
+            if (inventorySlots[currentInventorySlot, 0] != null)
             {
-                currentInventorySlot = inventorySlots.GetLength(0) - 1;
+                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                {
+                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                }
+                inventorySlots[currentInventorySlot, 0].SetActive(false);
+            }
+            currentInventorySlot -= 1;
+            if (currentInventorySlot < 0)
+            {
+                currentInventorySlot = inventorySlots.GetLength(0) - 2;
+            }
+            if (inventorySlots[currentInventorySlot, 0] != null)
+            {
+                inventorySlots[currentInventorySlot, 0].SetActive(true);
+                ChangeItemRadius();
             }
             Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
         }
@@ -191,7 +240,7 @@ public class Inventory : MonoBehaviour
         {
             collider.enabled = true;
         }
-
+        ChangeItemRadius();
         //Handles shifting the array if the item is stackable
         if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().stackable)
         {
@@ -208,6 +257,11 @@ public class Inventory : MonoBehaviour
         else
         {
             inventorySlots[currentInventorySlot, 0] = null;
+            currentInventorySlot = prevInventorySlot;
+            if (inventorySlots[currentInventorySlot, 0] != null && !inventorySlots[currentInventorySlot, 0].active)
+            {
+                inventorySlots[currentInventorySlot, 0].SetActive(true);
+            }
         }
         itemRadius = 0;
     }
@@ -242,6 +296,7 @@ public class Inventory : MonoBehaviour
         nearestItem = null;
         inventorySlots[i, j].tag = "HeldItem";
         inventorySlots[i, j].GetComponent<Outline>().enabled = false;
+        ChangeItemRadius();
 
         //Changes variables for if the item is a cow
         if (inventorySlots[i, j].name.Contains("Cow"))
@@ -268,6 +323,7 @@ public class Inventory : MonoBehaviour
         {
             collider.enabled = false;
         }
+        prevInventorySlot = currentInventorySlot;
     }
 
     /// <summary>
@@ -298,5 +354,21 @@ public class Inventory : MonoBehaviour
         inventorySlots[3, 0].GetComponent<Rigidbody>().isKinematic = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;
+    }
+
+    private void ChangeItemRadius()
+    {
+        if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Cow")
+        {
+            itemRadius = inventorySlots[currentInventorySlot, 0].GetComponent<CapsuleCollider>().radius;
+        }
+        else if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Invisibility Cloak")
+        {
+            itemRadius = 0;
+        }
+        else
+        {
+            itemRadius = inventorySlots[currentInventorySlot, 0].GetComponent<SphereCollider>().radius;
+        }
     }
 }

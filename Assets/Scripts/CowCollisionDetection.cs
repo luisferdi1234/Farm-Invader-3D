@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CowCollisionDetection : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CowCollisionDetection : MonoBehaviour
             {
                 Destroy(gameObject.GetComponentInChildren<Cow>().gemApple);
             }
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(transform.position);
             AudioManager.instance.PlaySpecificSound("AppleCrunch", .5f);
             Destroy(collision.gameObject);
         }

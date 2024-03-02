@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class EnergyTracker : MonoBehaviour
 {
-    private float energy = 5f;
+    [SerializeField] GameObject energyBar;
+    private float energy = 3f;
     ProgressBar bar;
-    PlayerController playerController;
+    Inventory inventory;
     // Start is called before the first frame update
     void Start()
     {
-        bar = GetComponent<ProgressBar>();
+        bar = energyBar.GetComponent<ProgressBar>();
         bar.SetProgress(1);
-        playerController = GameObject.Find("Alien").GetComponent<PlayerController>();
+        GameObject Alien = GameObject.Find("Alien");
+        inventory = Alien.GetComponent<Inventory>();
     }
 
     private void Update()
     {
-        if (playerController != null)
+        Item currentItem;
+        if (inventory != null && inventory.inventorySlots[inventory.currentInventorySlot, 0] != null)
         {
+            currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
 
-            if (energy != playerController.Energy)
+            if (currentItem.isRechargeable)
             {
-                energy = playerController.Energy;
-                bar.SetProgress(energy/playerController.maxEnergy);
+                energyBar.SetActive(true);
+                energy = currentItem.energy;
+                bar.SetProgress(energy/currentItem.maxEnergy);
             }
+            else
+            {
+                energyBar.SetActive(false);
+            }
+        }
+        else
+        {
+            energyBar.SetActive(false);
         }
     }
 }
