@@ -58,6 +58,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryRight",
+                    "type": "Button",
+                    "id": "574b3e66-e8ba-46a0-970d-7ead54d83fb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryLeft",
+                    "type": "Button",
+                    "id": "d90ec51e-14c9-4581-b239-da8d9a6fdacb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -245,6 +263,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22a2bf17-40d7-4a00-83b5-a91f2360a6f7",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4ec79f8-4ea3-44d8-b474-7c852060fd15",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a68718db-41c1-41f4-a391-1a2f53a1f153",
+                    "path": "<Mouse>/backButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98e9a4aa-9ad2-454d-afa5-5ffe6adf5ec1",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98b23880-a525-4ffe-b1f2-3ffbdbef5438",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a0f2555-f785-4b10-a2f5-7e55f54545cd",
+                    "path": "<Mouse>/forwardButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

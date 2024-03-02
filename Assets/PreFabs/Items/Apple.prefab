@@ -323,6 +323,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 1101320673773349604}
   capusleCollider: {fileID: 0}
+  lightning: {fileID: 0}
+  hasAbility: 0
+  stackable: 1
+  isReusable: 1
+  numberOfUses: -1
+  itemName: Apple
 --- !u!114 &4960838956053205682
 MonoBehaviour:
   m_ObjectHideFlags: 0

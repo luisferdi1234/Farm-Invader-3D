@@ -80,6 +80,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""574b3e66-e8ba-46a0-970d-7ead54d83fb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""d90ec51e-14c9-4581-b239-da8d9a6fdacb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -267,6 +285,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22a2bf17-40d7-4a00-83b5-a91f2360a6f7"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4ec79f8-4ea3-44d8-b474-7c852060fd15"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a68718db-41c1-41f4-a391-1a2f53a1f153"",
+                    ""path"": ""<Mouse>/backButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98e9a4aa-9ad2-454d-afa5-5ffe6adf5ec1"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98b23880-a525-4ffe-b1f2-3ffbdbef5438"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a0f2555-f785-4b10-a2f5-7e55f54545cd"",
+                    ""path"": ""<Mouse>/forwardButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -860,6 +944,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Invisible = m_Player.FindAction("Invisible", throwIfNotFound: true);
         m_Player_Recharge = m_Player.FindAction("Recharge", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
+        m_Player_InventoryLeft = m_Player.FindAction("InventoryLeft", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -939,6 +1025,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Invisible;
     private readonly InputAction m_Player_Recharge;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_InventoryRight;
+    private readonly InputAction m_Player_InventoryLeft;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -949,6 +1037,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Invisible => m_Wrapper.m_Player_Invisible;
         public InputAction @Recharge => m_Wrapper.m_Player_Recharge;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
+        public InputAction @InventoryLeft => m_Wrapper.m_Player_InventoryLeft;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -976,6 +1066,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @InventoryRight.started += instance.OnInventoryRight;
+            @InventoryRight.performed += instance.OnInventoryRight;
+            @InventoryRight.canceled += instance.OnInventoryRight;
+            @InventoryLeft.started += instance.OnInventoryLeft;
+            @InventoryLeft.performed += instance.OnInventoryLeft;
+            @InventoryLeft.canceled += instance.OnInventoryLeft;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -998,6 +1094,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @InventoryRight.started -= instance.OnInventoryRight;
+            @InventoryRight.performed -= instance.OnInventoryRight;
+            @InventoryRight.canceled -= instance.OnInventoryRight;
+            @InventoryLeft.started -= instance.OnInventoryLeft;
+            @InventoryLeft.performed -= instance.OnInventoryLeft;
+            @InventoryLeft.canceled -= instance.OnInventoryLeft;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1186,6 +1288,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnInvisible(InputAction.CallbackContext context);
         void OnRecharge(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnInventoryRight(InputAction.CallbackContext context);
+        void OnInventoryLeft(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

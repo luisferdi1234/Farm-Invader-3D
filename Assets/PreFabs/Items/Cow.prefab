@@ -223,6 +223,11 @@ MonoBehaviour:
   sphereCollider: {fileID: 0}
   capusleCollider: {fileID: 8191834986618278199}
   lightning: {fileID: 7305998302906637635}
+  hasAbility: 0
+  stackable: 0
+  isReusable: 1
+  numberOfUses: -1
+  itemName: Cow
 --- !u!54 &5764161229923370427
 Rigidbody:
   m_ObjectHideFlags: 0

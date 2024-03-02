@@ -14,7 +14,7 @@ public class AlienCollisionDetection : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (inventory.heldItem == null && other.CompareTag("Item"))
+        if (other.CompareTag("Item"))
         {
             other.GetComponent<Outline>().enabled = true;
             if (other.name.Contains("Cow"))
@@ -32,7 +32,7 @@ public class AlienCollisionDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (inventory.heldItem == null && other.CompareTag("Item"))
+        if (other.CompareTag("Item"))
         {
             other.GetComponent<Outline>().enabled = false;
             inventory.nearestItem = null;

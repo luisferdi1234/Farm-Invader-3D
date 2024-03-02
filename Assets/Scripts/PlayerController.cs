@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="context"></param>
     private void Invisible(InputAction.CallbackContext context)
     {
-        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy && (inventory.heldItem == null || !inventory.heldItem.name.Contains("Cow")))
+        if (invisibilityCooldown == 0f && invisTime == 0f && Energy == maxEnergy && (inventory.inventorySlots[inventory.currentInventorySlot, 0] == null || !inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Cow")))
         {
             InvisInUse = true;
             gameObject.tag = "Invisible";

@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] public bool stackable = false;
     [SerializeField] public bool isReusable = true;
     [SerializeField] public int numberOfUses = -1;
+    public string itemName;
 
     public virtual void UseAbility()
     {

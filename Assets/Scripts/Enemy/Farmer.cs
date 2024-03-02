@@ -37,7 +37,6 @@ public class Farmer : Enemy
     {
         base.FixedUpdate();
         animator.SetFloat("Velocity", agent.velocity.magnitude);
-        Debug.Log(stateMachine.GetCurrentState());
 
         if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState) && inChase)
         {
