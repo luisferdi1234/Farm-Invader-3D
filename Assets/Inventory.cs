@@ -111,7 +111,6 @@ public class Inventory : MonoBehaviour
                 }
                 inventorySlots[currentInventorySlot, 0].SetActive(false);
             }
-            currentInventorySlot = 3;
             GrabItem(3, 0);
         }
         else if (nearestItem != null && inventorySlots[3, 0] == null)
@@ -123,7 +122,6 @@ public class Inventory : MonoBehaviour
                 //If item slot available put it in first slot
                 if (inventorySlots[i, 0] == null)
                 {
-                    currentInventorySlot = i;
                     GrabItem(i, 0);
                     break;
                 }
@@ -134,7 +132,6 @@ public class Inventory : MonoBehaviour
                     {
                         if (inventorySlots[i, j] == null)
                         {
-                            currentInventorySlot = i;
                             GrabItem(i, j);
                             inventorySlots[i, j].SetActive(false);
                             break;
@@ -148,10 +145,6 @@ public class Inventory : MonoBehaviour
         {
             string itemName = inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName;
             ReleaseItem();
-            if (itemName == "Cow")
-            {
-                currentInventorySlot = 0;
-            }
         }
         Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
     }
@@ -162,22 +155,19 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryRight(InputAction.CallbackContext context)
     {
-        if (inventorySlots[3, 0] == null)
+        if (inventorySlots[3, 0] == null && ChangeToActiveRightSlot())
         {
-            prevInventorySlot = currentInventorySlot;
-            if (inventorySlots[currentInventorySlot, 0] != null)
+            //Handles turning off current item
+            if (inventorySlots[prevInventorySlot, 0] != null)
             {
-                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
                 {
-                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                    inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
                 }
-                inventorySlots[currentInventorySlot, 0].SetActive(false);
+                inventorySlots[prevInventorySlot, 0].SetActive(false);
             }
-            currentInventorySlot += 1;
-            if (currentInventorySlot > inventorySlots.GetLength(0) - 2)
-            {
-                currentInventorySlot = 0;
-            }
+
+            //Handles turning on next item
             if (inventorySlots[currentInventorySlot, 0] != null)
             {
                 inventorySlots[currentInventorySlot, 0].SetActive(true);
@@ -193,22 +183,19 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryLeft(InputAction.CallbackContext context)
     {
-        if (inventorySlots[3,0] == null)
+        if (inventorySlots[3,0] == null && ChangeToActiveLeftSlot())
         {
-            prevInventorySlot = currentInventorySlot;
-            if (inventorySlots[currentInventorySlot, 0] != null)
+            //Turns off current item
+            if (inventorySlots[prevInventorySlot, 0] != null)
             {
-                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
                 {
-                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                    inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
                 }
-                inventorySlots[currentInventorySlot, 0].SetActive(false);
+                inventorySlots[prevInventorySlot, 0].SetActive(false);
             }
-            currentInventorySlot -= 1;
-            if (currentInventorySlot < 0)
-            {
-                currentInventorySlot = inventorySlots.GetLength(0) - 2;
-            }
+
+            //Handles turning on next item
             if (inventorySlots[currentInventorySlot, 0] != null)
             {
                 inventorySlots[currentInventorySlot, 0].SetActive(true);
@@ -291,6 +278,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public void GrabItem(int i, int j)
     {
+        prevInventorySlot = currentInventorySlot;
+        currentInventorySlot = i;
         // Parent the new nearest item to the player
         inventorySlots[i,j] = nearestItem;
         nearestItem = null;
@@ -323,7 +312,6 @@ public class Inventory : MonoBehaviour
         {
             collider.enabled = false;
         }
-        prevInventorySlot = currentInventorySlot;
     }
 
     /// <summary>
@@ -348,7 +336,6 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void DropCow()
     {
-        Cow cow = inventorySlots[3, 0].GetComponent<Cow>();
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[3,0].transform.position);
         inventorySlots[3, 0].GetComponent<Rigidbody>().isKinematic = true;
@@ -356,6 +343,9 @@ public class Inventory : MonoBehaviour
         playerController.moveSpeed = playerController.maxMoveSpeed;
     }
 
+    /// <summary>
+    /// Updates the radius of the item in the current inventory slot
+    /// </summary>
     private void ChangeItemRadius()
     {
         if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Cow")
@@ -370,5 +360,56 @@ public class Inventory : MonoBehaviour
         {
             itemRadius = inventorySlots[currentInventorySlot, 0].GetComponent<SphereCollider>().radius;
         }
+    }
+
+    /// <summary>
+    /// Finds an inventory slot to the right and sets the current slot to that.
+    /// </summary>
+    private bool ChangeToActiveRightSlot()
+    {
+        for (int i = currentInventorySlot; i < inventorySlots.GetLength(0) - 1; i++)
+        {
+            if (i + 1 < inventorySlots.GetLength(0) - 1 && inventorySlots[i + 1, 0] != null)
+            {
+                prevInventorySlot = currentInventorySlot;
+                currentInventorySlot = i + 1;
+                return true;
+            }
+            //Cloak is always an active slot, so worst case go to cloak
+            if (i == 2 && currentInventorySlot != 0)
+            {
+                prevInventorySlot = currentInventorySlot;
+                currentInventorySlot = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Finds an inventory slot to the left and sets the current slot to that.
+    /// </summary>
+    private bool ChangeToActiveLeftSlot()
+    {
+        int iterations = 0;
+        for (int i = currentInventorySlot; i > -1; i--)
+        {
+            if (i == 0)
+            {
+                if (iterations == 1)
+                {
+                    return false;
+                }
+                i = 3;
+                iterations++;
+            }
+            if (inventorySlots[i - 1, 0] != null)
+            {
+                prevInventorySlot = currentInventorySlot;
+                currentInventorySlot = i - 1;
+                return true;
+            }
+        }
+        return false;
     }
 }

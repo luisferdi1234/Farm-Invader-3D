@@ -107,15 +107,6 @@ public class Farmer : Enemy
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        //Changes to return state after getting out of range from player
-        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(PatrolState))
-        {
-            stateMachine.ChangeState(new ReturnState(), gameObject);
-        }
-    }
-
     /// <summary>
     /// Checks to see if the player is within the line of sight of the farmer
     /// </summary>

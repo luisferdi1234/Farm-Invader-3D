@@ -27,17 +27,18 @@ public class Cow : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && agent.destination == transform.position)
+        if (gemApple != null && other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && agent.velocity.magnitude < 0.1f)
         {
             Debug.Log("Apple Detected!");
+            AudioManager.instance.PlayRandomAudioClip("cowSounds");
             closestApple = other.gameObject;
             agent.SetDestination(closestApple.transform.position);
             
         }
-        if (gemApple == null)
+        else if (gemApple == null)
         {
             //Checks if player is currently holding an apple, and is in range of cow
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().hasApple)
+            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().inventorySlots[other.gameObject.GetComponent<Inventory>().currentInventorySlot, 0] != null && other.gameObject.GetComponent<Inventory>().inventorySlots[other.gameObject.GetComponent<Inventory>().currentInventorySlot, 0].name.Contains("Apple"))
             {
                 AudioManager.instance.PlayRandomAudioClip("cowSounds");
                 gemApple = Instantiate(foodLove, transform.position + transform.forward + transform.up * 1.5f, transform.rotation);
