@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EscortPoint : MonoBehaviour
 {
-    Canvas canvas;
+    GameObject canvas;
     private void Start()
     {
-        canvas = GameObject.Find("WinScreenCanvas").GetComponent<Canvas>();
+        canvas = GameObject.Find("WinScreenCanvas");
+        canvas.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Item" && other.gameObject.name.Contains("Cow"))
         {
-            canvas.enabled = true;
+            canvas.SetActive(true);
+            canvas.GetComponent<WinScreenCanvas>().OnLevelWon();
         }
     }
 }

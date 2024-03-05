@@ -99,7 +99,6 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void Fire(InputAction.CallbackContext context)
     {
-
         //Check if cow is the nearby object
         if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
         {
@@ -115,7 +114,6 @@ public class Inventory : MonoBehaviour
         }
         else if (nearestItem != null && inventorySlots[3, 0] == null)
         {
-            prevInventorySlot = currentInventorySlot;
             //Checks for an empty inventory slot
             for (int i = 1; i < inventorySlots.GetLength(0); i++)
             {
@@ -134,6 +132,8 @@ public class Inventory : MonoBehaviour
                         {
                             GrabItem(i, j);
                             inventorySlots[i, j].SetActive(false);
+                            inventorySlots[currentInventorySlot, 0].SetActive(true);
+
                             break;
                         }
                     }
