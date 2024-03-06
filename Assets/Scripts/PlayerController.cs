@@ -112,6 +112,11 @@ public class PlayerController : MonoBehaviour
         if (currentItem != null && currentItem.hasAbility)
         {
             inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>().UseAbility();
+            if (currentItem.isReusable == false)
+            {
+                inventory.ReleaseItem();
+                Destroy(currentItem.gameObject);
+            }
         }
     }
 

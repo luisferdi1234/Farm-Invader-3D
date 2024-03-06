@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         spawnOrientation = transform.rotation;
         maxRotation = startingRotation + rotationRange;
         minRotation = startingRotation - rotationRange;
+        hasVision = true;
     }
 
     protected virtual void FixedUpdate()

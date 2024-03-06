@@ -9,11 +9,17 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     private int previousSound;
+    //Farmer Sounds
     [SerializeField] List<AudioClip> chaseSounds;
     [SerializeField] List<AudioClip> returnSounds;
+    [SerializeField] List<AudioClip> empSounds;
+
+    //Cow Sounds
     [SerializeField] List<AudioClip> cowSounds;
     [SerializeField] List<AudioClip> audioClips;
     [SerializeField] List<AudioClip> grassSounds;
+
+    //Dog Sounds
     [SerializeField] List<AudioClip> dogGrowlSounds;
     [SerializeField] List<AudioClip> dogBarkSounds;
 
@@ -27,12 +33,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource alienCharge;
     [SerializeField] AudioSource dogSource;
 
+    int selection;
     public void Start()
     {
         instance = this;
         //Adds audio clip lists to the dictionary
         audioClipsListDictionary.Add("chaseSounds", chaseSounds);
         audioClipsListDictionary.Add("returnSounds", returnSounds);
+        audioClipsListDictionary.Add("empSounds", empSounds);
         audioClipsListDictionary.Add("cowSounds", cowSounds);
         audioClipsListDictionary.Add("grassSounds", grassSounds);
         audioClipsListDictionary.Add("dogGrowlSounds", dogGrowlSounds);
@@ -62,7 +70,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioClipsListDictionary.ContainsKey(listName) && audioClipsListDictionary[listName].Count > 0)
         {
-            if (listName == "chaseSounds" || listName == "returnSounds")
+            if (listName == "chaseSounds" || listName == "returnSounds" || listName == "empSounds")
             {
                 PlaySound(farmerSource, listName);
             }
@@ -92,7 +100,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="listName"></param>
     public void PlaySound(AudioSource audioSource, string listName)
     {
-        int selection = Random.Range(0, audioClipsListDictionary[listName].Count - 1);
+        selection = Random.Range(0, audioClipsListDictionary[listName].Count - 1);
 
         // Exclude the previous sound index
         selection = (selection >= previousSound) ? selection + 1 : selection;

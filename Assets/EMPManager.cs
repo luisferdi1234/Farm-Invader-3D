@@ -22,7 +22,6 @@ public class EMPManager : MonoBehaviour
 
         // Grabs all farmer lights
         farmerLights = GameObject.FindGameObjectsWithTag("FarmerLight");
-
     }
 
     /// <summary>
@@ -54,6 +53,8 @@ public class EMPManager : MonoBehaviour
         {
             light.GetComponent<Light>().enabled = false;
         }
+        AudioManager.instance.PlayRandomAudioClip("empSounds");
+        AudioManager.instance.PlaySpecificSound("Power Down", .8f);
         lightsOff = true;
     }
 

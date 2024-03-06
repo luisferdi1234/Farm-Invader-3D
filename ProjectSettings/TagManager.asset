@@ -9,6 +9,8 @@ TagManager:
   - Apple
   - Cow
   - Invisible
+  - Farmer
+  - FarmerLight
   layers:
   - Default
   - TransparentFX

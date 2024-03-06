@@ -83,18 +83,21 @@ public class Farmer : Enemy
     void OnTriggerStay(Collider other)
     {
         //Changes to Chase State after spotting player
-        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState) && hasVision && CheckLineOfSight())
+        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
-            animator.enabled = true;
-            animator.SetBool("Chasing", true);
-            animator.SetBool("Patrolling", false);
-            animator.SetBool("Returning", false);
-            stateMachine.ChangeState(new ChaseState(), gameObject);
-            AudioManager.instance.PlayRandomAudioClip("chaseSounds");
-            inChase = true;
+            if (hasVision && CheckLineOfSight())
+            {
+                animator.enabled = true;
+                animator.SetBool("Chasing", true);
+                animator.SetBool("Patrolling", false);
+                animator.SetBool("Returning", false);
+                stateMachine.ChangeState(new ChaseState(), gameObject);
+                AudioManager.instance.PlayRandomAudioClip("chaseSounds");
+                inChase = true;
+            }
         }
         //Patrols area after losing sight of player
-        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible") || !hasVision)
+        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && (other.CompareTag("Invisible") || !hasVision))
         {
             animator.enabled = true;
             animator.SetBool("Chasing", false);

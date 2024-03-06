@@ -121,6 +121,8 @@ public class Inventory : MonoBehaviour
                 if (inventorySlots[i, 0] == null)
                 {
                     GrabItem(i, 0);
+                    inventorySlots[prevInventorySlot, 0].SetActive(false);
+                    inventorySlots[currentInventorySlot, 0].SetActive(true);
                     break;
                 }
                 //Else, check to see if item can be stacked
@@ -143,7 +145,6 @@ public class Inventory : MonoBehaviour
         }
         else if (currentInventorySlot != 0 && inventorySlots[currentInventorySlot, 0] != null)
         {
-            string itemName = inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName;
             ReleaseItem();
         }
         Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
