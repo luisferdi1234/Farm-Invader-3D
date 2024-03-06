@@ -26,6 +26,7 @@ public class Farmer : Enemy
     protected override void Start()
     {
         base.Start();
+        stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
         if (differentRotation != startingRotation)
         {
             startingRotation = differentRotation;
@@ -82,20 +83,18 @@ public class Farmer : Enemy
     void OnTriggerStay(Collider other)
     {
         //Changes to Chase State after spotting player
-        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
+        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState) && hasVision && CheckLineOfSight())
         {
-            if (CheckLineOfSight())
-            {
-                animator.enabled = true;
-                animator.SetBool("Chasing", true);
-                animator.SetBool("Patrolling", false);
-                animator.SetBool("Returning", false);
-                stateMachine.ChangeState(new ChaseState(), gameObject);
-                inChase = true;
-            }
+            animator.enabled = true;
+            animator.SetBool("Chasing", true);
+            animator.SetBool("Patrolling", false);
+            animator.SetBool("Returning", false);
+            stateMachine.ChangeState(new ChaseState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("chaseSounds");
+            inChase = true;
         }
         //Patrols area after losing sight of player
-        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
+        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible") || !hasVision)
         {
             animator.enabled = true;
             animator.SetBool("Chasing", false);

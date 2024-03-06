@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 387270400119562869}
   m_Layer: 0
   m_Name: Spot Light
-  m_TagString: Untagged
+  m_TagString: FarmerLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,6 +246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
       propertyPath: m_Name
+      value: Farmer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}
+      propertyPath: m_TagString
       value: Farmer
       objectReference: {fileID: 0}
     - target: {fileID: 5746789761941700263, guid: e8196b76e6108b74aa9c9192f64f5003, type: 3}

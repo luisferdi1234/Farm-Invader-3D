@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public float startingRotation = 0f;
     public float maxRotation;
     public float minRotation;
+    [HideInInspector] public bool hasVision;
 
     protected EnemyStateMachine stateMachine;
 
@@ -24,7 +25,6 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Alien").gameObject;
         agent = GetComponent<NavMeshAgent>();
-        stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
         spawnPoint = gameObject.transform.position;
         spawnOrientation = transform.rotation;
         maxRotation = startingRotation + rotationRange;

@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> cowSounds;
     [SerializeField] List<AudioClip> audioClips;
     [SerializeField] List<AudioClip> grassSounds;
+    [SerializeField] List<AudioClip> dogGrowlSounds;
+    [SerializeField] List<AudioClip> dogBarkSounds;
 
     Dictionary<string, List<AudioClip>> audioClipsListDictionary = new Dictionary<string, List<AudioClip>>();
     Dictionary<string, AudioClip> audioClipDictionary = new Dictionary<string, AudioClip>();
@@ -23,6 +25,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource farmerSource;
     [SerializeField] AudioSource grassSource;
     [SerializeField] AudioSource alienCharge;
+    [SerializeField] AudioSource dogSource;
 
     public void Start()
     {
@@ -32,7 +35,9 @@ public class AudioManager : MonoBehaviour
         audioClipsListDictionary.Add("returnSounds", returnSounds);
         audioClipsListDictionary.Add("cowSounds", cowSounds);
         audioClipsListDictionary.Add("grassSounds", grassSounds);
-        foreach(AudioClip clip in audioClips)
+        audioClipsListDictionary.Add("dogGrowlSounds", dogGrowlSounds);
+        audioClipsListDictionary.Add("dogBarkSounds", dogBarkSounds);
+        foreach (AudioClip clip in audioClips)
         {
             audioClipDictionary.Add(clip.name, clip);
         }
@@ -69,6 +74,10 @@ public class AudioManager : MonoBehaviour
             {
                 PlaySound(grassSource, listName);
             }
+            else if (listName == "dogGrowlSounds" || listName == "dogBarkSounds")
+            {
+                PlaySound(dogSource, listName);
+            }
         }
         else
         {
@@ -76,6 +85,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays a random sound in the list
+    /// </summary>
+    /// <param name="audioSource"></param>
+    /// <param name="listName"></param>
     public void PlaySound(AudioSource audioSource, string listName)
     {
         int selection = Random.Range(0, audioClipsListDictionary[listName].Count - 1);
@@ -88,7 +102,16 @@ public class AudioManager : MonoBehaviour
 
         //Play the sound
         AudioClip randomClip = audioClipsListDictionary[listName][selection];
-        audioSource.PlayOneShot(randomClip);
+
+        if (listName == "dogBarkSounds" || listName == "dogGrowlSounds")
+        {
+            audioSource.clip = randomClip;
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.PlayOneShot(randomClip);
+        }
     }
 
     public void PlayAlienCharge()
