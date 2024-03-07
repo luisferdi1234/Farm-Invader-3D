@@ -14,6 +14,7 @@ public class EMPItem : Item
     {
         empManager.GetComponent<EMPManager>().EMPOn();
         energy = 0f;
+
     }
 
     public override void TurnOffAbility()

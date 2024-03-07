@@ -126,7 +126,7 @@ public class Inventory : MonoBehaviour
                     break;
                 }
                 //Else, check to see if item can be stacked
-                else if (inventorySlots[i, 0].GetComponent<Item>().itemName == nearestItem.GetComponent<Item>().itemName)
+                else if (inventorySlots[i, 0].GetComponent<Item>().itemName == nearestItem.GetComponent<Item>().itemName && nearestItem.GetComponent<Item>().stackable)
                 {
                     for (int j = 1; j < inventorySlots.GetLength(1); j++)
                     {
@@ -241,11 +241,26 @@ public class Inventory : MonoBehaviour
             {
                 hasApple = false;
             }
+            if (inventorySlots[currentInventorySlot, 0] == null && inventorySlots[prevInventorySlot, 0] == null)
+            {
+                currentInventorySlot = 0;
+            }
+            else if (inventorySlots[currentInventorySlot, 0] == null)
+            {
+                currentInventorySlot = prevInventorySlot;
+            }
         }
         else
         {
             inventorySlots[currentInventorySlot, 0] = null;
-            currentInventorySlot = prevInventorySlot;
+            if (inventorySlots[prevInventorySlot, 0] == null)
+            {
+                currentInventorySlot = 0;
+            }
+            else
+            {
+                currentInventorySlot = prevInventorySlot;
+            }
             if (inventorySlots[currentInventorySlot, 0] != null && !inventorySlots[currentInventorySlot, 0].active)
             {
                 inventorySlots[currentInventorySlot, 0].SetActive(true);

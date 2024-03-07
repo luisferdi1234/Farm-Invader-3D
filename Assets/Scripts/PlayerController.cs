@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="context"></param>
     private void UseAbility(InputAction.CallbackContext context)
     {
-        if (currentItem != null && currentItem.hasAbility)
+        if (currentItem != null && currentItem.hasAbility && currentItem.energy >= currentItem.maxEnergy)
         {
             inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>().UseAbility();
             if (currentItem.isReusable == false)

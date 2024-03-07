@@ -30,15 +30,12 @@ public class CloakItem : Item
 
     public override void UseAbility()
     {
-        if (energy >= maxEnergy)
-        {
-            InvisInUse = true;
-            gameObject.transform.parent.transform.parent.tag = "Invisible";
-            energy = 0;
-            AudioManager.instance.PlaySpecificSound("AlienCloak", 1f);
-            //Changes Material
-            ChangePlayerMaterial(invisibilityMaterial);
-        }
+        InvisInUse = true;
+        gameObject.transform.parent.transform.parent.tag = "Invisible";
+        energy = 0;
+        AudioManager.instance.PlaySpecificSound("AlienCloak", 1f);
+        //Changes Material
+        ChangePlayerMaterial(invisibilityMaterial);
     }
 
     public override void TurnOffAbility()
