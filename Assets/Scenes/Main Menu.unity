@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0.8759048, b: 0, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -435,18 +435,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAnimated: 1
-  isRotating: 1
+  isAnimated: 0
+  isRotating: 0
   isFloating: 0
   isScaling: 0
-  rotationAngle: {x: 0, y: 10, z: 0}
-  rotationSpeed: 10
-  floatSpeed: 0.04
-  floatRate: 0.5
-  startScale: {x: 1, y: 1, z: 1}
-  endScale: {x: 1.5, y: 1.5, z: 1.5}
-  scaleSpeed: 1
-  scaleRate: 0.5
+  rotationAngle: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
+  floatSpeed: 0
+  floatRate: 0
+  startScale: {x: 0, y: 0, z: 0}
+  endScale: {x: 0, y: 0, z: 0}
+  scaleSpeed: 0
+  scaleRate: 0
 --- !u!1 &100698291
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -465, y: -289.13263}
+  m_AnchoredPosition: {x: -465, y: -314.85355}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &117459874
@@ -1556,6 +1556,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362939587}
   m_CullTransparentMesh: 1
+--- !u!1 &376562183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4941788663410351133, guid: 5a24963a1dd1d9a49aa5f4753a6fd7cd, type: 3}
+  m_PrefabInstance: {fileID: 500324827588444081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &398570468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,7 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 37865037}
-  cow: {fileID: 1870122065}
+  cow: {fileID: 376562183}
 --- !u!95 &676155817
 Animator:
   serializedVersion: 7
@@ -3549,7 +3554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -706.98785, y: -267.34943}
+  m_AnchoredPosition: {x: -706.98785, y: -293.07037}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158576389
@@ -3565,7 +3570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0.8759048, b: 0, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -4842,11 +4847,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818984314}
   m_CullTransparentMesh: 1
---- !u!1 &1870122065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4941788663410351133, guid: 5a24963a1dd1d9a49aa5f4753a6fd7cd, type: 3}
-  m_PrefabInstance: {fileID: 500324827588444081}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1874539791
 GameObject:
   m_ObjectHideFlags: 0
@@ -6089,8 +6089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d41c288e575eb84aac00fc3b880a5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1270148026}
-  speed: 15
+  target: {fileID: 117459873}
+  speed: 5
 --- !u!1 &142795463224615914
 GameObject:
   m_ObjectHideFlags: 0

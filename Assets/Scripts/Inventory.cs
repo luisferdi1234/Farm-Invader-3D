@@ -121,6 +121,10 @@ public class Inventory : MonoBehaviour
                 if (inventorySlots[i, 0] == null)
                 {
                     GrabItem(i, 0);
+                    if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                    {
+                        inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                    }
                     inventorySlots[prevInventorySlot, 0].SetActive(false);
                     inventorySlots[currentInventorySlot, 0].SetActive(true);
                     break;
@@ -133,6 +137,10 @@ public class Inventory : MonoBehaviour
                         if (inventorySlots[i, j] == null)
                         {
                             GrabItem(i, j);
+                            if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                            {
+                                inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                            }
                             inventorySlots[i, j].SetActive(false);
                             inventorySlots[currentInventorySlot, 0].SetActive(true);
 
@@ -337,7 +345,6 @@ public class Inventory : MonoBehaviour
     {
         animator.SetBool("CarryingCow", true);
         slot.GetComponent<NavMeshAgent>().enabled = false;
-        slot.GetComponent<Rigidbody>().isKinematic = false;
         playerController.moveSpeed = playerController.cowSlowDown;
         // Set the initial relative rotation of the cow when picked up
         Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
@@ -354,7 +361,6 @@ public class Inventory : MonoBehaviour
     {
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[3,0].transform.position);
-        inventorySlots[3, 0].GetComponent<Rigidbody>().isKinematic = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;
     }

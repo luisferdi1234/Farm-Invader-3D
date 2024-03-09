@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EscortPoint : MonoBehaviour
 {
-    GameObject canvas;
     private void Start()
     {
-        canvas = GameObject.Find("WinScreenCanvas");
-        canvas.SetActive(false);
+
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Item" && other.gameObject.name.Contains("Cow"))
         {
-            canvas.SetActive(true);
-            canvas.GetComponent<WinScreenCanvas>().OnLevelWon();
+            other.GetComponent<NavMeshAgent>().enabled = false;
+            other.GetComponent<AnimationScript>().enabled = true;
+            other.tag = "Abducted";
+            other.GetComponent<Rigidbody>().velocity = new Vector3(0, 8, 0);
+        }
+        else if (other.gameObject.name.Contains("Alien"))
+        {
+            other.GetComponent<PlayerController>().inUFO = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name.Contains("Alien"))
+        {
+            other.GetComponent<PlayerController>().inUFO = false;
         }
     }
 }

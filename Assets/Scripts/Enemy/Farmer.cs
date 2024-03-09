@@ -92,6 +92,7 @@ public class Farmer : Enemy
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
                 stateMachine.ChangeState(new ChaseState(), gameObject);
+                ScoreManager.Instance.SpottedAlien();
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 inChase = true;
             }

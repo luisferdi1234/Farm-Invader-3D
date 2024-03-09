@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float cowSlowDown = 2f;
     [SerializeField] GameObject alienModel;
 
+    public bool inUFO = false;
+
     [HideInInspector] public float moveSpeed = 9f;
 
     //Gadget variables
@@ -125,24 +127,34 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Recharge()
     {
-        if (recharge.ReadValue<float>() > 0.5f && inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && currentItem != null && currentItem.isRechargeable && currentItem.energy < currentItem.maxEnergy)
+        if (recharge.ReadValue<float>() > 0.5f && inUFO)
         {
-            AudioManager.instance.PlayAlienCharge();
-            particleAttractorLinear particles = inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
-            inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
-            particles.target = transform;
-            currentItem.energy += Time.deltaTime;
-            if (currentItem.energy > currentItem.maxEnergy)
+            if (ScoreManager.Instance.LevelCompleted())
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (recharge.ReadValue<float>() > 0.5f && inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && currentItem != null && currentItem.isRechargeable && currentItem.energy < currentItem.maxEnergy)
+            {
+                AudioManager.instance.PlayAlienCharge();
+                particleAttractorLinear particles = inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<particleAttractorLinear>();
+                inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Play();
+                particles.target = transform;
+                currentItem.energy += Time.deltaTime;
+                if (currentItem.energy > currentItem.maxEnergy)
+                {
+                    AudioManager.instance.PauseAlienCharge();
+                    inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
+                    currentItem.energy = currentItem.maxEnergy;
+                }
+            }
+            else if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
             {
                 AudioManager.instance.PauseAlienCharge();
                 inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
-                currentItem.energy = currentItem.maxEnergy;
             }
-        }
-        else if (inventory.nearestItem != null && inventory.nearestItem.name.Contains("Cow") && inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().isPlaying)
-        {
-            AudioManager.instance.PauseAlienCharge();
-            inventory.nearestItem.GetComponent<Item>().lightning.GetComponent<ParticleSystem>().Stop();
         }
     }
 

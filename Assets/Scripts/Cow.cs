@@ -51,7 +51,7 @@ public class Cow : MonoBehaviour
     {
         if (gemApple != null)
         {
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().hasApple)
+            if (other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().hasApple)
             {
                 closestApple = null;
                 Destroy(gemApple);

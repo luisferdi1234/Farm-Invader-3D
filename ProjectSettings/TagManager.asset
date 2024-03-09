@@ -11,6 +11,8 @@ TagManager:
   - Invisible
   - Farmer
   - FarmerLight
+  - Level
+  - Abducted
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Item
   - Cow
   - Invisible
-  - 
+  - Enemy
   - 
   - 
   - 

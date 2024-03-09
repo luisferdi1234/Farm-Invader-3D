@@ -122,6 +122,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays the Alien Charge Sound
+    /// </summary>
     public void PlayAlienCharge()
     {
         if (alienCharge.isPlaying)

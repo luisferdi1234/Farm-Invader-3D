@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerProgressManager : MonoBehaviour
 {
+    bool introPlayed = false;
+    public bool IntroPlayed { get => introPlayed; set => introPlayed = value; }
+
     // Singleton instance
     private static PlayerProgressManager _instance;
 
@@ -46,11 +49,20 @@ public class PlayerProgressManager : MonoBehaviour
 
     // Optional: Other methods for player progress management
 
-    public void LevelComplete(string levelName)
+    public void LevelComplete(string levelName, int score)
     {
-        // Save the progress using PlayerPrefs
-        PlayerPrefs.SetInt(levelName, 1);
-        PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetInt(levelName));
+        //if the current score is higher, set new high score
+        if (score > PlayerPrefs.GetInt(levelName))
+        {
+            // Save the progress using PlayerPrefs
+            PlayerPrefs.SetInt(levelName, score);
+            PlayerPrefs.Save();
+            Debug.Log(PlayerPrefs.GetInt(levelName));
+        }
+    }
+
+    public void PlayIntro()
+    {
+        introPlayed = true;
     }
 }
