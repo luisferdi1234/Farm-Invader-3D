@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -20,6 +21,7 @@ public class UFOController : MonoBehaviour
 
     InputAction move;
     InputAction fire;
+    InputAction pause;
 
     private void Awake()
     {
@@ -37,6 +39,10 @@ public class UFOController : MonoBehaviour
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+
+        pause = playerControls.Player.Pause;
+        pause.Enable();
+        pause.performed += Pause;
     }
 
     private void OnDisable()
@@ -60,11 +66,26 @@ public class UFOController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        if (currentLevel != "")
+        if (currentLevel == "Reset Data")
+        {
+            PlayerPrefs.DeleteAll();
+            DataDeletionManager.instance.DeleteAllOtherLevels();
+        }
+        else if (currentLevel != "")
         {
             SceneManager.LoadScene(currentLevel);
         }
     }
+
+    /// <summary>
+    /// Returns to main menu
+    /// </summary>
+    /// <param name="context"></param>
+    private void Pause(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

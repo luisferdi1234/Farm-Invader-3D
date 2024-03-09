@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Linq;
 
 public class WinScreenCanvas : MonoBehaviour
 {
@@ -19,7 +20,9 @@ public class WinScreenCanvas : MonoBehaviour
         ui.SetActive(false);
         string currentLevel = SceneManager.GetActiveScene().name;
 
-        scoreDescriptionText.text = $"Times Spotted By Farmers: {ScoreManager.Instance.spot} \n Cows Abducted: {ScoreManager.Instance.cows}";
+        scoreDescriptionText.text = $"Times Spotted By Farmers: {ScoreManager.Instance.spot}";
+        scoreDescriptionText.text += $"\n Cows collected: {ScoreManager.Instance.cows} / {ScoreManager.Instance.maxAmountOfCows}";
+
         int score = ScoreManager.Instance.AddUpScore();
 
         if (score == 1)

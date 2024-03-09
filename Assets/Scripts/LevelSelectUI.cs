@@ -23,7 +23,7 @@ public class LevelSelectUI : MonoBehaviour
         {
             LevelInfo levelInfo = ufoController.levelObject.GetComponent<LevelInfo>();
             background.enabled = true;
-            if(levelInfo.levelName == "Main Menu")
+            if(levelInfo.score == -1)
             {
                 ShowMenuText();
             }
@@ -44,7 +44,7 @@ public class LevelSelectUI : MonoBehaviour
     {
         LevelInfo levelInfo = ufoController.levelObject.GetComponent<LevelInfo>();
         background.enabled = true;
-        levelNameText.text = $"Main Menu: \n{levelInfo.levelDescription}";
+        levelNameText.text = $"{levelInfo.gameObject.name}: \n {levelInfo.levelDescription}";
         currentScore.text = "";
     }
 

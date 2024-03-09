@@ -35,6 +35,7 @@ public class EMPManager : MonoBehaviour
             if (empTimer > maxEMPTime)
             {
                 EMPOff();
+                empTimer = 0;
             }
         }
     }

@@ -27,7 +27,7 @@ public class LevelInfo : MonoBehaviour
                 GetComponent<Outline>().OutlineColor = Color.yellow;
             }
         }
-        else if (levelName != "Main Menu")
+        else if (score != -1)
         {
             gameObject.SetActive(false);
         }

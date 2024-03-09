@@ -1036,6 +1036,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4375008386186621828, guid: d4e26acb5a8f03844a80d5f42c875aaf, type: 3}
+      propertyPath: rotationRange
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375008386186621828, guid: d4e26acb5a8f03844a80d5f42c875aaf, type: 3}
       propertyPath: startingRotation
       value: 0
       objectReference: {fileID: 0}
@@ -10521,6 +10525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b5c45f78430bb4fb59b6859d57052d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmountOfCows: 2
   spot: 0
   cows: 0
   completion: 0

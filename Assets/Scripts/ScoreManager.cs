@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
     GameObject canvas;
+    [SerializeField] public int maxAmountOfCows;
 
     public int spot = 0;
     public int cows = 0;
@@ -32,7 +33,7 @@ public class ScoreManager : MonoBehaviour
     public void AddUpCows()
     {
         cows += 1;
-        if (cows >= 2)
+        if (cows >= maxAmountOfCows)
         {
             LevelCompleted();
         }
@@ -66,7 +67,7 @@ public class ScoreManager : MonoBehaviour
         {
             spot = 1;
         }
-        if (cows >= 2)
+        if (cows >= maxAmountOfCows)
         {
             cows = 1;
         }
