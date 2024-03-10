@@ -23,6 +23,12 @@ public class Dog : Enemy
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && player.CompareTag("Invisible"))
+        {
+            stateMachine.ChangeState(new DogPatrolState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
+        }
     }
     void OnTriggerStay(Collider other)
     {
@@ -32,12 +38,6 @@ public class Dog : Enemy
             stateMachine.ChangeState(new ChaseState(), gameObject);
             inChase = true;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
-        }
-        //Patrols area after losing sight of player
-        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Invisible"))
-        {
-            stateMachine.ChangeState(new DogPatrolState(), gameObject);
-            AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
         }
     }
 }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerProgressManager : MonoBehaviour
 {
-    bool introPlayed = false;
-    public bool IntroPlayed { get => introPlayed; set => introPlayed = value; }
-
     // Singleton instance
     private static PlayerProgressManager _instance;
 
@@ -59,10 +56,5 @@ public class PlayerProgressManager : MonoBehaviour
             PlayerPrefs.Save();
             Debug.Log(PlayerPrefs.GetInt(levelName));
         }
-    }
-
-    public void PlayIntro()
-    {
-        introPlayed = true;
     }
 }

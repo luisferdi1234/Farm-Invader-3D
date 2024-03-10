@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -51,6 +50,8 @@ public class UFOController : MonoBehaviour
         move.Disable();
 
         fire.Disable();
+
+        pause.Disable();
     }
 
     private void Update()
