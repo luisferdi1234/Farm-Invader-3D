@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 1.2
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4106655325548952355
 MonoBehaviour:
@@ -642,6 +642,7 @@ MonoBehaviour:
   maxMoveSpeed: 9
   cowSlowDown: 4
   alienModel: {fileID: 2664311040544215342}
+  inUFO: 0
   moveSpeed: 9
 --- !u!95 &-5728082641939378750
 Animator:

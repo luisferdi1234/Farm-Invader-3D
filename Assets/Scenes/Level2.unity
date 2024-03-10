@@ -18960,7 +18960,7 @@ PrefabInstance:
     - target: {fileID: 8400841847940986392, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
       propertyPath: scoreDescriptionText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8503940056151839780}
     - target: {fileID: 8495233633580955593, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 800
@@ -18988,6 +18988,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
+--- !u!114 &8503940056151839780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1448128016423879891, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
+  m_PrefabInstance: {fileID: 8503940056151839779}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9123901005399134856
 PrefabInstance:
   m_ObjectHideFlags: 0

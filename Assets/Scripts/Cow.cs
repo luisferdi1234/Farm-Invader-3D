@@ -10,18 +10,21 @@ public class Cow : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject gemApple;
     private GameObject closestApple;
+    Inventory inventory;
 
     private void Start()
     {
         agent = transform.parent.GetComponent<NavMeshAgent>();
         sphereCollider = GetComponent<SphereCollider>();
+        inventory  = GameObject.Find("Alien").gameObject.GetComponent<Inventory>(); 
     }
 
     private void Update()
     {
-        if (agent.isActiveAndEnabled && closestApple == null && agent.destination != transform.position)
+        if (inventory.inventorySlots[inventory.currentInventorySlot, 0] == closestApple)
         {
             agent.SetDestination(transform.position);
+            closestApple = null;
             Destroy(gemApple);
         }
     }
@@ -38,8 +41,9 @@ public class Cow : MonoBehaviour
         else if (gemApple == null)
         {
             //Checks if player is currently holding an apple, and is in range of cow
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().inventorySlots[other.gameObject.GetComponent<Inventory>().currentInventorySlot, 0] != null && other.gameObject.GetComponent<Inventory>().inventorySlots[other.gameObject.GetComponent<Inventory>().currentInventorySlot, 0].name.Contains("Apple"))
+            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple"))
             {
+                Debug.Log("Apple Nearby!");
                 AudioManager.instance.PlayRandomAudioClip("cowSounds");
                 gemApple = Instantiate(foodLove, transform.position + transform.forward + transform.up * 1.5f, transform.rotation);
                 gemApple.transform.parent = transform;
@@ -51,7 +55,7 @@ public class Cow : MonoBehaviour
     {
         if (gemApple != null)
         {
-            if (other.gameObject.name.Contains("Alien") && other.gameObject.GetComponent<Inventory>().hasApple)
+            if (other.gameObject.name.Contains("Alien") && inventory.hasApple)
             {
                 closestApple = null;
                 Destroy(gemApple);
