@@ -65,6 +65,7 @@ public class PauseMenu : MonoBehaviour
     public void Menu()
     {
         Time.timeScale = 1f;
+        PlayerProgressManager.Instance.menuMusic.Play();
         SceneManager.LoadScene("Main Menu");
     }
 

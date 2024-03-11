@@ -29,6 +29,18 @@ public class UFOController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        if (PlayerProgressManager.Instance.playerPosition != Vector3.zero)
+        {
+            transform.position = PlayerProgressManager.Instance.playerPosition;
+        }
+        if(PlayerProgressManager.Instance.menuMusic != null && !PlayerProgressManager.Instance.menuMusic.isPlaying)
+        {
+            PlayerProgressManager.Instance.menuMusic.Play();
+        }
+    }
+
     private void OnEnable()
     {
         //Input System
@@ -74,6 +86,8 @@ public class UFOController : MonoBehaviour
         }
         else if (currentLevel != "")
         {
+            PlayerProgressManager.Instance.SaveLevelSelectPosition(gameObject);
+            PlayerProgressManager.Instance.menuMusic.Stop();
             SceneManager.LoadScene(currentLevel);
         }
     }

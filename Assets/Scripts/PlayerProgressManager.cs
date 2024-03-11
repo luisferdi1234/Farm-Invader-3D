@@ -5,42 +5,34 @@ using UnityEngine;
 public class PlayerProgressManager : MonoBehaviour
 {
     // Singleton instance
-    private static PlayerProgressManager _instance;
+    public static PlayerProgressManager Instance;
 
-    // Public property to access the singleton instance
-    public static PlayerProgressManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<PlayerProgressManager>();
+    public Vector3 playerPosition = Vector3.zero;
 
-                if (_instance == null)
-                {
-                    // If no instance found in the scene, create a new GameObject and add the script
-                    GameObject singletonObject = new GameObject(typeof(PlayerProgressManager).Name);
-                    _instance = singletonObject.AddComponent<PlayerProgressManager>();
-                }
-            }
-
-            return _instance;
-        }
-    }
+    public AudioSource menuMusic;
 
     // Optional: Other initialization logic can go here
 
     private void Awake()
     {
         // Ensure there's only one instance
-        if (_instance != null && _instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            _instance = this;
+            Instance = this;
             DontDestroyOnLoad(this.gameObject);
+        }
+        menuMusic = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        if (menuMusic == null)
+        {
+            menuMusic = GetComponent<AudioSource>();
         }
     }
 
@@ -56,5 +48,13 @@ public class PlayerProgressManager : MonoBehaviour
             PlayerPrefs.Save();
             Debug.Log(PlayerPrefs.GetInt(levelName));
         }
+    }
+
+    /// <summary>
+    /// Saves the position of the UFO
+    /// </summary>
+    public void SaveLevelSelectPosition(GameObject ufo)
+    {
+        playerPosition = ufo.transform.position;
     }
 }

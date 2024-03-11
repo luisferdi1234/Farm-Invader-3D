@@ -72,7 +72,7 @@ public class InventoryUI : MonoBehaviour
                         break;
                     }
                 }
-                itemName.text = currentItem.itemName + $" ({currentItemCount})";
+                itemName.text = currentItem.itemName + $" ({currentItemCount} / 3)";
             }
             else
             {

@@ -44,6 +44,7 @@ public class WinScreenCanvas : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;
+        PlayerProgressManager.Instance.menuMusic.Play();
         SceneManager.LoadScene("Main Menu");
     }
 

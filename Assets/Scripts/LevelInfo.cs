@@ -7,6 +7,7 @@ public class LevelInfo : MonoBehaviour
     [SerializeField] public string levelName;
     [SerializeField] public string previousLevel;
     [SerializeField] public string levelDescription;
+    [SerializeField] public string attainableCows;
     public int score;
 
     private void Start()

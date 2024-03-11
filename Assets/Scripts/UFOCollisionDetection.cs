@@ -8,7 +8,7 @@ public class UFOCollisionDetection : MonoBehaviour
     {
         if (other.gameObject.tag == "Abducted" && other.gameObject.name.Contains("Cow"))
         {
-            AudioManager.instance.PlayRandomAudioClip("cowSounds");
+            AudioManager.instance.PlaySpecificSound("Cow Abducted", 1f);
             Destroy(other.gameObject);
             ScoreManager.Instance.AddUpCows();
         }
