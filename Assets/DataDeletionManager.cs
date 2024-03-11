@@ -22,7 +22,7 @@ public class DataDeletionManager : MonoBehaviour
         {
             LevelInfo levelInfo = level.GetComponent<LevelInfo>();
 
-            if (!(levelInfo.score == -1 || levelInfo.levelName == "Level1"))
+            if (!(levelInfo.score == -1 || levelInfo.sceneName == "Level1"))
             {
                 if (level.active)
                 {

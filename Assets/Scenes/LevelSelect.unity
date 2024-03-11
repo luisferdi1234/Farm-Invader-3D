@@ -169,8 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level5
+  sceneName: Level5
   previousLevel: Level4
+  levelName: Level 5
   levelDescription: U
   attainableCows: 2
   score: 0
@@ -16268,8 +16269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level1
+  sceneName: Level1
   previousLevel: 
+  levelName: Level 1
   levelDescription: First Hunt
   attainableCows: 1
   score: 0
@@ -21386,8 +21388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level10
+  sceneName: Level10
   previousLevel: Level9
+  levelName: Level 10
   levelDescription: Going Dark 3
   attainableCows: 1
   score: 0
@@ -21969,8 +21972,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level3
+  sceneName: Level3
   previousLevel: Level2
+  levelName: Level 3
   levelDescription: Now You See Me Now You Dont
   attainableCows: 1
   score: 0
@@ -32473,7 +32477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 0}
-  capusleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   lightning: {fileID: 0}
   isRechargeable: 1
   hasAbility: 1
@@ -37776,8 +37780,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level2
+  sceneName: Level2
   previousLevel: Level1
+  levelName: Level 2
   levelDescription: Cosmic Apple
   attainableCows: 1
   score: 0
@@ -38033,8 +38038,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level9
+  sceneName: Level9
   previousLevel: Level8
+  levelName: Level 9
   levelDescription: Going Dark 2
   attainableCows: 1
   score: 0
@@ -43752,8 +43758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Reset Data
+  sceneName: 
   previousLevel: 
+  levelName: 
   levelDescription: Deletes all saved data
   attainableCows: 
   score: -1
@@ -44475,8 +44482,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level7
+  sceneName: Level7
   previousLevel: Level6
+  levelName: Level 7
   levelDescription: Fenced In
   attainableCows: 2
   score: 0
@@ -67154,8 +67162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Main Menu
+  sceneName: 
   previousLevel: 
+  levelName: 
   levelDescription: Return to Menu
   attainableCows: 
   score: -1
@@ -67944,8 +67953,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level11
+  sceneName: Level11
   previousLevel: Level10
+  levelName: Level 11
   levelDescription: Thread The Needle
   attainableCows: 2
   score: 0
@@ -68407,7 +68417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 0}
-  capusleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   lightning: {fileID: 0}
   isRechargeable: 1
   hasAbility: 1
@@ -69421,8 +69431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level4
+  sceneName: Level4
   previousLevel: Level3
+  levelName: Level 4
   levelDescription: Cows <3 Apples
   attainableCows: 1
   score: 0
@@ -69579,8 +69590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level8
+  sceneName: Level8
   previousLevel: Level7
+  levelName: Level 8
   levelDescription: Going Dark 1
   attainableCows: 1
   score: 0
@@ -69703,8 +69715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d06361b798ebfd47b9a52599c674d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level6
+  sceneName: Level6
   previousLevel: Level5
+  levelName: Level 6
   levelDescription: Here Doggy Doggy
   attainableCows: 1
   score: 0

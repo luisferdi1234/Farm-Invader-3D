@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class LevelInfo : MonoBehaviour
 {
-    [SerializeField] public string levelName;
+    [SerializeField] public string sceneName;
     [SerializeField] public string previousLevel;
+    [SerializeField] public string levelName;
     [SerializeField] public string levelDescription;
     [SerializeField] public string attainableCows;
     public int score;
 
     private void Start()
     {
-        if (levelName == "Level1" || PlayerPrefs.HasKey(previousLevel))
+        if (sceneName == "Level1" || PlayerPrefs.HasKey(previousLevel))
         {
-            score = PlayerPrefs.GetInt(levelName);
+            score = PlayerPrefs.GetInt(sceneName);
             if (score == 1)
             {
                 GetComponent<Outline>().OutlineColor = Color.red;

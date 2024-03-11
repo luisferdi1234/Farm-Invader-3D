@@ -108,7 +108,7 @@ public class UFOController : MonoBehaviour
         {
             levelObject = other.gameObject;
             levelObject.GetComponent<Outline>().enabled = true;
-            currentLevel = levelObject.GetComponent<LevelInfo>().levelName;
+            currentLevel = levelObject.GetComponent<LevelInfo>().sceneName;
         }
     }
 

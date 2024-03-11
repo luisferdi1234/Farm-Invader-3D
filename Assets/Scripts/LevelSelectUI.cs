@@ -50,7 +50,7 @@ public class LevelSelectUI : MonoBehaviour
 
     private void ShowLevelText(LevelInfo levelInfo)
     {
-        levelNameText.text = $"Level {ufoController.currentLevel[ufoController.currentLevel.Length - 1].ToString()}: \n{levelInfo.levelDescription} \n \n Attainable Cows: {levelInfo.attainableCows}";
+        levelNameText.text = $"{levelInfo.levelName}: \n{levelInfo.levelDescription} \n \n Attainable Cows: {levelInfo.attainableCows}";
         if (levelInfo.score == 1)
         {
             currentScore.text = $"High Score: \nBronze";

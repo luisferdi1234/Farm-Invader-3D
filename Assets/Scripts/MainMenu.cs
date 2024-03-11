@@ -28,24 +28,28 @@ public class MainMenu : MonoBehaviour
             DisplayPrompt("Use 'Right Click' to use gadgets", gadgetText);
             DisplayPrompt("Use 'Space' to recharge gadget while next to a cow and to extract from level (while near a UFO)", rechargeText);
         }
-        foreach (var device in InputSystem.devices)
+        else
         {
-            if (device is Gamepad gamepad)
+            foreach (var device in InputSystem.devices)
             {
-                // Check for specific controllers based on name
-                if (gamepad.name.Contains("Xbox")) // Xbox controller
+                Debug.Log("Device: " + device.name);
+                if (device is Gamepad gamepad)
                 {
-                    DisplayPrompt("Use Left Stick to move", movementText);
-                    DisplayPrompt("Use 'A' to pick up items and cows", pickUpText);
-                    DisplayPrompt("Use 'X' to use gadgets, and L1 and R1 to swap inventory", gadgetText);
-                    DisplayPrompt("Use 'B' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
-                }
-                else if (gamepad.name.Contains("Sony")) // PS4 or PS5 controller
-                {
-                    DisplayPrompt("Use Left Stick to move", movementText);
-                    DisplayPrompt("Use 'X' to pick up items and cows, and L1 and R1 to swap inventory", pickUpText);
-                    DisplayPrompt("Use 'Square' to use gadgets", gadgetText);
-                    DisplayPrompt("Use 'Circle' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
+                    // Check for specific controllers based on name
+                    if (gamepad.name.Contains("Xbox")) // Xbox controller
+                    {
+                        DisplayPrompt("Use Left Stick to move", movementText);
+                        DisplayPrompt("Use 'A' to pick up items and cows", pickUpText);
+                        DisplayPrompt("Use 'X' to use gadgets, and L1 and R1 to swap inventory", gadgetText);
+                        DisplayPrompt("Use 'B' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
+                    }
+                    else if (gamepad.name.Contains("Sony") || gamepad.name.Contains("DualSense")) // PS4 or PS5 controller
+                    {
+                        DisplayPrompt("Use Left Stick to move", movementText);
+                        DisplayPrompt("Use 'X' to pick up items and cows, and L1 and R1 to swap inventory", pickUpText);
+                        DisplayPrompt("Use 'Square' to use gadgets", gadgetText);
+                        DisplayPrompt("Use 'Circle' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
+                    }
                 }
             }
         }
