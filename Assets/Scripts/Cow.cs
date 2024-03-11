@@ -27,6 +27,11 @@ public class Cow : MonoBehaviour
             closestApple = null;
             Destroy(gemApple);
         }
+        else if (agent.isActiveAndEnabled && closestApple == null && agent.destination != transform.position)
+            {
+                agent.SetDestination(transform.position);
+                Destroy(gemApple);
+            }
     }
     private void OnTriggerStay(Collider other)
     {
