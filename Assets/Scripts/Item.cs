@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField] public SphereCollider sphereCollider;
-    [SerializeField] public CapsuleCollider capusleCollider;
+    [SerializeField] public CapsuleCollider capsuleCollider;
     [SerializeField] public GameObject lightning;
     [SerializeField] public bool isRechargeable;
     [SerializeField] public bool hasAbility = false;

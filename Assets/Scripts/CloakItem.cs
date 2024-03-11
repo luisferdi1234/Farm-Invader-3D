@@ -25,7 +25,7 @@ public class CloakItem : Item
         if (energy >= maxEnergy)
         {
             GameObject curr = Instantiate(cloakManager);
-            curr.transform.parent = transform;
+            curr.transform.parent = transform.parent;
             invisibilityCloakManager = curr.GetComponent<InvisibilityCloakManager>();
             transform.parent.GetComponent<Inventory>().invisibilityCloakManager = invisibilityCloakManager;
             invisibilityCloakManager.maxInvisTime = maxInvisTime;

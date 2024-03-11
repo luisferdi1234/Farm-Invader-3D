@@ -302,6 +302,8 @@ public class Inventory : MonoBehaviour
         if (inventorySlots[i, j].name.Contains("Cow"))
         {
             PickUpCow(inventorySlots[i, j]);
+            inventorySlots[i, j].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = false;
+
         }
         else if (inventorySlots[i,j].name.Contains("Apple"))
         {
@@ -315,13 +317,14 @@ public class Inventory : MonoBehaviour
             inventorySlots[i, j].transform.parent = rightHand.transform;
         }
 
-        //Get all colliders attached to this GameObject
-        Collider[] allColliders = inventorySlots[i, j].GetComponents<Collider>();
-
-        // Disable each collider
-        foreach (Collider collider in allColliders)
+        //Turns off colliders attached to these objects
+        if (inventorySlots[i, j].GetComponent<Item>().sphereCollider != null)
         {
-            collider.enabled = false;
+            inventorySlots[i, j].GetComponent<Item>().sphereCollider.enabled = false;
+        }
+        else if (inventorySlots[i, j].GetComponent<Item>().capsuleCollider != null)
+        {
+            inventorySlots[i, j].GetComponent<Item>().capsuleCollider.enabled = false;
         }
     }
 
@@ -348,6 +351,7 @@ public class Inventory : MonoBehaviour
     {
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[3, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[3,0].transform.position);
+        inventorySlots[3, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;
     }
