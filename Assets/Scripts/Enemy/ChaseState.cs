@@ -20,7 +20,7 @@ public class ChaseState : EnemyState
 
     public void OnUpdate()
     {
-        agent.SetDestination(player.transform.position + player.transform.forward);
+        agent.SetDestination(player.transform.position);
     }
 
     public void OnExit()

@@ -33,6 +33,9 @@ public class Inventory : MonoBehaviour
     //PlayerController script
     private PlayerController playerController;
 
+    //Cloak variable
+    public InvisibilityCloakManager invisibilityCloakManager;
+
     Animator animator;
 
     private void Start()
@@ -104,9 +107,9 @@ public class Inventory : MonoBehaviour
         {
             if (inventorySlots[currentInventorySlot, 0] != null)
             {
-                if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().isRechargeable)
+                if (invisibilityCloakManager != null)
                 {
-                    inventorySlots[currentInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
+                    invisibilityCloakManager.TurnOffInvisibility();
                 }
                 inventorySlots[currentInventorySlot, 0].SetActive(false);
             }
@@ -121,10 +124,6 @@ public class Inventory : MonoBehaviour
                 if (inventorySlots[i, 0] == null)
                 {
                     GrabItem(i, 0);
-                    if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
-                    {
-                        inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
-                    }
                     inventorySlots[prevInventorySlot, 0].SetActive(false);
                     inventorySlots[currentInventorySlot, 0].SetActive(true);
                     break;
@@ -137,10 +136,6 @@ public class Inventory : MonoBehaviour
                         if (inventorySlots[i, j] == null)
                         {
                             GrabItem(i, j);
-                            if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
-                            {
-                                inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
-                            }
                             inventorySlots[i, j].SetActive(false);
                             inventorySlots[currentInventorySlot, 0].SetActive(true);
 
@@ -169,10 +164,6 @@ public class Inventory : MonoBehaviour
             //Handles turning off current item
             if (inventorySlots[prevInventorySlot, 0] != null)
             {
-                if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
-                {
-                    inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
-                }
                 inventorySlots[prevInventorySlot, 0].SetActive(false);
             }
 
@@ -197,10 +188,6 @@ public class Inventory : MonoBehaviour
             //Turns off current item
             if (inventorySlots[prevInventorySlot, 0] != null)
             {
-                if (inventorySlots[prevInventorySlot, 0].GetComponent<Item>().isRechargeable)
-                {
-                    inventorySlots[prevInventorySlot, 0].GetComponent<Item>().TurnOffAbility();
-                }
                 inventorySlots[prevInventorySlot, 0].SetActive(false);
             }
 

@@ -28,10 +28,14 @@ public class Cow : MonoBehaviour
             Destroy(gemApple);
         }
         else if (agent.isActiveAndEnabled && closestApple == null && agent.destination != transform.position)
-            {
-                agent.SetDestination(transform.position);
-                Destroy(gemApple);
-            }
+        {
+            agent.SetDestination(transform.position);
+            Destroy(gemApple);
+        }
+        else if (gemApple != null && inventory.hasApple && !inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple") && closestApple == null)
+        {
+            Destroy(gemApple);
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -43,7 +47,7 @@ public class Cow : MonoBehaviour
             agent.SetDestination(closestApple.transform.position);
             
         }
-        else if (gemApple == null)
+        if (gemApple == null)
         {
             //Checks if player is currently holding an apple, and is in range of cow
             if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple"))
@@ -60,9 +64,8 @@ public class Cow : MonoBehaviour
     {
         if (gemApple != null)
         {
-            if (other.gameObject.name.Contains("Alien") && inventory.hasApple)
+            if (other.gameObject.name.Contains("Alien") && inventory.hasApple && closestApple == null)
             {
-                closestApple = null;
                 Destroy(gemApple);
             }
         }
