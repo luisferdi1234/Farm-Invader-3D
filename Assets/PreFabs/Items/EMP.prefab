@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 762569926890508669}
-  capusleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   lightning: {fileID: 0}
   isRechargeable: 1
   hasAbility: 1

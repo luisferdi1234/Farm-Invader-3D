@@ -214,7 +214,14 @@ public class Inventory : MonoBehaviour
         inventorySlots[currentInventorySlot, 0].tag = "Item";
         nearestItem = null;
         inventorySlots[currentInventorySlot, 0].transform.parent = null;
-        inventorySlots[currentInventorySlot, 0].transform.position = transform.position + transform.forward + (transform.up / 2) * itemRadius;
+        if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Holo Bush")
+        {
+            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + transform.forward;
+        }
+        else
+        {
+            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + transform.forward + (transform.up / 2) * itemRadius;
+        }
 
         //Get all colliders attached to the
         Collider[] allColliders = inventorySlots[currentInventorySlot, 0].GetComponents<Collider>();
@@ -247,6 +254,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+
             inventorySlots[currentInventorySlot, 0] = null;
             if (inventorySlots[prevInventorySlot, 0] == null)
             {

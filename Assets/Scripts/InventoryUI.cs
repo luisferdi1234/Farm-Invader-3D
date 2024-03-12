@@ -10,6 +10,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject cloak;
     [SerializeField] private GameObject apple;
     [SerializeField] private GameObject cow;
+    [SerializeField] private GameObject holoBush;
+    [SerializeField] private GameObject emp;
 
     Inventory inventory;
     int currentItemCount = 1;
@@ -39,24 +41,48 @@ public class InventoryUI : MonoBehaviour
                 cloak.SetActive(true);
                 apple.SetActive(false);
                 cow.SetActive(false);
+                holoBush.SetActive(false);
+                emp.SetActive(false);
             }
             else if (currentItem.itemName == "Apple")
             {
                 apple.SetActive(true);
                 cloak.SetActive(false);
                 cow.SetActive(false);
+                holoBush.SetActive(false);
+                emp.SetActive(false);
             }
             else if (currentItem.itemName == "Cow")
             {
                 apple.SetActive(false);
                 cloak.SetActive(false);
+                holoBush.SetActive(false);
                 cow.SetActive(true);
+                emp.SetActive(false);
+            }
+            else if (currentItem.itemName == "Holo Bush")
+            {
+                apple.SetActive(false);
+                cloak.SetActive(false);
+                cow.SetActive(false);
+                holoBush.SetActive(true);
+                emp.SetActive(false);
+            }
+            else if (currentItem.itemName == "EMP")
+            {
+                apple.SetActive(false);
+                cloak.SetActive(false);
+                cow.SetActive(false);
+                holoBush.SetActive(false);
+                emp.SetActive(true);
             }
             else
             {
                 apple.SetActive(false);
                 cloak.SetActive(false);
                 cow.SetActive(false);
+                holoBush.SetActive(false);
+                emp.SetActive(false);
             }
             currentItemCount = 1;
             if (currentItem.stackable)
