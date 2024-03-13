@@ -5995,13 +5995,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1310230011467073454, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 963194227}
+    - target: {fileID: 1514592402303267251, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
+      propertyPath: m_Name
+      value: Inventory Text
+      objectReference: {fileID: 0}
     - target: {fileID: 1552790690418894007, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
       propertyPath: m_Name
       value: PlayerCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035503506206266420, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
+      propertyPath: m_text
+      value: 'Inventory:'
       objectReference: {fileID: 0}
     - target: {fileID: 8157906141903593061, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
       propertyPath: m_Pivot.x

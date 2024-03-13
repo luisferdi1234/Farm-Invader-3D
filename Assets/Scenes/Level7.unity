@@ -6749,10 +6749,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 71022433}
     m_Modifications:
-    - target: {fileID: 1310230011467073454, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 963194227}
     - target: {fileID: 1552790690418894007, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
       propertyPath: m_Name
       value: PlayerCanvas
