@@ -7,11 +7,10 @@ using UnityEngine.AI;
 /// <summary>
 /// Makes enemy head swivel while standing still guaridng an area
 /// </summary>
-public class PatrolState : EnemyState
+public class SearchState : EnemyState
 {
     private GameObject currentObject;
     private Enemy currentEnemy;
-    private Farmer currentFarmer;
     private GameObject spine;
     float rotation;
     private float currentRotation = 0f;
@@ -20,8 +19,7 @@ public class PatrolState : EnemyState
     {
         currentObject = gameObject;
         currentEnemy = gameObject.GetComponent<Enemy>();
-        currentFarmer = gameObject.GetComponent<Farmer>();
-        spine = currentFarmer.spine;
+        spine = currentEnemy.spine;
         currentRotation = currentEnemy.startingRotation;
     }
 
@@ -29,9 +27,9 @@ public class PatrolState : EnemyState
     {
         if (turnOffTimer >= .2f)
         {
-            if (currentFarmer.animator.enabled)
+            if (currentEnemy.animator.enabled)
             {
-                currentFarmer.animator.enabled = false;
+                currentEnemy.animator.enabled = false;
             }
             rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
             spine.transform.Rotate(Vector3.right * rotation);

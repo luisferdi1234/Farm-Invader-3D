@@ -7,17 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
-    public NavMeshAgent agent;
     protected GameObject player;
     protected Vector3 spawnPoint;
     protected Quaternion spawnOrientation;
+    [SerializeField] public GameObject spine;
     public float rotationSpeed = 60f;
     public float rotationRange = 90f;
     public int direction = 1; //1 for clockwise, -1 for counter-clockwise
     public float startingRotation = 0f;
     public float maxRotation;
     public float minRotation;
+
+    [HideInInspector] public Animator animator;
     [HideInInspector] public bool hasVision;
+    [HideInInspector] public NavMeshAgent agent;
 
     protected EnemyStateMachine stateMachine;
 
@@ -29,6 +32,7 @@ public class Enemy : MonoBehaviour
         spawnOrientation = transform.rotation;
         maxRotation = startingRotation + rotationRange;
         minRotation = startingRotation - rotationRange;
+        animator = GetComponent<Animator>();
         hasVision = true;
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DogPatrolState : EnemyState
+public class DogGuardState : EnemyState
 {
     private Enemy currentEnemy;
 

@@ -17,7 +17,7 @@ public class Dog : Enemy
     protected override void Start()
     {
         base.Start();
-        stateMachine = new EnemyStateMachine(new DogPatrolState(), gameObject);
+        stateMachine = new EnemyStateMachine(new DogGuardState(), gameObject);
     }
 
     protected override void FixedUpdate()
@@ -26,7 +26,7 @@ public class Dog : Enemy
 
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && player.CompareTag("Invisible"))
         {
-            stateMachine.ChangeState(new DogPatrolState(), gameObject);
+            stateMachine.ChangeState(new DogGuardState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
         }
     }

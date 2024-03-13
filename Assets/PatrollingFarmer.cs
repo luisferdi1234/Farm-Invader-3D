@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Farmer : Enemy
+public class PatrollingFarmer : PatrollingEnemy
 {
     //Serialized Fields
     [SerializeField] float detectionAngle = 50f;
     [SerializeField] float maxRayDistance = 20f;
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float differentRotation = 0f;
-
+    
     //Timers
-    private float idleTimer = 0f;
 
     private float searchTimer = 0f;
 
@@ -20,15 +18,13 @@ public class Farmer : Enemy
 
     private bool inChase = false;
 
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        stateMachine = new EnemyStateMachine(new SearchState(), gameObject);
-        if (differentRotation != startingRotation)
-        {
-            startingRotation = differentRotation;
-        }
+        SetNextPosition();
+        stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
     }
 
     protected override void FixedUpdate()
@@ -47,34 +43,22 @@ public class Farmer : Enemy
                     animator.SetBool("Chasing", false);
                     animator.SetBool("Patrolling", false);
                     animator.SetBool("Returning", true);
-                    stateMachine.ChangeState(new ReturnState(), gameObject);
+                    stateMachine.ChangeState(new PatrolState(), gameObject);
                     searchTimer = 0f;
                     inChase = false;
                 }
             }
         }
-        else if (stateMachine.GetCurrentState().GetType() == typeof(ReturnState))
+        else if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState))
         {
-            float positionThreshold = 0.5f;
-            if (Vector3.Distance(gameObject.transform.position, base.GetSpawnPoint()) <= positionThreshold)
+            float positionThreshold = .5f;
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Patrolling", false);
+            animator.SetBool("Returning", true);
+            if (Vector3.Distance(transform.position, nextPosition) <= positionThreshold)
             {
-                stateMachine.ChangeState(new IdleState(), gameObject);
+                SetNextPosition();
             }
-        }
-        else if (stateMachine.GetCurrentState().GetType() == typeof(IdleState) && idleTimer >= 1f)
-        {
-            animator.SetBool("Chasing", false);
-            animator.SetBool("Returning", false);
-            animator.SetBool("Patrolling", true);
-            stateMachine.ChangeState(new SearchState(), gameObject);
-            idleTimer = 0f;
-        }
-        else if (stateMachine.GetCurrentState().GetType() == typeof(IdleState))
-        {
-            animator.SetBool("Chasing", false);
-            animator.SetBool("Returning", false);
-            animator.SetBool("Patrolling", true);
-            idleTimer += Time.deltaTime;
         }
     }
     void OnTriggerStay(Collider other)
