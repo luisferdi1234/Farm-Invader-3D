@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -14,6 +16,35 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject holoBush;
     [SerializeField] private GameObject emp;
 
+    //Button Prompt UI Images
+    [SerializeField] GameObject Fire;
+    [SerializeField] GameObject Recharge;
+    [SerializeField] GameObject UseAbility;
+    [SerializeField] GameObject InventoryRight;
+    [SerializeField] GameObject InventoryLeft;
+    [SerializeField] TextMeshProUGUI PickUpText;
+
+    //Mouse and Keyboard Sprites
+    [SerializeField] Sprite LMB;
+    [SerializeField] Sprite RMB;
+    [SerializeField] Sprite Space;
+    [SerializeField] Sprite Q;
+    [SerializeField] Sprite E;
+
+    //PS Sprites
+    [SerializeField] Sprite Cross;
+    [SerializeField] Sprite Square;
+    [SerializeField] Sprite Circle;
+    [SerializeField] Sprite PSR1;
+    [SerializeField] Sprite PSL1;
+
+    //Xbox Sprites
+    [SerializeField] Sprite A;
+    [SerializeField] Sprite X;
+    [SerializeField] Sprite B;
+    [SerializeField] Sprite XboxR1;
+    [SerializeField] Sprite XboxL1;
+
     Inventory inventory;
     int currentItemCount = 1;
 
@@ -21,6 +52,7 @@ public class InventoryUI : MonoBehaviour
     {
         inventory = GameObject.Find("Alien").GetComponent<Inventory>();
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        CheckConnectedControllers();
     }
 
     private void Update()
@@ -33,10 +65,108 @@ public class InventoryUI : MonoBehaviour
             apple.SetActive(false);
             cow.SetActive(false);
             currentItemCount = 1;
+            Fire.SetActive(false);
+            Recharge.SetActive(false);
+            UseAbility.SetActive(false);
         }
         else if (inventory.inventorySlots[inventory.currentInventorySlot, 0] != null)
         {
+            //Changes pick up text
+            if (inventory.nearestItem != null)
+            {
+                Fire.SetActive(true);
+                PickUpText.text = "Pick Up";
+            }
+            else if (inventory.currentInventorySlot != 0)
+            {
+                Fire.SetActive(true);
+                PickUpText.text = "Put Down";
+            }
+            else
+            {
+                PickUpText.text = " ";
+                Fire.SetActive(false);
+            }
+
             Item currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
+
+            //Shows how to use ability when max charge, and shows how to recharge
+            if (currentItem.name == "Cow")
+            {
+                if (UseAbility.active)
+                {
+                    UseAbility.SetActive(false);
+                }
+                if (Recharge.active)
+                {
+                    Recharge.SetActive(false);
+                }
+                if (InventoryLeft.active)
+                {
+                    InventoryLeft.SetActive(false);
+                }
+                if (InventoryRight.active)
+                {
+                    InventoryRight.SetActive(false);
+                }
+            }
+            else if (currentItem.isRechargeable && currentItem.energy >= currentItem.maxEnergy)
+            {
+                if (!UseAbility.active)
+                {
+                    UseAbility.SetActive(true);
+                }
+                if (Recharge.active)
+                {
+                    Recharge.SetActive(false);
+                }
+                if (!InventoryLeft.active)
+                {
+                    InventoryLeft.SetActive(true);
+                }
+                if (!InventoryRight.active)
+                {
+                    InventoryRight.SetActive(true);
+                }
+            }
+            else if (currentItem.isRechargeable && inventory.nearestItem != null && inventory.nearestItem.GetComponent<Item>().itemName == "Cow")
+            {
+                if (UseAbility.active)
+                {
+                    UseAbility.SetActive(false);
+                }
+                if (!Recharge.active)
+                {
+                    Recharge.SetActive(true);
+                }
+                if (!InventoryLeft.active)
+                {
+                    InventoryLeft.SetActive(true);
+                }
+                if (!InventoryRight.active)
+                {
+                    InventoryRight.SetActive(true);
+                }
+            }
+            else
+            {
+                if (UseAbility.active)
+                {
+                    UseAbility.SetActive(false);
+                }
+                if (Recharge.active)
+                {
+                    Recharge.SetActive(false);
+                }
+                if (!InventoryLeft.active)
+                {
+                    InventoryLeft.SetActive(true);
+                }
+                if (!InventoryRight.active)
+                {
+                    InventoryRight.SetActive(true);
+                }
+            }
 
             //Turns on spinning game object in UI
             TurnOnUIGameObject(currentItem);
@@ -138,47 +268,56 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    //void CheckConnectedControllers()
-    //{
-    //    bool keyboardUsed = InputSystem.GetDevice<Keyboard>().anyKey.isPressed;
-    //    bool mouseUsed = InputSystem.GetDevice<Mouse>().leftButton.isPressed || InputSystem.GetDevice<Mouse>().rightButton.isPressed;
+    void CheckConnectedControllers()
+    {
+        bool keyboardUsed = InputSystem.GetDevice<Keyboard>().anyKey.isPressed;
+        bool mouseUsed = InputSystem.GetDevice<Mouse>().leftButton.isPressed || InputSystem.GetDevice<Mouse>().rightButton.isPressed;
 
-    //    if (keyboardUsed || mouseUsed)
-    //    {
-    //        DisplayPrompt("Use WASD to move", movementText);
-    //        DisplayPrompt("Use 'Left Click' to pick up items and cows, and Q and E to swap inventory", pickUpText);
-    //        DisplayPrompt("Use 'Right Click' to use gadgets", gadgetText);
-    //        DisplayPrompt("Use 'Space' to recharge gadget while next to a cow and to extract from level (while near a UFO)", rechargeText);
-    //    }
-    //    else
-    //    {
-    //        foreach (var device in InputSystem.devices)
-    //        {
-    //            Debug.Log("Device: " + device.name);
-    //            if (device is Gamepad gamepad)
-    //            {
-    //                // Check for specific controllers based on name
-    //                if (gamepad.name.Contains("Xbox")) // Xbox controller
-    //                {
-    //                    DisplayPrompt("Use Left Stick to move", movementText);
-    //                    DisplayPrompt("Use 'A' to pick up items and cows", pickUpText);
-    //                    DisplayPrompt("Use 'X' to use gadgets, and L1 and R1 to swap inventory", gadgetText);
-    //                    DisplayPrompt("Use 'B' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
-    //                }
-    //                else if (gamepad.name.Contains("Sony") || gamepad.name.Contains("DualSense")) // PS4 or PS5 controller
-    //                {
-    //                    DisplayPrompt("Use Left Stick to move", movementText);
-    //                    DisplayPrompt("Use 'X' to pick up items and cows, and L1 and R1 to swap inventory", pickUpText);
-    //                    DisplayPrompt("Use 'Square' to use gadgets", gadgetText);
-    //                    DisplayPrompt("Use 'Circle' to recharge gadgets while next to a cow and to extract from level (while near a UFO)", rechargeText);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+        Image fireImage = Fire.GetComponent<Image>();
+        Image rechargeImage = Recharge.GetComponent<Image>();
+        Image useAbilityImage = UseAbility.GetComponent<Image>();
+        Image inventoryRightImage = InventoryRight.GetComponent<Image>();
+        Image inventoryLeftImage = InventoryLeft.GetComponent<Image>();
 
-    //void DisplayPrompt(string message, TMPro.TextMeshProUGUI TMPtext)
-    //{
-    //    TMPtext.text = message;
-    //}
+        if (keyboardUsed || mouseUsed)
+        {
+            DisplayPrompt(fireImage, LMB);
+            DisplayPrompt(rechargeImage, Space);
+            DisplayPrompt(useAbilityImage, RMB);
+            DisplayPrompt(inventoryRightImage, E);
+            DisplayPrompt(inventoryLeftImage, Q);
+        }
+        else
+        {
+            foreach (var device in InputSystem.devices)
+            {
+                Debug.Log("Device: " + device.name);
+                if (device is Gamepad gamepad)
+                {
+                    // Check for specific controllers based on name
+                    if (gamepad.name.Contains("Xbox")) // Xbox controller
+                    {
+                        DisplayPrompt(fireImage, A);
+                        DisplayPrompt(rechargeImage, B);
+                        DisplayPrompt(useAbilityImage, X);
+                        DisplayPrompt(inventoryLeftImage, XboxL1);
+                        DisplayPrompt(inventoryRightImage, XboxR1);
+                    }
+                    else if (gamepad.name.Contains("Sony") || gamepad.name.Contains("DualSense")) // PS4 or PS5 controller
+                    {
+                        DisplayPrompt(fireImage, Cross);
+                        DisplayPrompt(rechargeImage, Circle);
+                        DisplayPrompt(useAbilityImage, Square);
+                        DisplayPrompt(inventoryLeftImage, PSL1);
+                        DisplayPrompt(inventoryRightImage, PSR1);
+                    }
+                }
+            }
+        }
+    }
+
+    void DisplayPrompt(Image image, Sprite sprite)
+    {
+        image.sprite = sprite;
+    }
 }

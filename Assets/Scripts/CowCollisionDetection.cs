@@ -26,7 +26,7 @@ public class CowCollisionDetection : MonoBehaviour
             closestApple = null;
             Destroy(gemApple);
         }
-        if (inventory.inventorySlots[inventory.currentInventorySlot, 0] == closestApple)
+        else if (inventory.inventorySlots[inventory.currentInventorySlot, 0] == closestApple)
         {
             agent.SetDestination(transform.position);
             closestApple = null;

@@ -113,6 +113,7 @@ public class Inventory : MonoBehaviour
                 }
                 inventorySlots[currentInventorySlot, 0].SetActive(false);
             }
+            AudioManager.instance.PauseAlienCharge();
             GrabItem(3, 0);
         }
         else if (nearestItem != null && inventorySlots[3, 0] == null)
