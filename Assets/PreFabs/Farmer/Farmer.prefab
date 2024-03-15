@@ -929,6 +929,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   hasVision: 0
   agent: {fileID: 0}
+  rb: {fileID: 0}
   detectionAngle: 30
   maxRayDistance: 30
   obstacleMask:

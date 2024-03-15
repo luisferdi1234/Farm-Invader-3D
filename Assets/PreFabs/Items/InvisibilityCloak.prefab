@@ -56,4 +56,4 @@ MonoBehaviour:
   maxEnergy: 3
   energy: 3
   cloakManager: {fileID: 2750413482529092190, guid: d5f508874445fd744912d346669450aa, type: 3}
-  maxInvisTime: 1.75
+  maxInvisTime: 1.5

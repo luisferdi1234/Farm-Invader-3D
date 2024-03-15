@@ -53,6 +53,20 @@ public class Farmer : Enemy
                 }
             }
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState))
+        {
+            //Patrols area after losing player
+            if (player.CompareTag("Invisible") || !hasVision)
+            {
+                animator.enabled = true;
+                animator.SetBool("Chasing", false);
+                animator.SetBool("Patrolling", true);
+                animator.SetBool("Returning", false);
+
+                stateMachine.ChangeState(new SearchState(), gameObject);
+                AudioManager.instance.PlayRandomAudioClip("returnSounds");
+            }
+        }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ReturnState))
         {
             float positionThreshold = 0.5f;
@@ -94,17 +108,6 @@ public class Farmer : Enemy
                 inChase = true;
             }
         }
-        //Patrols area after losing sight of player
-        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && (other.CompareTag("Invisible") || !hasVision))
-        {
-            animator.enabled = true;
-            animator.SetBool("Chasing", false);
-            animator.SetBool("Patrolling", true);
-            animator.SetBool("Returning", false);
-
-            stateMachine.ChangeState(new SearchState(), gameObject);
-            AudioManager.instance.PlayRandomAudioClip("returnSounds");
-        }
     }
 
     /// <summary>
@@ -125,7 +128,7 @@ public class Farmer : Enemy
             // Shoot a ray to check for obstacles
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, toPlayer.normalized, out hit, maxRayDistance, obstacleMask) && hit.collider.gameObject.name == "Alien")
+            if (Physics.Raycast(transform.position, toPlayer.normalized, out hit, maxRayDistance, obstacleMask) && hit.collider.gameObject.name.Contains("Alien"))
             {
                 // Obstacle is hit, line of sight is blocked
                 Debug.Log("Player in line of sight");

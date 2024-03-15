@@ -58,7 +58,8 @@ public class InvisibilityCloakManager : MonoBehaviour
     public void TurnOffInvisibility()
     {
         alienMesh.transform.parent.tag = "Player";
-        SetLayerRecursively(alienMesh.transform.parent, LayerMask.NameToLayer("Player"));
+        SetLayerRecursively(alienMesh.transform.parent, LayerMask.NameToLayer("Default"));
+        alienMesh.transform.parent.gameObject.layer = LayerMask.NameToLayer("Player");
         alienMesh.transform.parent.GetComponent<Inventory>().invisibilityCloakManager = null;
         InvisInUse = false;
         ChangePlayerMaterial(alienSkin);

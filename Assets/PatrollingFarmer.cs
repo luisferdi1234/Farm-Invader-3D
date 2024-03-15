@@ -49,6 +49,20 @@ public class PatrollingFarmer : PatrollingEnemy
                 }
             }
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState))
+        {
+            //Patrols area after losing player
+            if (player.CompareTag("Invisible") || !hasVision)
+            {
+                animator.enabled = true;
+                animator.SetBool("Chasing", false);
+                animator.SetBool("Patrolling", true);
+                animator.SetBool("Returning", false);
+
+                stateMachine.ChangeState(new SearchState(), gameObject);
+                AudioManager.instance.PlayRandomAudioClip("returnSounds");
+            }
+        }
         else if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState))
         {
             float positionThreshold = .5f;
@@ -77,17 +91,6 @@ public class PatrollingFarmer : PatrollingEnemy
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 inChase = true;
             }
-        }
-        //Patrols area after losing sight of player
-        else if (other.name.Contains("Alien") && stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && (other.CompareTag("Invisible") || !hasVision))
-        {
-            animator.enabled = true;
-            animator.SetBool("Chasing", false);
-            animator.SetBool("Patrolling", true);
-            animator.SetBool("Returning", false);
-
-            stateMachine.ChangeState(new SearchState(), gameObject);
-            AudioManager.instance.PlayRandomAudioClip("returnSounds");
         }
     }
 

@@ -396,7 +396,7 @@ MonoBehaviour:
   cloak: {fileID: 820063116058695300}
   apple: {fileID: 8870504400618127995}
   cow: {fileID: 5985056262580948546}
-  holoBush: {fileID: 4570790560320584240}
+  holoBush: {fileID: 1787548090470835380}
   emp: {fileID: 8816812570139706634}
 --- !u!114 &3433151498335960344
 MonoBehaviour:
@@ -411,6 +411,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyBar: {fileID: 957295723196124691}
+--- !u!1 &1787548090470835380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3920896687582442970}
+  - component: {fileID: 4347052762431997685}
+  m_Layer: 5
+  m_Name: Menu Holo Bush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3920896687582442970
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787548090470835380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7359241620828428168}
+  m_Father: {fileID: 1255595447603475013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -255, y: 10}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4347052762431997685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787548090470835380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAnimated: 1
+  isRotating: 1
+  isFloating: 0
+  isScaling: 0
+  rotationAngle: {x: 0, y: 10, z: 0}
+  rotationSpeed: 10
+  floatSpeed: 0.04
+  floatRate: 0.5
+  startScale: {x: 1, y: 1, z: 1}
+  endScale: {x: 1.5, y: 1.5, z: 1.5}
+  scaleSpeed: 1
+  scaleRate: 0.5
 --- !u!1 &6729074986165096071
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,8 +505,8 @@ RectTransform:
   - {fileID: 9107188634711402308}
   - {fileID: 3519752736686607478}
   - {fileID: 780116814169745885}
-  - {fileID: 7359241620828428168}
   - {fileID: 3161999429927703557}
+  - {fileID: 3920896687582442970}
   m_Father: {fileID: 8157906141903593061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1006,8 +1067,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1255595447603475013}
+    m_TransformParent: {fileID: 3920896687582442970}
     m_Modifications:
+    - target: {fileID: 2545851621982674207, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1018,19 +1083,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1082,11 +1147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -520
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1104,17 +1169,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu Holo Bush
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7556875580464026439, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8054450654540536112, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
---- !u!1 &4570790560320584240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9163892426323642216, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}
-  m_PrefabInstance: {fileID: 4630292331419155800}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7359241620828428168 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2766156939666369232, guid: 3032451aa0ad4324689072e2a65d6da4, type: 3}

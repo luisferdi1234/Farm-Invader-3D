@@ -3472,13 +3472,14 @@ MonoBehaviour:
   animator: {fileID: 0}
   hasVision: 0
   agent: {fileID: 0}
+  rb: {fileID: 0}
   positions: []
   nextPosition: {x: 0, y: 0, z: 0}
   detectionAngle: 50
   maxRayDistance: 20
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 4288
+    m_Bits: 5312
   differentRotation: 0
   maxSearchTime: 3
 --- !u!195 &331842724585542790
