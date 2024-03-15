@@ -26,6 +26,7 @@ public class CloakItem : Item
         {
             GameObject curr = Instantiate(cloakManager);
             curr.transform.parent = transform.parent;
+            transform.parent.gameObject.layer = LayerMask.NameToLayer("Invisible");
             invisibilityCloakManager = curr.GetComponent<InvisibilityCloakManager>();
             transform.parent.GetComponent<Inventory>().invisibilityCloakManager = invisibilityCloakManager;
             invisibilityCloakManager.maxInvisTime = maxInvisTime;

@@ -203,7 +203,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.4281993, y: -0.1024189, z: 20.25}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1368342870284396192}
@@ -322,13 +322,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 1101320673773349604}
-  capusleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   lightning: {fileID: 0}
+  isRechargeable: 0
   hasAbility: 0
   stackable: 1
   isReusable: 1
   numberOfUses: -1
   itemName: Apple
+  maxEnergy: 3
+  energy: 3
 --- !u!114 &4960838956053205682
 MonoBehaviour:
   m_ObjectHideFlags: 0

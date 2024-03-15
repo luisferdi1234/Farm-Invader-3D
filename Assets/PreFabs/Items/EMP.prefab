@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 762569926890508669}
   - component: {fileID: 7418702696321944474}
   - component: {fileID: 9204458262358480694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EMP
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -162,6 +162,22 @@ PrefabInstance:
     - target: {fileID: 1179809721236326, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
       propertyPath: m_Name
       value: Particle attractor 003 lightning (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179809721236326, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296161669021344, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485568750035284, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882724831565014, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4533543140655746, guid: 6e81ad7b6d010274ca07c5c894fe9e6b, type: 3}
       propertyPath: m_LocalPosition.x

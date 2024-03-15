@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3019606843373005671}
   - component: {fileID: 2526420874752795726}
   - component: {fileID: 9175663772642463752}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Holo Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}

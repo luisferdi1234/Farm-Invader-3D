@@ -29,7 +29,7 @@ public class BushObjectDetector : MonoBehaviour
         {
             meshRenderer.material = invisLeaves;
         }
-        else if (type == typeof(CapsuleCollider) && other.CompareTag("Item"))
+        else if (type == typeof(SphereCollider) && other.CompareTag("Item"))
         {
             meshRenderer.material = invisLeaves;
         }
@@ -50,7 +50,7 @@ public class BushObjectDetector : MonoBehaviour
         {
             meshRenderer.material = regularLeaves;
         }
-        else if (type == typeof(CapsuleCollider) && other.CompareTag("Item"))
+        else if (type == typeof(SphereCollider) && other.CompareTag("Item"))
         {
             meshRenderer.material = regularLeaves;
         }

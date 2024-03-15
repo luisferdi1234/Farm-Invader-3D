@@ -442,14 +442,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8111939566b9d469ef89e42bfc58ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 8693079616004615663}
+  spine: {fileID: 0}
   rotationSpeed: 60
   rotationRange: 90
   direction: 1
   startingRotation: 0
   maxRotation: 0
   minRotation: 0
+  animator: {fileID: 0}
   hasVision: 0
+  agent: {fileID: 8693079616004615663}
+  rb: {fileID: 0}
   maxSearchTime: 3
 --- !u!4 &8966880272948374248 stripped
 Transform:

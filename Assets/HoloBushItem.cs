@@ -12,7 +12,7 @@ public class HoloBushItem : Item
     }
     public override void UseAbility()
     {
-        Instantiate(bush, player.transform.position - player.transform.forward, player.transform.rotation);
+        Instantiate(bush, player.transform.position + player.transform.forward, player.transform.rotation);
         AudioManager.instance.PlaySpecificSound("Bush Placed", .3f);
         energy = 0f;
     }

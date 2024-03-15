@@ -14753,10 +14753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115c5e1096c6b1548bdf39803b4fbc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 0}
+  sphereCollider: {fileID: 2173001936524426917}
   capsuleCollider: {fileID: 0}
   lightning: {fileID: 0}
-  isRechargeable: 0
+  isRechargeable: 1
   hasAbility: 1
   stackable: 0
   isReusable: 1

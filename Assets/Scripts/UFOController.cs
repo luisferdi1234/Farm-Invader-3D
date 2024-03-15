@@ -117,7 +117,7 @@ public class UFOController : MonoBehaviour
         if (other.CompareTag("Level"))
         {
             levelObject.GetComponent<Outline>().enabled = false;
-            currentLevel = null;
+            currentLevel = "";
             levelObject = null;
         }
     }

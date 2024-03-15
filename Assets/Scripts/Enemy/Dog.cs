@@ -37,6 +37,7 @@ public class Dog : Enemy
         {
             stateMachine.ChangeState(new ChaseState(), gameObject);
             inChase = true;
+            rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
     }

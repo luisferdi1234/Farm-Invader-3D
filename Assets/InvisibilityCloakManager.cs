@@ -45,6 +45,7 @@ public class InvisibilityCloakManager : MonoBehaviour
     {
         InvisInUse = true;
         alienMesh.transform.parent.tag = "Invisible";
+        SetLayerRecursively(alienMesh.transform.parent, LayerMask.NameToLayer("Invisible"));
         invisTime = 0;
         AudioManager.instance.PlaySpecificSound("AlienCloak", 1f);
         //Changes Material
@@ -57,6 +58,7 @@ public class InvisibilityCloakManager : MonoBehaviour
     public void TurnOffInvisibility()
     {
         alienMesh.transform.parent.tag = "Player";
+        SetLayerRecursively(alienMesh.transform.parent, LayerMask.NameToLayer("Player"));
         alienMesh.transform.parent.GetComponent<Inventory>().invisibilityCloakManager = null;
         InvisInUse = false;
         ChangePlayerMaterial(alienSkin);
@@ -72,5 +74,18 @@ public class InvisibilityCloakManager : MonoBehaviour
     {
         // Change the player's material
         skinnedMeshRenderer.material = newMaterial;
+    }
+
+
+    void SetLayerRecursively(Transform currentTransform, LayerMask layer)
+    {
+        // Set the layer for the current transform
+        currentTransform.gameObject.layer = layer;
+
+        // Loop through all children and set their layers recursively
+        foreach (Transform child in currentTransform)
+        {
+            SetLayerRecursively(child, layer);
+        }
     }
 }
