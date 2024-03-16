@@ -24,7 +24,12 @@ public class Dog : Enemy
     {
         base.FixedUpdate();
 
-        if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && player.CompareTag("Invisible"))
+        if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
+        {
+            stateMachine.ChangeState(new DogGuardState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
+        }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && player.CompareTag("Invisible"))
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
@@ -32,13 +37,35 @@ public class Dog : Enemy
     }
     void OnTriggerStay(Collider other)
     {
-        //Changes to Chase State after spotting player
-        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
+        //Changes to Chase State after spotting clone
+        if (other.CompareTag("Clone") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
+            target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
             inChase = true;
             rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
+        }
+        //Changes to Chase State after spotting player
+        else if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
+        {
+            target = other.gameObject;
+            stateMachine.ChangeState(new ChaseState(), gameObject);
+            inChase = true;
+            rb.mass = 10;
+            AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
+        }
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        if (collision.gameObject.tag == "Clone")
+        {
+            stateMachine.ChangeState(new DogGuardState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
+            collision.gameObject.GetComponent<AlienClone>().DestroyClone();
         }
     }
 }

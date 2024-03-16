@@ -79,10 +79,15 @@ public class UFOController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        if (currentLevel == "Reset Data")
+        if (currentLevel == "Delete Data")
         {
             PlayerPrefs.DeleteAll();
             DataDeletionManager.instance.DeleteAllOtherLevels();
+        }
+        else if (currentLevel == "Main Menu")
+        {
+            PlayerProgressManager.Instance.SaveLevelSelectPosition(gameObject);
+            SceneManager.LoadScene("Main Menu");
         }
         else if (currentLevel != "")
         {

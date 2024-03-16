@@ -91,7 +91,7 @@ public class InventoryUI : MonoBehaviour
             Item currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
 
             //Shows how to use ability when max charge, and shows how to recharge
-            if (currentItem.name == "Cow")
+            if (currentItem.itemName == "Cow")
             {
                 if (UseAbility.active)
                 {

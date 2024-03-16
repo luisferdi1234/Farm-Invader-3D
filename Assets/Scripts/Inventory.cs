@@ -102,56 +102,59 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void Fire(InputAction.CallbackContext context)
     {
-        //Check if cow is the nearby object
-        if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
+        if (playerController.canMove)
         {
-            if (inventorySlots[currentInventorySlot, 0] != null)
+            //Check if cow is the nearby object
+            if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
             {
-                if (invisibilityCloakManager != null)
+                if (inventorySlots[currentInventorySlot, 0] != null)
                 {
-                    invisibilityCloakManager.TurnOffInvisibility();
-                }
-                inventorySlots[currentInventorySlot, 0].SetActive(false);
-            }
-            AudioManager.instance.PauseAlienCharge();
-            GrabItem(3, 0);
-        }
-        else if (nearestItem != null && inventorySlots[3, 0] == null)
-        {
-            //Checks for an empty inventory slot
-            for (int i = 1; i < inventorySlots.GetLength(0); i++)
-            {
-                //If item slot available put it in first slot
-                if (inventorySlots[i, 0] == null)
-                {
-                    GrabItem(i, 0);
-                    inventorySlots[prevInventorySlot, 0].SetActive(false);
-                    inventorySlots[currentInventorySlot, 0].SetActive(true);
-                    break;
-                }
-                //Else, check to see if item can be stacked
-                else if (inventorySlots[i, 0].GetComponent<Item>().itemName == nearestItem.GetComponent<Item>().itemName && nearestItem.GetComponent<Item>().stackable)
-                {
-                    for (int j = 1; j < inventorySlots.GetLength(1); j++)
+                    if (invisibilityCloakManager != null)
                     {
-                        if (inventorySlots[i, j] == null)
-                        {
-                            GrabItem(i, j);
-                            inventorySlots[i, j].SetActive(false);
-                            inventorySlots[currentInventorySlot, 0].SetActive(true);
-
-                            break;
-                        }
+                        invisibilityCloakManager.TurnOffInvisibility();
                     }
-                    break;
+                    inventorySlots[currentInventorySlot, 0].SetActive(false);
+                }
+                AudioManager.instance.PauseAlienCharge();
+                GrabItem(3, 0);
+            }
+            else if (nearestItem != null && inventorySlots[3, 0] == null)
+            {
+                //Checks for an empty inventory slot
+                for (int i = 1; i < inventorySlots.GetLength(0); i++)
+                {
+                    //If item slot available put it in first slot
+                    if (inventorySlots[i, 0] == null)
+                    {
+                        GrabItem(i, 0);
+                        inventorySlots[prevInventorySlot, 0].SetActive(false);
+                        inventorySlots[currentInventorySlot, 0].SetActive(true);
+                        break;
+                    }
+                    //Else, check to see if item can be stacked
+                    else if (inventorySlots[i, 0].GetComponent<Item>().itemName == nearestItem.GetComponent<Item>().itemName && nearestItem.GetComponent<Item>().stackable)
+                    {
+                        for (int j = 1; j < inventorySlots.GetLength(1); j++)
+                        {
+                            if (inventorySlots[i, j] == null)
+                            {
+                                GrabItem(i, j);
+                                inventorySlots[i, j].SetActive(false);
+                                inventorySlots[currentInventorySlot, 0].SetActive(true);
+
+                                break;
+                            }
+                        }
+                        break;
+                    }
                 }
             }
+            else if (currentInventorySlot != 0 && inventorySlots[currentInventorySlot, 0] != null)
+            {
+                ReleaseItem();
+            }
+            Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
         }
-        else if (currentInventorySlot != 0 && inventorySlots[currentInventorySlot, 0] != null)
-        {
-            ReleaseItem();
-        }
-        Debug.Log("Slot: " + currentInventorySlot + " Item: " + inventorySlots[currentInventorySlot, 0]);
     }
 
     /// <summary>

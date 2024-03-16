@@ -13,11 +13,12 @@ TagManager:
   - FarmerLight
   - Level
   - Abducted
+  - Clone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Clone
   - Water
   - UI
   - Player
@@ -27,7 +28,7 @@ TagManager:
   - Invisible
   - Enemy
   - Bush
-  - Invisible
+  - 
   - 
   - 
   - 

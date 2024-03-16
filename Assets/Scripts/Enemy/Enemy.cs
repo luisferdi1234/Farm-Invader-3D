@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     protected GameObject player;
     protected Vector3 spawnPoint;
     protected Quaternion spawnOrientation;
+    public GameObject target;
     [SerializeField] public GameObject spine;
     public float rotationSpeed = 60f;
     public float rotationRange = 90f;

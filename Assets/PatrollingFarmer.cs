@@ -78,14 +78,30 @@ public class PatrollingFarmer : PatrollingEnemy
     void OnTriggerStay(Collider other)
     {
         //Changes to Chase State after spotting player
-        if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
+        if (other.CompareTag("Clone") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
-            if (hasVision && CheckLineOfSight())
+            if (hasVision && CheckLineOfSight(other.gameObject))
             {
                 animator.enabled = true;
                 animator.SetBool("Chasing", true);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
+                target = other.gameObject;
+                stateMachine.ChangeState(new ChaseState(), gameObject);
+                AudioManager.instance.PlayRandomAudioClip("chaseSounds");
+                inChase = true;
+            }
+        }
+        //Changes to Chase State after spotting player
+        else if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
+        {
+            if (hasVision && CheckLineOfSight(other.gameObject))
+            {
+                animator.enabled = true;
+                animator.SetBool("Chasing", true);
+                animator.SetBool("Patrolling", false);
+                animator.SetBool("Returning", false);
+                target = other.gameObject;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 ScoreManager.Instance.SpottedAlien();
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
@@ -95,16 +111,36 @@ public class PatrollingFarmer : PatrollingEnemy
     }
 
     /// <summary>
+    /// Checks collision with clone
+    /// </summary>
+    /// <param name="other"></param>
+    protected override void OnCollisionEnter(Collision other)
+    {
+        base.OnCollisionEnter(other);
+        if (other.gameObject.tag == "Clone")
+        {
+            other.gameObject.GetComponent<AlienClone>().DestroyClone();
+            animator.enabled = true;
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Patrolling", true);
+            animator.SetBool("Returning", false);
+
+            stateMachine.ChangeState(new SearchState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("returnSounds");
+        }
+    }
+
+    /// <summary>
     /// Checks to see if the player is within the line of sight of the farmer
     /// </summary>
     /// <returns></returns>
-    bool CheckLineOfSight()
+    bool CheckLineOfSight(GameObject other)
     {
         // Calculate the vector to the player
-        Vector3 toPlayer = player.transform.position - transform.position;
+        Vector3 toTarget = other.transform.position - transform.position;
 
         // Calculate the angle between the enemy's forward vector and the vector to the player
-        float angle = Vector3.Angle(spine.transform.up, toPlayer);
+        float angle = Vector3.Angle(spine.transform.up, toTarget);
 
         // Check if the angle is within the allowed range
         if (angle <= detectionAngle)
@@ -112,7 +148,7 @@ public class PatrollingFarmer : PatrollingEnemy
             // Shoot a ray to check for obstacles
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, toPlayer.normalized, out hit, maxRayDistance, obstacleMask) && hit.collider.gameObject.name == "Alien")
+            if (Physics.Raycast(transform.position, toTarget.normalized, out hit, maxRayDistance, obstacleMask) && (hit.collider.gameObject.name.Contains("Alien") || hit.collider.gameObject.name.Contains("Clone")))
             {
                 // Obstacle is hit, line of sight is blocked
                 Debug.Log("Player in line of sight");

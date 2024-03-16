@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     //Gadget variables
     private Inventory inventory;
     private Item currentItem;
+    public bool canMove = true;
 
     //Animator
     private Animator animator;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     //InputSystem Variables
     public PlayerControls playerControls;
-    Vector3 moveDirection = Vector3.zero;
+    [HideInInspector] public Vector3 moveDirection = Vector3.zero;
     private InputAction move;
     private InputAction useAbility;
     private InputAction recharge;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         //Input System
         playerControls = new PlayerControls();
+        canMove = true;
 
         //Cinemachine
         vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
@@ -84,24 +86,37 @@ public class PlayerController : MonoBehaviour
         {
             currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
         }
-        moveDirection = move.ReadValue<Vector2>();
-        Recharge();
+        if (canMove)
+        {
+            moveDirection = move.ReadValue<Vector2>();
+            Recharge();
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
-
-        //Sets walk to idle and idle to walk
-        animator.SetFloat("Velocity", rb.velocity.magnitude);
-
-        if (moveDirection != Vector3.zero)
+        if (canMove)
         {
-            // Calculate rotation to look at the movement direction
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.y));
+            rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
 
-            // Smoothly rotate towards the target rotation
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            //Sets walk to idle and idle to walk
+            animator.SetFloat("Velocity", rb.velocity.magnitude);
+
+            if (moveDirection != Vector3.zero)
+            {
+                // Calculate rotation to look at the movement direction
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.y));
+
+                // Smoothly rotate towards the target rotation
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            }
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+
+            //Sets walk to idle and idle to walk
+            animator.SetFloat("Velocity", rb.velocity.magnitude);
         }
     }
 
@@ -111,7 +126,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="context"></param>
     private void UseAbility(InputAction.CallbackContext context)
     {
-        if (currentItem != null && currentItem.hasAbility && currentItem.energy >= currentItem.maxEnergy)
+        if (canMove && currentItem != null && currentItem.hasAbility && currentItem.energy >= currentItem.maxEnergy)
         {
             inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>().UseAbility();
             if (currentItem.isReusable == false)

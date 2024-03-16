@@ -3462,6 +3462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceee6d63d53b9434c90b742c0c72ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   spine: {fileID: 6242529339661658701}
   rotationSpeed: 60
   rotationRange: 90
@@ -3479,7 +3480,7 @@ MonoBehaviour:
   maxRayDistance: 20
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 5312
+    m_Bits: 5320
   differentRotation: 0
   maxSearchTime: 3
 --- !u!195 &331842724585542790
