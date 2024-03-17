@@ -14764,7 +14764,7 @@ MonoBehaviour:
   itemName: Holo Bush
   maxEnergy: 3
   energy: 3
-  bush: {fileID: 3152165984027467468, guid: 320f53a9a92244745872bef904bb7ffc, type: 3}
+  bush: {fileID: 886131150494538603, guid: 320f53a9a92244745872bef904bb7ffc, type: 3}
 --- !u!114 &3288795302375917507
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -15,6 +16,7 @@ public class AlienClone : MonoBehaviour
 
     PlayerController controller;
     PlayerControls playerControls;
+    CinemachineVirtualCamera vcam;
 
     InputAction move;
     InputAction useAbility;
@@ -22,6 +24,10 @@ public class AlienClone : MonoBehaviour
     private void Awake()
     {
         controller = GameObject.Find("Alien").GetComponent<PlayerController>();
+        vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = gameObject.transform;
+        vcam.LookAt = gameObject.transform;
+
         controller.canMove = false;
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody>();
@@ -74,6 +80,8 @@ public class AlienClone : MonoBehaviour
 
     public void DestroyClone()
     {
+        vcam.LookAt = controller.gameObject.transform;
+        vcam.Follow = controller.gameObject.transform;
         controller.canMove = true;
         Destroy(gameObject);
     }

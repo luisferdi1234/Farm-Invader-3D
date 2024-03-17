@@ -18,7 +18,7 @@ public class CloneItem : Item
 
     public override void UseAbility()
     {
-        GameObject currentClone = Instantiate(clone, player.transform.position + player.transform.forward, player.transform.rotation);
+        GameObject currentClone = Instantiate(clone, player.transform.position, player.transform.rotation);
         currentClone.GetComponent<AlienClone>().moveDirection = player.transform.forward;
         currentClone.GetComponent <AlienClone>().moveSpeed = playerController.moveSpeed;
         AudioManager.instance.PlaySpecificSound("Bush Placed", .3f);

@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI gadgetEnergy;
     [SerializeField] private GameObject cloak;
+    [SerializeField] private GameObject clone;
     [SerializeField] private GameObject apple;
     [SerializeField] private GameObject cow;
     [SerializeField] private GameObject holoBush;
@@ -225,6 +226,7 @@ public class InventoryUI : MonoBehaviour
             cow.SetActive(false);
             holoBush.SetActive(false);
             emp.SetActive(false);
+            clone.SetActive(false);
         }
         else if (currentItem.itemName == "Apple")
         {
@@ -233,6 +235,7 @@ public class InventoryUI : MonoBehaviour
             cow.SetActive(false);
             holoBush.SetActive(false);
             emp.SetActive(false);
+            clone.SetActive(false);
         }
         else if (currentItem.itemName == "Cow")
         {
@@ -241,6 +244,7 @@ public class InventoryUI : MonoBehaviour
             holoBush.SetActive(false);
             cow.SetActive(true);
             emp.SetActive(false);
+            clone.SetActive(false);
         }
         else if (currentItem.itemName == "Holo Bush")
         {
@@ -249,6 +253,7 @@ public class InventoryUI : MonoBehaviour
             cow.SetActive(false);
             holoBush.SetActive(true);
             emp.SetActive(false);
+            clone.SetActive(false);
         }
         else if (currentItem.itemName == "EMP")
         {
@@ -257,6 +262,16 @@ public class InventoryUI : MonoBehaviour
             cow.SetActive(false);
             holoBush.SetActive(false);
             emp.SetActive(true);
+            clone.SetActive(false);
+        }
+        else if (currentItem.itemName == "Doppleganger Decoy")
+        {
+            apple.SetActive(false);
+            cloak.SetActive(false);
+            cow.SetActive(false);
+            holoBush.SetActive(false);
+            emp.SetActive(false);
+            clone.SetActive(true);
         }
         else
         {
@@ -265,6 +280,7 @@ public class InventoryUI : MonoBehaviour
             cow.SetActive(false);
             holoBush.SetActive(false);
             emp.SetActive(false);
+            clone.SetActive(false);
         }
     }
 

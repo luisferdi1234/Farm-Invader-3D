@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //SerializedFields
-    [SerializeField] Rigidbody rb;
+    [SerializeField] public Rigidbody rb;
     [SerializeField] public float maxMoveSpeed = 9f;
     [SerializeField] public float cowSlowDown = 2f;
     [SerializeField] GameObject alienModel;

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     //Item array for inventory
-    public GameObject[,] inventorySlots = new GameObject[4, 3];
+    public GameObject[,] inventorySlots = new GameObject[5, 3];
     //0,0 slot is always for cloak
     //3,0 slot is always for cow
 
@@ -105,7 +105,7 @@ public class Inventory : MonoBehaviour
         if (playerController.canMove)
         {
             //Check if cow is the nearby object
-            if (inventorySlots[3, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
+            if (inventorySlots[4, 0] == null && nearestItem != null && nearestItem.name.Contains("Cow"))
             {
                 if (inventorySlots[currentInventorySlot, 0] != null)
                 {
@@ -116,12 +116,12 @@ public class Inventory : MonoBehaviour
                     inventorySlots[currentInventorySlot, 0].SetActive(false);
                 }
                 AudioManager.instance.PauseAlienCharge();
-                GrabItem(3, 0);
+                GrabItem(4, 0);
             }
-            else if (nearestItem != null && inventorySlots[3, 0] == null)
+            else if (inventorySlots[4, 0] == null && nearestItem != null && inventorySlots[3, 0] == null)
             {
                 //Checks for an empty inventory slot
-                for (int i = 1; i < inventorySlots.GetLength(0); i++)
+                for (int i = 1; i < inventorySlots.GetLength(0) - 1; i++)
                 {
                     //If item slot available put it in first slot
                     if (inventorySlots[i, 0] == null)
@@ -163,7 +163,7 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryRight(InputAction.CallbackContext context)
     {
-        if (inventorySlots[3, 0] == null && ChangeToActiveRightSlot())
+        if (inventorySlots[4, 0] == null && ChangeToActiveRightSlot())
         {
             //Handles turning off current item
             if (inventorySlots[prevInventorySlot, 0] != null)
@@ -187,7 +187,7 @@ public class Inventory : MonoBehaviour
     /// <param name="context"></param>
     private void InventoryLeft(InputAction.CallbackContext context)
     {
-        if (inventorySlots[3,0] == null && ChangeToActiveLeftSlot())
+        if (inventorySlots[4,0] == null && ChangeToActiveLeftSlot())
         {
             //Turns off current item
             if (inventorySlots[prevInventorySlot, 0] != null)
@@ -224,7 +224,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + transform.forward + (transform.up / 2) * itemRadius;
+            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + (transform.up / 2) + transform.forward * itemRadius;
         }
 
         //Get all colliders attached to the
@@ -234,7 +234,6 @@ public class Inventory : MonoBehaviour
         {
             collider.enabled = true;
         }
-        ChangeItemRadius();
         //Handles shifting the array if the item is stackable
         if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().stackable)
         {
@@ -348,11 +347,14 @@ public class Inventory : MonoBehaviour
         animator.SetBool("CarryingCow", true);
         slot.GetComponent<NavMeshAgent>().enabled = false;
         playerController.moveSpeed = playerController.cowSlowDown;
+
+        slot.transform.parent = spine.transform;
+        slot.transform.position = spine.transform.position + spine.transform.forward * itemRadius * 2;
+
         // Set the initial relative rotation of the cow when picked up
         Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
         slot.transform.localRotation = Quaternion.Euler(relativeRotation);
-        slot.transform.parent = spine.transform;
-        slot.transform.position = spine.transform.position + spine.transform.forward * itemRadius * 2;
+
         AudioManager.instance.PlayRandomAudioClip("cowSounds");
     }
 
@@ -361,9 +363,9 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void DropCow()
     {
-        inventorySlots[3, 0].GetComponent<NavMeshAgent>().enabled = true;
-        inventorySlots[3, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[3,0].transform.position);
-        inventorySlots[3, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
+        inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
+        inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4,0].transform.position);
+        inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;
     }
@@ -401,7 +403,7 @@ public class Inventory : MonoBehaviour
                 return true;
             }
             //Cloak is always an active slot, so worst case go to cloak
-            if (i == 2 && currentInventorySlot != 0)
+            if (i == 3 && currentInventorySlot != 0)
             {
                 prevInventorySlot = currentInventorySlot;
                 currentInventorySlot = 0;
@@ -425,7 +427,7 @@ public class Inventory : MonoBehaviour
                 {
                     return false;
                 }
-                i = 3;
+                i = 4;
                 iterations++;
             }
             if (inventorySlots[i - 1, 0] != null)

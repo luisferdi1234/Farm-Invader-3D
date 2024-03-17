@@ -49,6 +49,16 @@ public class PatrollingFarmer : PatrollingEnemy
                 }
             }
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
+        {
+            animator.enabled = true;
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Patrolling", true);
+            animator.SetBool("Returning", false);
+
+            stateMachine.ChangeState(new SearchState(), gameObject);
+            AudioManager.instance.PlayRandomAudioClip("returnSounds");
+        }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState))
         {
             //Patrols area after losing player
@@ -148,7 +158,7 @@ public class PatrollingFarmer : PatrollingEnemy
             // Shoot a ray to check for obstacles
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, toTarget.normalized, out hit, maxRayDistance, obstacleMask) && (hit.collider.gameObject.name.Contains("Alien") || hit.collider.gameObject.name.Contains("Clone")))
+            if (Physics.Raycast(transform.position, toTarget.normalized, out hit, maxRayDistance, obstacleMask) && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Clone"))
             {
                 // Obstacle is hit, line of sight is blocked
                 Debug.Log("Player in line of sight");
