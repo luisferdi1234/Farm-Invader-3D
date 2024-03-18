@@ -73614,7 +73614,7 @@ MonoBehaviour:
   sceneName: Level2
   previousLevel: Level1
   levelName: Level 2
-  levelDescription: Cosmic Apple
+  levelDescription: Cows <3 Apples
   attainableCows: 1
   score: 0
 --- !u!114 &1541442361
@@ -151974,7 +151974,7 @@ MonoBehaviour:
   sceneName: Level4
   previousLevel: Level3
   levelName: Level 4
-  levelDescription: Cows <3 Apples
+  levelDescription: Charging Up!
   attainableCows: 1
   score: 0
 --- !u!1 &6845422901554919645
