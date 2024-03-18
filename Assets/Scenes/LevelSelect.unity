@@ -7629,7 +7629,7 @@ MonoBehaviour:
   levelName: Level 18
   levelDescription: Made You Look!
   attainableCows: 
-  score: -1
+  score: 1
 --- !u!114 &375031841
 MonoBehaviour:
   m_ObjectHideFlags: 0
