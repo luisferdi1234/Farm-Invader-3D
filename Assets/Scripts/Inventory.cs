@@ -219,14 +219,7 @@ public class Inventory : MonoBehaviour
         inventorySlots[currentInventorySlot, 0].tag = "Item";
         nearestItem = null;
         inventorySlots[currentInventorySlot, 0].transform.parent = null;
-        if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Holo Bush")
-        {
-            inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
-        }
-        else
-        {
-            inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
-        }
+        inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
 
         //Get all colliders attached to the
         Collider[] allColliders = inventorySlots[currentInventorySlot, 0].GetComponents<Collider>();

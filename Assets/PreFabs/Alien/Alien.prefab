@@ -703,7 +703,6 @@ MonoBehaviour:
   spine: {fileID: 5935227678784147277}
   rightHand: {fileID: 782018899615813195}
   cowCollider: {fileID: 2680933724092761119}
-  invisibleApple: {fileID: 0}
   nearestItem: {fileID: 0}
   itemRadius: 0
   currentInventorySlot: 0
@@ -759,7 +758,7 @@ SphereCollider:
   m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
-  m_Center: {x: 0, y: 1.5, z: 0.8}
+  m_Center: {x: 0, y: 1.5, z: 0.4}
 --- !u!1 &2664311040544215342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 1f88a1c127f823948bca5a5bd1fd2ffc, type: 3}
