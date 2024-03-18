@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     //Grabs game objects to allow items to look like they're being carried
     [SerializeField] GameObject spine;
     [SerializeField] GameObject rightHand;
+    [SerializeField] SphereCollider cowCollider;
 
     //Item variables
     public GameObject nearestItem;
@@ -220,11 +221,11 @@ public class Inventory : MonoBehaviour
         inventorySlots[currentInventorySlot, 0].transform.parent = null;
         if (inventorySlots[currentInventorySlot, 0].GetComponent<Item>().itemName == "Holo Bush")
         {
-            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + transform.forward;
+            inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
         }
         else
         {
-            inventorySlots[currentInventorySlot, 0].transform.position = transform.position + (transform.up / 2) + transform.forward * itemRadius;
+            inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
         }
 
         //Get all colliders attached to the
@@ -344,6 +345,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void PickUpCow(GameObject slot)
     {
+        cowCollider.enabled = true;
         animator.SetBool("CarryingCow", true);
         slot.GetComponent<NavMeshAgent>().enabled = false;
         playerController.moveSpeed = playerController.cowSlowDown;
@@ -363,6 +365,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void DropCow()
     {
+        cowCollider.enabled = false;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4,0].transform.position);
         inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
