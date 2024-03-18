@@ -80,13 +80,16 @@ public class InvisibilityCloakManager : MonoBehaviour
 
     void SetLayerRecursively(Transform currentTransform, LayerMask layer)
     {
-        // Set the layer for the current transform
-        currentTransform.gameObject.layer = layer;
-
-        // Loop through all children and set their layers recursively
-        foreach (Transform child in currentTransform)
+        if (currentTransform.gameObject.name != "Collision Detection")
         {
-            SetLayerRecursively(child, layer);
+            // Set the layer for the current transform
+            currentTransform.gameObject.layer = layer;
+
+            // Loop through all children and set their layers recursively
+            foreach (Transform child in currentTransform)
+            {
+                SetLayerRecursively(child, layer);
+            }
         }
     }
 }
