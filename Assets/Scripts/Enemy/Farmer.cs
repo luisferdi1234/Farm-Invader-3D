@@ -173,14 +173,12 @@ public class Farmer : Enemy
             if (Physics.Raycast(transform.position, toTarget.normalized, out hit, maxRayDistance, obstacleMask) && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Clone"))
             {
                 // Obstacle is hit, line of sight is blocked
-                Debug.Log(hit.collider.gameObject.name);
                 Debug.Log("Player in line of sight");
                 return true;
             }
             else
             {
                 // No obstacles, player is in line of sight
-                Debug.Log(hit.collider.gameObject.name);
                 Debug.Log("Line of sight blocked by obstacle");
                 return false;
             }
