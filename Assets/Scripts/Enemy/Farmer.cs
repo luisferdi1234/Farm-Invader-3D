@@ -12,6 +12,7 @@ public class Farmer : Enemy
     [SerializeField] float differentRotation = 0f;
 
     //Timers
+
     private float idleTimer = 0f;
 
     private float searchTimer = 0f;
@@ -19,6 +20,7 @@ public class Farmer : Enemy
     [SerializeField] float maxSearchTime = 3f;
 
     private bool inChase = false;
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -173,13 +175,11 @@ public class Farmer : Enemy
             if (Physics.Raycast(transform.position, toTarget.normalized, out hit, maxRayDistance, obstacleMask) && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Clone"))
             {
                 // Obstacle is hit, line of sight is blocked
-                Debug.Log("Player in line of sight");
                 return true;
             }
             else
             {
                 // No obstacles, player is in line of sight
-                Debug.Log("Line of sight blocked by obstacle");
                 return false;
             }
         }
