@@ -55,7 +55,7 @@ public class CowCollisionDetection : MonoBehaviour
         if (gemApple == null)
         {
             //Checks if player is currently holding an apple, and is in range of cow
-            if (other.gameObject.name.Contains("Apple") || other.gameObject.name.Contains("Alien") && inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple"))
+            if (other.gameObject.name.Contains("Apple") || (other.gameObject.name.Contains("Alien") && inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple")))
             {
                 Debug.Log("Apple Nearby!");
                 AudioManager.instance.PlayRandomAudioClip("cowSounds");

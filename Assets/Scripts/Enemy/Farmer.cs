@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class Farmer : Enemy
 {
     //Serialized Fields
-    [SerializeField] float detectionAngle = 50f;
-    [SerializeField] float maxRayDistance = 20f;
+    [SerializeField] float detectionAngle = 28f;
+    [SerializeField] float maxRayDistance = 30f;
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float differentRotation = 0f;
 

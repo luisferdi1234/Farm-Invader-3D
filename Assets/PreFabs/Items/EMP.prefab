@@ -127,7 +127,7 @@ MonoBehaviour:
   lightning: {fileID: 0}
   isRechargeable: 1
   hasAbility: 1
-  stackable: 0
+  stackable: 1
   isReusable: 0
   numberOfUses: -1
   itemName: EMP

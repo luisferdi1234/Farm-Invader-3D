@@ -111,7 +111,7 @@ public class AudioManager : MonoBehaviour
         //Play the sound
         AudioClip randomClip = audioClipsListDictionary[listName][selection];
 
-        if (listName == "dogBarkSounds" || listName == "dogGrowlSounds")
+        if (listName == "dogBarkSounds" || listName == "dogGrowlSounds" || listName == "cowSounds")
         {
             audioSource.clip = randomClip;
             audioSource.Play();

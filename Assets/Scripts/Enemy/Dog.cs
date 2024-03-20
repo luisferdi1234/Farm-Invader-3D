@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Dog : Enemy
 {
-    private int previousSound;
-
-    private float idleTimer = 0f;
-
-    private float searchTimer = 0f;
-
-    [SerializeField] float maxSearchTime = 3f;
-
-    private bool inChase = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -42,7 +33,6 @@ public class Dog : Enemy
         {
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            inChase = true;
             rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
@@ -51,7 +41,6 @@ public class Dog : Enemy
         {
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            inChase = true;
             rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }

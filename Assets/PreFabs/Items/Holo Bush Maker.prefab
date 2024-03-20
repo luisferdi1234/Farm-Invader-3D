@@ -14758,13 +14758,13 @@ MonoBehaviour:
   lightning: {fileID: 0}
   isRechargeable: 1
   hasAbility: 1
-  stackable: 0
-  isReusable: 1
-  numberOfUses: -1
+  stackable: 1
+  isReusable: 0
+  numberOfUses: 1
   itemName: Holo Bush
   maxEnergy: 3
   energy: 3
-  bush: {fileID: 886131150494538603, guid: 320f53a9a92244745872bef904bb7ffc, type: 3}
+  bush: {fileID: 1113656265676900431, guid: e40f83b7788edaa4a94d740dc8ba9cfd, type: 3}
 --- !u!114 &3288795302375917507
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class SearchState : EnemyState
 
     public void OnUpdate()
     {
-        if (turnOffTimer >= .2f)
+        if (turnOffTimer >= .2f && currentEnemy.hasVision)
         {
             if (currentEnemy.animator.enabled)
             {

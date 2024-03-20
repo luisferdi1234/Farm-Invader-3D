@@ -850,7 +850,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 7103
+    m_Bits: 7095
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -931,7 +931,7 @@ MonoBehaviour:
   hasVision: 0
   agent: {fileID: 0}
   rb: {fileID: 0}
-  detectionAngle: 30
+  detectionAngle: 28
   maxRayDistance: 30
   obstacleMask:
     serializedVersion: 2

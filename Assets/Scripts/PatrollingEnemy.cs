@@ -6,7 +6,7 @@ public class PatrollingEnemy : Enemy
 {
     [SerializeField] List<GameObject> positions = new List<GameObject>();
 
-    public Vector3 nextPosition = Vector3.zero;
+    [HideInInspector] public Vector3 nextPosition = Vector3.zero;
     int currentListPosition = 0;
 
     /// <summary>
