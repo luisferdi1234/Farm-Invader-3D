@@ -136,6 +136,10 @@ public class Farmer : Enemy
                 inChase = true;
             }
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)
+        {
+            target = other.gameObject;
+        }
     }
 
     protected override void OnCollisionEnter(Collision other)

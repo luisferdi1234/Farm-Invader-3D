@@ -80,7 +80,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1089
+    m_Bits: 1097
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -454,7 +454,6 @@ MonoBehaviour:
   hasVision: 0
   agent: {fileID: 8693079616004615663}
   rb: {fileID: 0}
-  maxSearchTime: 3
 --- !u!4 &8966880272948374248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}

@@ -44,6 +44,10 @@ public class Dog : Enemy
             rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)
+        {
+            target = other.gameObject;
+        }
     }
 
     protected override void OnCollisionEnter(Collision collision)

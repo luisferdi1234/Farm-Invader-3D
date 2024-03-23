@@ -80,7 +80,7 @@ public class InvisibilityCloakManager : MonoBehaviour
 
     void SetLayerRecursively(Transform currentTransform, LayerMask layer)
     {
-        if (currentTransform.gameObject.name != "Collision Detection")
+        if (currentTransform.gameObject.name != "Collision Detection" || !currentTransform.gameObject.CompareTag("HeldItem") || !currentTransform.gameObject.CompareTag("Item"))
         {
             // Set the layer for the current transform
             currentTransform.gameObject.layer = layer;

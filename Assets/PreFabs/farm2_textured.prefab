@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: farm2_textured
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0d65bb6b44692234cb853bf8bd0fe492, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

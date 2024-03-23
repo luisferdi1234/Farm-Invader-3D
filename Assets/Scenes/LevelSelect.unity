@@ -73892,7 +73892,7 @@ MonoBehaviour:
   sceneName: Level22
   previousLevel: Level21
   levelName: Level 22
-  levelDescription: Cows <3 Apples
+  levelDescription: Bring Me Back A Treat!
   attainableCows: 2
   score: 0
 --- !u!114 &1528342733
@@ -133646,7 +133646,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 30
+  m_CameraDistance: 60
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -146793,7 +146793,7 @@ Transform:
   m_GameObject: {fileID: 2531444305122149548}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -62.675896, y: 37.091885, z: 75.037994}
+  m_LocalPosition: {x: -62.675896, y: 67.09188, z: 75.037994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152623,7 +152623,7 @@ Transform:
   m_GameObject: {fileID: 4927341662243690743}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -62.675896, y: 37.091885, z: 75.037994}
+  m_LocalPosition: {x: -62.675896, y: 67.09188, z: 75.037994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

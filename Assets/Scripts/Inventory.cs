@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
     public GameObject nearestItem;
     public float itemRadius;
     public int currentInventorySlot = 0;
-    private int prevInventorySlot = 0;
+    private Vector2 prevInventorySlot = Vector2.zero;
     [HideInInspector] public bool hasApple = false;
 
     //Input System Variable
@@ -128,7 +128,7 @@ public class Inventory : MonoBehaviour
                     if (inventorySlots[i, 0] == null)
                     {
                         GrabItem(i, 0);
-                        inventorySlots[prevInventorySlot, 0].SetActive(false);
+                        inventorySlots[(int)prevInventorySlot.x, (int)prevInventorySlot.y].SetActive(false);
                         inventorySlots[currentInventorySlot, 0].SetActive(true);
                         break;
                     }
@@ -140,6 +140,7 @@ public class Inventory : MonoBehaviour
                             if (inventorySlots[i, j] == null)
                             {
                                 GrabItem(i, j);
+                                inventorySlots[(int)prevInventorySlot.x, (int)prevInventorySlot.y].SetActive(false);
                                 inventorySlots[i, j].SetActive(false);
                                 inventorySlots[currentInventorySlot, 0].SetActive(true);
 
@@ -167,9 +168,9 @@ public class Inventory : MonoBehaviour
         if (inventorySlots[4, 0] == null && ChangeToActiveRightSlot())
         {
             //Handles turning off current item
-            if (inventorySlots[prevInventorySlot, 0] != null)
+            if (inventorySlots[(int)prevInventorySlot.x, 0] != null)
             {
-                inventorySlots[prevInventorySlot, 0].SetActive(false);
+                inventorySlots[(int)prevInventorySlot.x, 0].SetActive(false);
             }
 
             //Handles turning on next item
@@ -191,9 +192,9 @@ public class Inventory : MonoBehaviour
         if (inventorySlots[4,0] == null && ChangeToActiveLeftSlot())
         {
             //Turns off current item
-            if (inventorySlots[prevInventorySlot, 0] != null)
+            if (inventorySlots[(int)prevInventorySlot.x, 0] != null)
             {
-                inventorySlots[prevInventorySlot, 0].SetActive(false);
+                inventorySlots[(int)prevInventorySlot.x, 0].SetActive(false);
             }
 
             //Handles turning on next item
@@ -240,26 +241,26 @@ public class Inventory : MonoBehaviour
             {
                 hasApple = false;
             }
-            if (inventorySlots[currentInventorySlot, 0] == null && inventorySlots[prevInventorySlot, 0] == null)
+            if (inventorySlots[currentInventorySlot, 0] == null && inventorySlots[(int)prevInventorySlot.x, 0] == null)
             {
                 currentInventorySlot = 0;
             }
             else if (inventorySlots[currentInventorySlot, 0] == null)
             {
-                currentInventorySlot = prevInventorySlot;
+                currentInventorySlot = (int)prevInventorySlot.x;
             }
         }
         else
         {
 
             inventorySlots[currentInventorySlot, 0] = null;
-            if (inventorySlots[prevInventorySlot, 0] == null)
+            if (inventorySlots[(int)prevInventorySlot.x, 0] == null)
             {
                 currentInventorySlot = 0;
             }
             else
             {
-                currentInventorySlot = prevInventorySlot;
+                currentInventorySlot = (int)prevInventorySlot.x;
             }
             if (inventorySlots[currentInventorySlot, 0] != null && !inventorySlots[currentInventorySlot, 0].active)
             {
@@ -294,7 +295,15 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public void GrabItem(int i, int j)
     {
-        prevInventorySlot = currentInventorySlot;
+        prevInventorySlot.x = currentInventorySlot;
+        if (j > 0)
+        {
+            prevInventorySlot.y = j - 1;
+        }
+        else
+        {
+            prevInventorySlot.y = 0;
+        }
         currentInventorySlot = i;
         // Parent the new nearest item to the player
         inventorySlots[i,j] = nearestItem;
@@ -394,14 +403,14 @@ public class Inventory : MonoBehaviour
         {
             if (i + 1 < inventorySlots.GetLength(0) - 1 && inventorySlots[i + 1, 0] != null)
             {
-                prevInventorySlot = currentInventorySlot;
+                prevInventorySlot.x = currentInventorySlot;
                 currentInventorySlot = i + 1;
                 return true;
             }
             //Cloak is always an active slot, so worst case go to cloak
             if (i == 3 && currentInventorySlot != 0)
             {
-                prevInventorySlot = currentInventorySlot;
+                prevInventorySlot.x = currentInventorySlot;
                 currentInventorySlot = 0;
                 return true;
             }
@@ -428,7 +437,7 @@ public class Inventory : MonoBehaviour
             }
             if (inventorySlots[i - 1, 0] != null)
             {
-                prevInventorySlot = currentInventorySlot;
+                prevInventorySlot.x = currentInventorySlot;
                 currentInventorySlot = i - 1;
                 return true;
             }

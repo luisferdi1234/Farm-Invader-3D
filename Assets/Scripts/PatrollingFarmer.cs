@@ -118,6 +118,10 @@ public class PatrollingFarmer : PatrollingEnemy
                 inChase = true;
             }
         }
+        else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)
+        {
+            target = other.gameObject;
+        }
     }
 
     /// <summary>
