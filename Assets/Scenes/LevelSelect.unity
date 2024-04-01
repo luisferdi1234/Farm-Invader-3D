@@ -303,7 +303,7 @@ MonoBehaviour:
   sceneName: Level5
   previousLevel: Level4
   levelName: Level 5
-  levelDescription: U
+  levelDescription: Hungry For More?
   attainableCows: 2
   score: 0
 --- !u!114 &10468637
@@ -13330,7 +13330,7 @@ MonoBehaviour:
   sceneName: Level21
   previousLevel: Level20
   levelName: Level 20
-  levelDescription: W
+  levelDescription: Hungry For More? 2
   attainableCows: 2
   score: 0
 --- !u!114 &494157113
@@ -41053,7 +41053,7 @@ MonoBehaviour:
   sceneName: Level3
   previousLevel: Level2
   levelName: Level 3
-  levelDescription: Now You See Me Now You Dont
+  levelDescription: Now You See Me Now You Don't
   attainableCows: 1
   score: 0
 --- !u!114 &958558775
@@ -73892,7 +73892,7 @@ MonoBehaviour:
   sceneName: Level22
   previousLevel: Level21
   levelName: Level 22
-  levelDescription: Bring Me Back A Treat!
+  levelDescription: Bring Me Back A Tasty Treat!
   attainableCows: 2
   score: 0
 --- !u!114 &1528342733
@@ -133646,7 +133646,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 60
+  m_CameraDistance: 80
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -146793,7 +146793,7 @@ Transform:
   m_GameObject: {fileID: 2531444305122149548}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -62.675896, y: 67.09188, z: 75.037994}
+  m_LocalPosition: {x: -62.675896, y: 87.09189, z: 75.037994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152623,7 +152623,7 @@ Transform:
   m_GameObject: {fileID: 4927341662243690743}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -62.675896, y: 67.09188, z: 75.037994}
+  m_LocalPosition: {x: -62.675896, y: 87.09189, z: 75.037994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -152825,7 +152825,7 @@ MonoBehaviour:
   sceneName: Level10
   previousLevel: Level9
   levelName: Level 10
-  levelDescription: Going Dark 1
+  levelDescription: Going Dark
   attainableCows: 1
   score: 0
 --- !u!1 &6979341151319114177

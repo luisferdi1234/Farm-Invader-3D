@@ -7,10 +7,11 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     GameObject canvas;
     [SerializeField] public int maxAmountOfCows;
+    [SerializeField] public string levelName;
 
-    public int spot = 0;
-    public int cows = 0;
-    public int completion = 0;
+    [HideInInspector] public int spot = 0;
+    [HideInInspector] public int cows = 0;
+    [HideInInspector] public int completion = 0;
 
     private void Awake()
     {

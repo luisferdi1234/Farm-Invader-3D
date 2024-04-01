@@ -2621,6 +2621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmountOfCows: 1
+  levelName: Going Dark
   spot: 0
   cows: 0
   completion: 0

@@ -3213,6 +3213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmountOfCows: 1
+  levelName: 'Level 18: Made You Look!'
   spot: 0
   cows: 0
   completion: 0

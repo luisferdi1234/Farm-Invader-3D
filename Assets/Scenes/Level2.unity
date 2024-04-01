@@ -4065,6 +4065,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9036891606508194071, guid: 4775c58d7cf7f4647bb1e21157efd8b2, type: 3}
+      propertyPath: levelName
+      value: 'Level 2: Cows <3 Apples'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
