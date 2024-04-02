@@ -9834,11 +9834,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1 &1755500431 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6673119452466736037, guid: a6f3b99fbfc3de74b9568378c125b1e6, type: 3}
-  m_PrefabInstance: {fileID: 1611769331377777349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1755500437 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3135480574488646479, guid: a6f3b99fbfc3de74b9568378c125b1e6, type: 3}
@@ -10014,11 +10009,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 291580776658729467, guid: 484277ed6ef26344cabe1ba8f232ce5b, type: 3}
   m_PrefabInstance: {fileID: 1835631252}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1844915515 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1552790690418894007, guid: 61f73dbdfadb81042814fd321a88b2c9, type: 3}
-  m_PrefabInstance: {fileID: 4257125478128960670}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1844915521 stripped
 RectTransform:
@@ -11808,14 +11798,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8400841847940986392, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
-      propertyPath: ui
-      value: 
-      objectReference: {fileID: 1844915515}
-    - target: {fileID: 8400841847940986392, guid: d0ff5959b8c4b534196fe50b386ce1c9, type: 3}
-      propertyPath: pause
-      value: 
-      objectReference: {fileID: 1755500431}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

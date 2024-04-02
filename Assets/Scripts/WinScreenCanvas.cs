@@ -7,8 +7,8 @@ using System.Linq;
 
 public class WinScreenCanvas : MonoBehaviour
 {
-    [SerializeField] GameObject pause;
-    [SerializeField] GameObject ui;
+    GameObject pause;
+    GameObject ui;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI scoreDescriptionText;
 
@@ -16,9 +16,11 @@ public class WinScreenCanvas : MonoBehaviour
     public void OnLevelWon()
     {
         Time.timeScale = 0f;
+
+        pause = GameObject.Find("Pause Canvas");
         pause.SetActive(false);
+        ui = GameObject.Find("PlayerCanvas");
         ui.SetActive(false);
-        string currentLevel = SceneManager.GetActiveScene().name;
 
         scoreDescriptionText.text = $"Times Spotted By Farmers: {ScoreManager.Instance.spot}";
         scoreDescriptionText.text += $"\n Cows collected: {ScoreManager.Instance.cows} / {ScoreManager.Instance.maxAmountOfCows}";
@@ -38,6 +40,8 @@ public class WinScreenCanvas : MonoBehaviour
             scoreText.text = $"Level Score: \n Gold";
         }
 
+        //Updates Data
+        string currentLevel = SceneManager.GetActiveScene().name;
         PlayerProgressManager.Instance.LevelComplete(currentLevel, score);
     }
 
@@ -48,11 +52,20 @@ public class WinScreenCanvas : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void NextLevel()
+    public void LevelSelect()
     {
         Time.timeScale = 1f;
 
         // Load the next scene
         SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }

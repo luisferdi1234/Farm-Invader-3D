@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelName;
     [SerializeField] TextMeshProUGUI obtainableCows;
 
+    private GameObject ui;
+
     [SerializeField] GameObject restartImage;
     [SerializeField] Sprite R;
     [SerializeField] Sprite PSPause;
@@ -33,6 +35,7 @@ public class PauseMenu : MonoBehaviour
     {
         //Waits for score manager to be instantiated
         levelName.text = ScoreManager.Instance.levelName;
+        ui = GameObject.Find("PlayerCanvas");
     }
 
     private void OnEnable()
@@ -79,7 +82,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        //Turns off pause menu
         pauseMenuUI.SetActive(false);
+
+        //Turns on player UI
+        ui.SetActive(true);
+
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -98,6 +106,10 @@ public class PauseMenu : MonoBehaviour
         {
             obtainableCows.color = Color.green;
         }
+
+        //Turns off player UI
+        ui.SetActive(false);
+
         //Updates restart image
         CheckConnectedControllers();
 
