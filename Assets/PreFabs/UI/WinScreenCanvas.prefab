@@ -260,8 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195241efe2b9eba41bb00e8b3d12950c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pause: {fileID: 0}
-  ui: {fileID: 0}
   scoreText: {fileID: 8960550316811082166}
   scoreDescriptionText: {fileID: 1448128016423879891}
 --- !u!1 &940660124917487242
@@ -673,7 +671,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8400841847940986392}
         m_TargetAssemblyTypeName: WinScreenCanvas, Assembly-CSharp
-        m_MethodName: NextLevel
+        m_MethodName: LevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
