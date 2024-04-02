@@ -24,7 +24,7 @@ public class DogGuardState : EnemyState
             if (idleTimer > maxIdleTime)
             {
                 currentEnemy.agent.SetDestination(currentEnemy.gameObject.transform.position);
-                currentEnemy.rb.mass = 1;
+                currentEnemy.agent.enabled = false;
                 positionReset = true;
             }
         }

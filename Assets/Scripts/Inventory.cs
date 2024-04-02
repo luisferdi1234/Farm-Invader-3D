@@ -349,7 +349,6 @@ public class Inventory : MonoBehaviour
     {
         cowCollider.enabled = true;
         animator.SetBool("CarryingCow", true);
-        slot.GetComponent<NavMeshAgent>().enabled = false;
         playerController.moveSpeed = playerController.cowSlowDown;
 
         slot.transform.parent = spine.transform;
@@ -368,8 +367,10 @@ public class Inventory : MonoBehaviour
     private void DropCow()
     {
         cowCollider.enabled = false;
-        inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
-        inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4,0].transform.position);
+        if (inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled == true)
+        {
+            inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4, 0].transform.position);
+        }
         inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);
         playerController.moveSpeed = playerController.maxMoveSpeed;

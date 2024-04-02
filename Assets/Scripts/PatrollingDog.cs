@@ -37,6 +37,7 @@ public class PatrollingDog : PatrollingEnemy
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(DogGuardState) && idleTimer >= maxIdleTime)
         {
+            agent.enabled = true;
             stateMachine.ChangeState(new PatrolState(), gameObject);
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(PatrolState))
@@ -56,7 +57,7 @@ public class PatrollingDog : PatrollingEnemy
         {
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            rb.mass = 10;
+            agent.enabled = true;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         //Changes to Chase State after spotting player
@@ -64,7 +65,7 @@ public class PatrollingDog : PatrollingEnemy
         {
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            rb.mass = 10;
+            agent.enabled = true;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)

@@ -5759,6 +5759,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5207970288094560393, guid: 73d15824df90f794980fc147a6205045, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107134907028417318, guid: 73d15824df90f794980fc147a6205045, type: 3}
+      propertyPath: m_Radius
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8526512625210252498, guid: 73d15824df90f794980fc147a6205045, type: 3}
       propertyPath: m_Name
       value: Escort Point

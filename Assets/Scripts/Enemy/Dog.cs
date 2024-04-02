@@ -32,16 +32,16 @@ public class Dog : Enemy
         if (other.CompareTag("Clone") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
             target = other.gameObject;
+            agent.enabled = true;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         //Changes to Chase State after spotting player
         else if (other.CompareTag("Player") && stateMachine.GetCurrentState().GetType() != typeof(ChaseState))
         {
             target = other.gameObject;
+            agent.enabled = true;
             stateMachine.ChangeState(new ChaseState(), gameObject);
-            rb.mass = 10;
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)
