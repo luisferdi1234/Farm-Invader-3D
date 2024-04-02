@@ -112582,7 +112582,7 @@ MonoBehaviour:
   previousLevel: Level19
   levelName: Level 20
   levelDescription: Here They Come
-  attainableCows: 2
+  attainableCows: 1
   score: 0
 --- !u!114 &2091231403
 MonoBehaviour:

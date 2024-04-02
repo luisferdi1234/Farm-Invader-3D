@@ -26,7 +26,7 @@ public class CowCollisionDetection : MonoBehaviour
             closestApple = null;
             Destroy(gemApple);
         }
-        else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
+        else if (closestApple != null && closestApple.transform.parent != null && !closestApple.transform.parent.tag.Contains("Player"))
         {
             agent.SetDestination(transform.position);
             closestApple = null;

@@ -53,6 +53,8 @@ public class PauseMenu : MonoBehaviour
     private void OnDisable()
     {
         pause.Disable();
+
+        restart.Disable();
     }
 
     /// <summary>
