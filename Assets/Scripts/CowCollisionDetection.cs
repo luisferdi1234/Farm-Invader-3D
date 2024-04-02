@@ -21,17 +21,26 @@ public class CowCollisionDetection : MonoBehaviour
 
     private void Update()
     {
+        //Gets rid of gem apple upon picking cow up
         if (!sphereCollider.enabled && closestApple != null)
         {
             closestApple = null;
             Destroy(gemApple);
         }
-        else if (closestApple != null && closestApple.transform.parent != null && !closestApple.transform.parent.tag.Contains("Player"))
+        //Makes it so that an apple in secondary slot makes cow stop moving.
+        else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
         {
             agent.SetDestination(transform.position);
             closestApple = null;
             Destroy(gemApple);
         }
+        //Makes cow stop walking towards a deleted apple
+        else if (agent.isActiveAndEnabled && closestApple == null && agent.destination != transform.position)
+        {
+            agent.SetDestination(transform.position);
+            Destroy(gemApple);
+        }
+        //Makes gem apple disappear when it gets picked up
         else if (gemApple != null && inventory.hasApple && !inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple") && closestApple == null)
         {
             Destroy(gemApple);
