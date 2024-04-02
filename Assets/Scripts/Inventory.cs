@@ -222,6 +222,9 @@ public class Inventory : MonoBehaviour
         inventorySlots[currentInventorySlot, 0].transform.parent = null;
         inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
 
+        //Makes items stand up right
+        inventorySlots[currentInventorySlot, 0].transform.localRotation = Quaternion.Euler(Vector3.zero);
+
         //Get all colliders attached to the
         Collider[] allColliders = inventorySlots[currentInventorySlot, 0].GetComponents<Collider>();
         // Enable each collider
