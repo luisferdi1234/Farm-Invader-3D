@@ -49,6 +49,9 @@ public class Farmer : Enemy
                     animator.SetBool("Chasing", false);
                     animator.SetBool("Patrolling", false);
                     animator.SetBool("Returning", true);
+
+                    agent.enabled = true;
+
                     stateMachine.ChangeState(new ReturnState(), gameObject);
                     searchTimer = 0f;
                     inChase = false;
@@ -61,6 +64,8 @@ public class Farmer : Enemy
             animator.SetBool("Chasing", false);
             animator.SetBool("Patrolling", true);
             animator.SetBool("Returning", false);
+
+            agent.enabled = false;
 
             stateMachine.ChangeState(new SearchState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("returnSounds");
@@ -84,6 +89,7 @@ public class Farmer : Enemy
             float positionThreshold = 0.5f;
             if (Vector3.Distance(gameObject.transform.position, base.GetSpawnPoint()) <= positionThreshold)
             {
+                agent.enabled = false;
                 stateMachine.ChangeState(new IdleState(), gameObject);
             }
         }
@@ -111,6 +117,7 @@ public class Farmer : Enemy
             if (hasVision && CheckLineOfSight(other.gameObject))
             {
                 animator.enabled = true;
+                agent.enabled = true;
                 animator.SetBool("Chasing", true);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
@@ -126,6 +133,7 @@ public class Farmer : Enemy
             if (hasVision && CheckLineOfSight(other.gameObject))
             {
                 animator.enabled = true;
+                agent.enabled = true;
                 animator.SetBool("Chasing", true);
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);

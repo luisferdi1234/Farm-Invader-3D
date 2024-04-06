@@ -11,13 +11,16 @@ public class CowCollisionDetection : MonoBehaviour
     private GameObject closestApple;
     private SphereCollider sphereCollider;
     Inventory inventory;
+    Animator cowAnimator;
+    float idleTimer = 0f;
+    float maxIdleTimer = 1f;
 
     private void Start()
     {
         agent = transform.parent.GetComponent<NavMeshAgent>();
-        agent.enabled = false;
         sphereCollider = GetComponent<SphereCollider>();
         inventory  = GameObject.Find("Alien").gameObject.GetComponent<Inventory>(); 
+        cowAnimator = transform.parent.GetComponent<Animator>();   
     }
 
     private void Update()
@@ -25,28 +28,51 @@ public class CowCollisionDetection : MonoBehaviour
         //Gets rid of gem apple upon picking cow up
         if (!sphereCollider.enabled && closestApple != null)
         {
-            agent.enabled = false;
             closestApple = null;
             Destroy(gemApple);
         }
         //Makes it so that an apple in secondary slot makes cow stop moving.
         else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
         {
-            agent.enabled = false;
             closestApple = null;
             Destroy(gemApple);
+            if (!cowAnimator.enabled)
+            {
+                cowAnimator.enabled = true;
+            }
+            cowAnimator.SetBool("Walking", false);
         }
         //Makes cow stop walking towards a deleted apple
         else if (agent.isActiveAndEnabled && agent.hasPath && closestApple == null && gemApple != null)
         {
-            agent.enabled = false;
             Destroy(gemApple);
+            if (!cowAnimator.enabled)
+            {
+                cowAnimator.enabled = true;
+            }
+            cowAnimator.SetBool("Walking", false);
         }
         //Makes gem apple disappear when it gets picked up
         else if (gemApple != null && inventory.hasApple && !inventory.inventorySlots[inventory.currentInventorySlot, 0].name.Contains("Apple") && closestApple == null)
         {
-            agent.enabled = false;
             Destroy(gemApple);
+            if (!cowAnimator.enabled)
+            {
+                cowAnimator.enabled = true;
+            }
+            cowAnimator.SetBool("Walking", false);
+        }
+        //Waits for cow to be on ground for 1 second before turning on idle
+        if (idleTimer >= maxIdleTimer && !cowAnimator.enabled)
+        {
+            cowAnimator.enabled = true;
+            cowAnimator.SetBool("Walking", false);
+            idleTimer = 0f;
+        }
+        //Starts idle count down when cow is on ground
+        else if (!cowAnimator.enabled && sphereCollider.enabled)
+        {
+            idleTimer += Time.deltaTime;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -56,9 +82,13 @@ public class CowCollisionDetection : MonoBehaviour
             Debug.Log("Apple Detected!");
             AudioManager.instance.PlayRandomAudioClip("cowSounds");
             closestApple = other.gameObject;
-            agent.enabled = true;
             agent.SetDestination(closestApple.transform.position);
-            
+            if (!cowAnimator.enabled)
+            {
+                cowAnimator.enabled = true;
+            }
+            cowAnimator.SetBool("Walking", true);
+
         }
         if (gemApple == null)
         {
@@ -79,8 +109,12 @@ public class CowCollisionDetection : MonoBehaviour
         {
             if (other.gameObject.name.Contains("Alien") && inventory.hasApple && closestApple == null)
             {
-                agent.enabled = false;
                 Destroy(gemApple);
+                if (!cowAnimator.enabled)
+                {
+                    cowAnimator.enabled = true;
+                }
+                cowAnimator.SetBool("Walking", false);
             }
         }
     }

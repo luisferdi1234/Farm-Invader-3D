@@ -579,15 +579,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5601288668783937805, guid: 13258e89033de1a4d9bfc3024c2f1b6b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5601288668783937805, guid: 13258e89033de1a4d9bfc3024c2f1b6b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5601288668783937805, guid: 13258e89033de1a4d9bfc3024c2f1b6b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5601288668783937805, guid: 13258e89033de1a4d9bfc3024c2f1b6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -43,6 +43,8 @@ public class PatrollingFarmer : PatrollingEnemy
                     animator.SetBool("Chasing", false);
                     animator.SetBool("Patrolling", false);
                     animator.SetBool("Returning", true);
+
+                    agent.enabled = true;
                     stateMachine.ChangeState(new PatrolState(), gameObject);
                     searchTimer = 0f;
                     inChase = false;
@@ -55,6 +57,8 @@ public class PatrollingFarmer : PatrollingEnemy
             animator.SetBool("Chasing", false);
             animator.SetBool("Patrolling", true);
             animator.SetBool("Returning", false);
+
+            agent.enabled = false;
 
             stateMachine.ChangeState(new SearchState(), gameObject);
             AudioManager.instance.PlayRandomAudioClip("returnSounds");
@@ -97,6 +101,7 @@ public class PatrollingFarmer : PatrollingEnemy
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
+                agent.enabled = true;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 inChase = true;
@@ -112,6 +117,7 @@ public class PatrollingFarmer : PatrollingEnemy
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
+                agent.enabled = true;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 ScoreManager.Instance.SpottedAlien();
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");

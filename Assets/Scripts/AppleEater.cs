@@ -15,7 +15,7 @@ public class AppleEater : MonoBehaviour
                 Destroy(gameObject.GetComponentInChildren<CowCollisionDetection>().gemApple);
             }
             gameObject.GetComponent<NavMeshAgent>().SetDestination(transform.position);
-            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            gameObject.GetComponent<Animator>().SetBool("Walking", false);
             AudioManager.instance.PlaySpecificSound("AppleCrunch", .5f);
             Destroy(collision.gameObject);
         }

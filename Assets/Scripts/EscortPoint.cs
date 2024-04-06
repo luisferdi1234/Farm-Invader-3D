@@ -16,6 +16,7 @@ public class EscortPoint : MonoBehaviour
             other.GetComponent<NavMeshAgent>().enabled = false;
             other.GetComponent<AnimationScript>().enabled = true;
             other.tag = "Abducted";
+            other.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionY;
             other.GetComponent<Rigidbody>().velocity = new Vector3(0, 8, 0);
         }
         else if (other.gameObject.name.Contains("Alien"))
