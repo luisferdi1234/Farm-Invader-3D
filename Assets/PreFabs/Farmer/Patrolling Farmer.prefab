@@ -3476,7 +3476,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   positions: []
   nextPosition: {x: 0, y: 0, z: 0}
-  detectionAngle: 28
+  detectionAngle: 25
   maxRayDistance: 20
   obstacleMask:
     serializedVersion: 2

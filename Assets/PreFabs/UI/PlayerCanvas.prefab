@@ -509,6 +509,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyBar: {fileID: 957295723196124691}
+  fillMask: {fileID: 957295723310218259}
+  fillImage: {fileID: 957295722654872077}
+  overlayImage: {fileID: 957295721706142157}
 --- !u!1 &1787548090470835380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1611,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+--- !u!1 &957295721706142157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 672752558242279574, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+  m_PrefabInstance: {fileID: 296929163108911451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &957295722654872077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 672752559443131222, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+  m_PrefabInstance: {fileID: 296929163108911451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &957295723196124688 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 672752558859913035, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
@@ -1616,6 +1629,11 @@ RectTransform:
 --- !u!1 &957295723196124691 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 672752558859913032, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+  m_PrefabInstance: {fileID: 296929163108911451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &957295723310218259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 672752558756361544, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
   m_PrefabInstance: {fileID: 296929163108911451}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2132419243347769377

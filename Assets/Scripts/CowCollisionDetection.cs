@@ -30,12 +30,14 @@ public class CowCollisionDetection : MonoBehaviour
         {
             closestApple = null;
             Destroy(gemApple);
+            agent.SetDestination(transform.position);
         }
         //Makes it so that an apple in secondary slot makes cow stop moving.
         else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
         {
             closestApple = null;
             Destroy(gemApple);
+            agent.SetDestination(transform.position);
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
@@ -46,6 +48,7 @@ public class CowCollisionDetection : MonoBehaviour
         else if (agent.isActiveAndEnabled && agent.hasPath && closestApple == null && gemApple != null)
         {
             Destroy(gemApple);
+            agent.SetDestination(transform.position);
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
@@ -107,7 +110,7 @@ public class CowCollisionDetection : MonoBehaviour
     {
         if (gemApple != null)
         {
-            if (other.gameObject.name.Contains("Alien") && inventory.hasApple && closestApple == null)
+            if (other.gameObject.name.Contains("Alien") && closestApple == null)
             {
                 Destroy(gemApple);
                 if (!cowAnimator.enabled)

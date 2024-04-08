@@ -931,7 +931,7 @@ MonoBehaviour:
   hasVision: 0
   agent: {fileID: 0}
   rb: {fileID: 0}
-  detectionAngle: 28
+  detectionAngle: 25
   maxRayDistance: 30
   obstacleMask:
     serializedVersion: 2
