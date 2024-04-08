@@ -23,6 +23,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<AudioClip> dogGrowlSounds;
     [SerializeField] List<AudioClip> dogBarkSounds;
 
+    //Alien Sounds
+    [SerializeField] List<AudioClip> alienDeathSounds;
+
     Dictionary<string, List<AudioClip>> audioClipsListDictionary = new Dictionary<string, List<AudioClip>>();
     Dictionary<string, AudioClip> audioClipDictionary = new Dictionary<string, AudioClip>();
 
@@ -32,6 +35,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource grassSource;
     [SerializeField] AudioSource alienCharge;
     [SerializeField] AudioSource dogSource;
+    [SerializeField] AudioSource alienDeathSource;
 
     int selection;
     public void Start()
@@ -45,6 +49,8 @@ public class AudioManager : MonoBehaviour
         audioClipsListDictionary.Add("grassSounds", grassSounds);
         audioClipsListDictionary.Add("dogGrowlSounds", dogGrowlSounds);
         audioClipsListDictionary.Add("dogBarkSounds", dogBarkSounds);
+        audioClipsListDictionary.Add("alienDeathSounds", alienDeathSounds);
+
         foreach (AudioClip clip in audioClips)
         {
             audioClipDictionary.Add(clip.name, clip);
@@ -85,6 +91,10 @@ public class AudioManager : MonoBehaviour
             else if (listName == "dogGrowlSounds" || listName == "dogBarkSounds")
             {
                 PlaySound(dogSource, listName);
+            }
+            else if (listName == "alienDeathSounds")
+            {
+                PlaySound(alienDeathSource, listName);
             }
         }
         else

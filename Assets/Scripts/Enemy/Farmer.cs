@@ -152,8 +152,18 @@ public class Farmer : Enemy
 
     protected override void OnCollisionEnter(Collision other)
     {
-        base.OnCollisionEnter(other);
-        if (other.gameObject.tag == "Clone")
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<Inventory>().TurnOffInventoryControls();
+            other.gameObject.GetComponent<PlayerController>().PlayDeathAnimation();
+            animator.enabled = true;
+            animator.SetBool("Chasing", false);
+            animator.SetBool("Patrolling", true);
+            animator.SetBool("Returning", false);
+
+            stateMachine.ChangeState(new SearchState(), gameObject);
+        }
+        else if (other.gameObject.tag == "Clone")
         {
             other.gameObject.GetComponent<AlienClone>().DestroyClone();
             animator.enabled = true;

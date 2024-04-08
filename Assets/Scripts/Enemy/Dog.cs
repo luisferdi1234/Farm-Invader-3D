@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Dog : Enemy
 {
+    Animator dogAnimator;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        dogAnimator = GetComponent<Animator>();
         stateMachine = new EnemyStateMachine(new DogGuardState(), gameObject);
     }
 
@@ -18,11 +20,13 @@ public class Dog : Enemy
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);
+            dogAnimator.SetBool("Chasing", false);
             AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && player.CompareTag("Invisible"))
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);
+            dogAnimator.SetBool("Chasing", false);
             AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
         }
     }
@@ -34,6 +38,7 @@ public class Dog : Enemy
             target = other.gameObject;
             agent.enabled = true;
             stateMachine.ChangeState(new ChaseState(), gameObject);
+            dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         //Changes to Chase State after spotting player
@@ -42,6 +47,7 @@ public class Dog : Enemy
             target = other.gameObject;
             agent.enabled = true;
             stateMachine.ChangeState(new ChaseState(), gameObject);
+            dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
         else if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && other.CompareTag("Clone") && target != other.gameObject)
@@ -52,11 +58,18 @@ public class Dog : Enemy
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollisionEnter(collision);
-
-        if (collision.gameObject.tag == "Clone")
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Inventory>().TurnOffInventoryControls();
+            collision.gameObject.GetComponent<PlayerController>().PlayDeathAnimation();
+            stateMachine.ChangeState(new DogGuardState(), gameObject);
+            dogAnimator.SetBool("Chasing", false);
+            AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
+        }
+        else if (collision.gameObject.tag == "Clone")
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);
+            dogAnimator.SetBool("Chasing", false);
             AudioManager.instance.PlayRandomAudioClip("dogBarkSounds");
             collision.gameObject.GetComponent<AlienClone>().DestroyClone();
         }

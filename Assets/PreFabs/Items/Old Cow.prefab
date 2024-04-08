@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4889869611502234606}
   - component: {fileID: 7938188986649470622}
   m_Layer: 9
-  m_Name: Cow
+  m_Name: Old Cow
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

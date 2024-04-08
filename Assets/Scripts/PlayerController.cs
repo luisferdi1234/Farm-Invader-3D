@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -179,5 +180,33 @@ public class PlayerController : MonoBehaviour
     private void PlayGrassSound()
     {
         AudioManager.instance.PlayRandomAudioClip("grassSounds");
+    }
+
+    public void PlayDeathAnimation()
+    {
+        //Plays a random death animation
+        int Selection = Random.Range(1, 3);
+        animator.SetInteger("Death", Selection);
+
+        //Plays Sound
+        AudioManager.instance.PlayRandomAudioClip("alienDeathSounds");
+
+        //Turns off player collider
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.tag = "Death";
+
+        //Turn Off Player Controls during death animation
+        GetComponent<PlayerInput>().enabled = false;
+        move.Disable();
+        useAbility.Disable();
+        recharge.Disable();
+    }
+
+    /// <summary>
+    /// Restarts level after animation ends
+    /// </summary>
+    public void DeathAnimationOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

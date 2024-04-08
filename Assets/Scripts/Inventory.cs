@@ -352,7 +352,8 @@ public class Inventory : MonoBehaviour
     private void PickUpCow(GameObject slot)
     {
         cowCollider.enabled = true;
-        slot.GetComponent<Animator>().SetBool("Walking", true);
+        slot.GetComponent<Animator>().enabled = false;
+        slot.GetComponent<NavMeshAgent>().enabled = false;
         animator.SetBool("CarryingCow", true);
         playerController.moveSpeed = playerController.cowSlowDown;
 
@@ -372,7 +373,8 @@ public class Inventory : MonoBehaviour
     private void DropCow()
     {
         cowCollider.enabled = false;
-        inventorySlots[4, 0].GetComponent<Animator>().SetBool("Walking", false);
+        inventorySlots[4, 0].GetComponent<Animator>().enabled = true;
+        inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4, 0].transform.position);
         inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);
@@ -447,5 +449,22 @@ public class Inventory : MonoBehaviour
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// Gets rid of player controls during death animation
+    /// </summary>
+    public void TurnOffInventoryControls()
+    {
+        if (inventorySlots[4, 0] != null)
+        {
+            ReleaseItem();
+        }
+
+        fire.Disable();
+
+        inventoryRight.Disable();
+
+        inventoryLeft.Disable();
     }
 }

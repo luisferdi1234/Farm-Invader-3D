@@ -12,6 +12,7 @@ public class DogGuardState : EnemyState
     public void OnEnter(GameObject gameObject)
     {
         currentEnemy = gameObject.GetComponent<Enemy>();
+
         idleTimer = 0;
         positionReset = false;
     }
