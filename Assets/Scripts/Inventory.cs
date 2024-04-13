@@ -128,7 +128,7 @@ public class Inventory : MonoBehaviour
                     if (inventorySlots[i, 0] == null)
                     {
                         GrabItem(i, 0);
-                        inventorySlots[(int)prevInventorySlot.x, (int)prevInventorySlot.y].SetActive(false);
+                        inventorySlots[(int)prevInventorySlot.x, 0].SetActive(false);
                         inventorySlots[currentInventorySlot, 0].SetActive(true);
                         break;
                     }
@@ -140,10 +140,10 @@ public class Inventory : MonoBehaviour
                             if (inventorySlots[i, j] == null)
                             {
                                 GrabItem(i, j);
-                                inventorySlots[(int)prevInventorySlot.x, (int)prevInventorySlot.y].SetActive(false);
+                                inventorySlots[(int)prevInventorySlot.x, 0].SetActive(false);
                                 inventorySlots[i, j].SetActive(false);
                                 inventorySlots[currentInventorySlot, 0].SetActive(true);
-
+                                
                                 break;
                             }
                         }

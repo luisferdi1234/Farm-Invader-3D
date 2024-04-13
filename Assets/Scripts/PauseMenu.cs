@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     [SerializeField] public GameObject pauseMenuUI;
+    [SerializeField] private GameObject gadgetsMenuUI;
     [SerializeField] TextMeshProUGUI levelName;
     [SerializeField] TextMeshProUGUI obtainableCows;
 
@@ -36,6 +37,8 @@ public class PauseMenu : MonoBehaviour
         //Waits for score manager to be instantiated
         levelName.text = ScoreManager.Instance.levelName;
         ui = GameObject.Find("PlayerCanvas");
+        GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        GetComponent<Canvas>().planeDistance = 1;
     }
 
     private void OnEnable()
@@ -47,7 +50,7 @@ public class PauseMenu : MonoBehaviour
 
         restart = playerControls.Player.Restart;
         restart.Enable();
-        restart.performed += Restart;
+        restart.performed += OnRestart;
     }
 
     private void OnDisable()
@@ -77,7 +80,12 @@ public class PauseMenu : MonoBehaviour
     /// Handles the invisble button being pressed
     /// </summary>
     /// <param name="context"></param>
-    private void Restart(InputAction.CallbackContext context)
+    private void OnRestart(InputAction.CallbackContext context)
+    {
+        Restart();
+    }
+
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -86,6 +94,9 @@ public class PauseMenu : MonoBehaviour
     {
         //Turns off pause menu
         pauseMenuUI.SetActive(false);
+
+        //Turns off gadget screen if it's on
+        gadgetsMenuUI.SetActive(false);
 
         //Turns on player UI
         ui.SetActive(true);
