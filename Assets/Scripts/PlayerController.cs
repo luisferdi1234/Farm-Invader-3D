@@ -29,9 +29,6 @@ public class PlayerController : MonoBehaviour
     //Animator
     private Animator animator;
 
-    //Cinemachine
-    private CinemachineVirtualCamera vcam;
-
     //InputSystem Variables
     public PlayerControls playerControls;
     [HideInInspector] public Vector3 moveDirection = Vector3.zero;
@@ -45,10 +42,11 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerControls();
         canMove = true;
 
-        //Cinemachine
+        //Sets camera to player
+        CinemachineVirtualCamera vcam;
         vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
-        vcam.Follow = gameObject.transform;
-        vcam.LookAt = gameObject.transform;
+        vcam.LookAt = transform;
+        vcam.Follow = transform;
 
         //Animator
         animator = gameObject.GetComponent<Animator>();
