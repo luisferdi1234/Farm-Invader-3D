@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
 
         restart = playerControls.Player.Restart;
         restart.Enable();
-        restart.performed += OnRestart;
+        restart.performed += RestartPressed;
     }
 
     private void OnDisable()
@@ -77,16 +77,17 @@ public class PauseMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles the invisble button being pressed
+    /// Handles the restart button being pressed
     /// </summary>
     /// <param name="context"></param>
-    private void OnRestart(InputAction.CallbackContext context)
+    private void RestartPressed(InputAction.CallbackContext context)
     {
         Restart();
     }
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
