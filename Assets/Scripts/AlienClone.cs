@@ -82,7 +82,7 @@ public class AlienClone : MonoBehaviour
     {
         vcam.LookAt = controller.gameObject.transform;
         vcam.Follow = controller.gameObject.transform;
-        controller.canMove = true;
+        controller.shouldMove = true;
         Destroy(gameObject);
     }
 

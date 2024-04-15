@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     //Gadget variables
     private Inventory inventory;
     private Item currentItem;
+    private float moveTimer = 0;
+    private float maxMoveTimer = .20f;
+    public bool shouldMove = false;
     public bool canMove = true;
 
     //Animator
@@ -79,6 +82,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shouldMove)
+        {
+            moveTimer += Time.deltaTime;
+            if (moveTimer >= maxMoveTimer)
+            {
+                shouldMove = false;
+                moveTimer = 0;
+                canMove = true;
+            }
+        }
         if (inventory.inventorySlots[inventory.currentInventorySlot, 0] == null)
         {
             currentItem = null;
