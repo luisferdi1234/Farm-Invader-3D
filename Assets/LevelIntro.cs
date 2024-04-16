@@ -94,7 +94,7 @@ public class LevelIntro : MonoBehaviour
             }
             else
             {
-                maxLookTime = 4f;
+                maxLookTime = 5f;
             }
             if (lookTimer < maxLookTime && listIndex < thingsToLookAt.Count)
             {
