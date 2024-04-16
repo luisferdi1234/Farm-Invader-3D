@@ -3459,6 +3459,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7779024315325652243, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
   m_PrefabInstance: {fileID: 1600935612}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1600935614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6971420262070536105, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
+  m_PrefabInstance: {fileID: 1600935612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1621401609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4163,7 +4168,7 @@ PrefabInstance:
     - target: {fileID: 2788925448406108920, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
       propertyPath: 'thingsToLookAt.Array.data[1]'
       value: 
-      objectReference: {fileID: 1916103587}
+      objectReference: {fileID: 1600935614}
     - target: {fileID: 2788925448406108920, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
       propertyPath: 'thingsToLookAt.Array.data[2]'
       value: 
@@ -4260,11 +4265,6 @@ PrefabInstance:
 --- !u!224 &1916103586 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6042193311116174919, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
-  m_PrefabInstance: {fileID: 1916103585}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1916103587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5631878083264910364, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
   m_PrefabInstance: {fileID: 1916103585}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1930444419

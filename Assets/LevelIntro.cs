@@ -84,9 +84,13 @@ public class LevelIntro : MonoBehaviour
     {
         if (!introDone)
         {
-            if (listIndex == 0 || listIndex == thingsToLookAt.Count - 1)
+            if (listIndex == 0)
             {
                 maxLookTime = .75f;
+            }
+            else if (listIndex == thingsToLookAt.Count - 1)
+            {
+                maxLookTime = 2f;
             }
             else
             {
