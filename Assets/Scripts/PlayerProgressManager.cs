@@ -11,6 +11,8 @@ public class PlayerProgressManager : MonoBehaviour
 
     public AudioSource menuMusic;
 
+    public bool introPlayed = false;
+
     // Optional: Other initialization logic can go here
 
     private void Awake()

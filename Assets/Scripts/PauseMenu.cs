@@ -30,13 +30,13 @@ public class PauseMenu : MonoBehaviour
     {
         //Input System
         playerControls = new PlayerControls();
+        ui = GameObject.Find("PlayerCanvas");
     }
 
     private void Start()
     {
         //Waits for score manager to be instantiated
         levelName.text = ScoreManager.Instance.levelName;
-        ui = GameObject.Find("PlayerCanvas");
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         GetComponent<Canvas>().planeDistance = 1;
     }

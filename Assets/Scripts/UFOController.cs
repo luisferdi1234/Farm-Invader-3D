@@ -93,6 +93,7 @@ public class UFOController : MonoBehaviour
         {
             PlayerProgressManager.Instance.SaveLevelSelectPosition(gameObject);
             PlayerProgressManager.Instance.menuMusic.Stop();
+            PlayerProgressManager.Instance.introPlayed = false;
             SceneManager.LoadScene(currentLevel);
         }
     }

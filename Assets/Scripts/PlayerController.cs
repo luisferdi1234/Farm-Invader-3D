@@ -23,8 +23,10 @@ public class PlayerController : MonoBehaviour
     private Item currentItem;
     private float moveTimer = 0;
     private float maxMoveTimer = .20f;
-    public bool shouldMove = false;
-    public bool canMove = true;
+
+    //Turns off player movement
+    [HideInInspector] public bool shouldMove = false;
+    [HideInInspector] public bool canMove;
 
     //Animator
     private Animator animator;
@@ -38,15 +40,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        canMove = false;
         //Input System
         playerControls = new PlayerControls();
-        canMove = true;
-
-        //Sets camera to player
-        CinemachineVirtualCamera vcam;
-        vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
-        vcam.LookAt = transform;
-        vcam.Follow = transform;
 
         //Animator
         animator = gameObject.GetComponent<Animator>();

@@ -21,6 +21,7 @@ public class WinScreenCanvas : MonoBehaviour
         pause.SetActive(false);
         ui = GameObject.Find("PlayerCanvas");
         ui.SetActive(false);
+        Destroy(GameObject.Find("Level Intro Canvas"));
 
         scoreDescriptionText.text = $"Times Spotted By Farmers: {ScoreManager.Instance.spot}";
         scoreDescriptionText.text += $"\n Cows collected: {ScoreManager.Instance.cows} / {ScoreManager.Instance.maxAmountOfCows}";
@@ -66,6 +67,7 @@ public class WinScreenCanvas : MonoBehaviour
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        PlayerProgressManager.Instance.introPlayed = false;
         SceneManager.LoadScene(nextSceneIndex);
     }
 }
