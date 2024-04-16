@@ -8475,7 +8475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmountOfCows: 2
-  levelName: 'Level 24: Was That A Freakin'' Alien?'
+  levelName: 'Level 25: I''m Sorry...'
   spot: 0
   cows: 0
   completion: 0
