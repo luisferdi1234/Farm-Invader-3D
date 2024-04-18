@@ -35,9 +35,13 @@ public class SearchState : EnemyState
             spine.transform.Rotate(Vector3.right * rotation);
             currentRotation += rotation;
             // Check if rotation exceeds the range, change direction if needed
-            if (currentRotation >= currentEnemy.maxRotation || currentRotation <= currentEnemy.minRotation)
+            if (currentRotation >= currentEnemy.maxRotation)
             {
-                currentEnemy.direction *= -1; // Change direction
+                currentEnemy.direction = -1; // Change direction
+            }
+            else if (currentRotation <= currentEnemy.minRotation)
+            {
+                currentEnemy.direction = 1;
             }
         }
         else if (currentEnemy.agent.velocity.magnitude < 1)

@@ -27,9 +27,9 @@ public class PatrollingFarmer : PatrollingEnemy
         stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
         animator.SetFloat("Velocity", agent.velocity.magnitude);
 
         if (stateMachine.GetCurrentState().GetType() == typeof(SearchState) && inChase)

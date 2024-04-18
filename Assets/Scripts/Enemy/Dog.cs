@@ -13,9 +13,9 @@ public class Dog : Enemy
         stateMachine = new EnemyStateMachine(new DogGuardState(), gameObject);
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
 
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
         {

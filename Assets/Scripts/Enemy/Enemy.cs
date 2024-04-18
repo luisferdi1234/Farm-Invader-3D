@@ -37,9 +37,14 @@ public class Enemy : MonoBehaviour
         minRotation = startingRotation - rotationRange;
         animator = GetComponent<Animator>();
         hasVision = true;
+        if (rotationSpeed < 0)
+        {
+            rotationSpeed *= -1;
+            direction *= -1;
+        }
     }
 
-    protected virtual void FixedUpdate()
+    protected virtual void Update()
     {
         stateMachine.UpdateState();
     }
