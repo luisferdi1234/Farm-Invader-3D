@@ -19,19 +19,15 @@ public class ChaseState : EnemyState
 
     public void OnUpdate()
     {
-        frameCounter++;
-        if (frameCounter == 10)
+        if (currentEnemy.target != null)
         {
-            if (currentEnemy.target != null)
-            {
-                agent.SetDestination(currentEnemy.target.transform.position);
-            }
-            else
-            {
-                agent.SetDestination(currentObject.transform.position);
-            }
-            frameCounter = 0;
+            agent.SetDestination(currentEnemy.target.transform.position);
         }
+        else
+        {
+            agent.SetDestination(currentObject.transform.position);
+        }
+
     }
 
     public void OnExit()
