@@ -14,7 +14,7 @@ public class LevelIntro : MonoBehaviour
     private float lookTimer = 0;
     private float maxLookTime = 5f;
     private bool introDone;
-    private float positionDamping = 6f;
+    private float positionDamping = 7f;
 
     GameObject playerUI;
     GameObject pauseCanvas;
@@ -43,6 +43,7 @@ public class LevelIntro : MonoBehaviour
             vcam.Follow = thingsToLookAt[listIndex].transform;
             vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_XDamping = positionDamping;
             vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_YDamping = positionDamping;
+            vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ZDamping = positionDamping;
 
             //Updates top and bottom text
             ScoreManager scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
@@ -73,6 +74,7 @@ public class LevelIntro : MonoBehaviour
             //Sets camera speed to normal
             vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_XDamping = 1f;
             vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_YDamping = 1f;
+            vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ZDamping = 1f;
 
             //Turns off black bars
             gameObject.SetActive(false);
@@ -127,6 +129,7 @@ public class LevelIntro : MonoBehaviour
                 //Makes camera move like normal again
                 vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_XDamping = 1f;
                 vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_YDamping = 1f;
+                vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_ZDamping = 1f;
             }
         }
     }

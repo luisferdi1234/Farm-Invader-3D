@@ -6,7 +6,6 @@ using UnityEngine;
 public class AlienCollisionDetection : MonoBehaviour
 {
     Inventory inventory;
-    private float idleTimer = 0f;
     private void Start()
     {
         inventory = transform.parent.GetComponent<Inventory>();
