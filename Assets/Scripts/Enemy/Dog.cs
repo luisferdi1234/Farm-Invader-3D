@@ -37,6 +37,7 @@ public class Dog : Enemy
         {
             target = other.gameObject;
             agent.enabled = true;
+            agent.speed = 20;
             stateMachine.ChangeState(new ChaseState(), gameObject);
             dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
@@ -46,6 +47,7 @@ public class Dog : Enemy
         {
             target = other.gameObject;
             agent.enabled = true;
+            agent.speed = 20;
             stateMachine.ChangeState(new ChaseState(), gameObject);
             dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");

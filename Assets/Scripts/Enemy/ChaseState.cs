@@ -8,23 +8,29 @@ public class ChaseState : EnemyState
     private GameObject currentObject;
     Enemy currentEnemy;
     NavMeshAgent agent;
+    int frameCounter = 0;
     public void OnEnter(GameObject gameObject)
     {
         currentEnemy = gameObject.GetComponent<Enemy>();
         currentObject = gameObject;
         agent = currentObject.GetComponent<NavMeshAgent>();
-        agent.speed = 16;
+        agent.isStopped = false;
     }
 
     public void OnUpdate()
     {
-        if (currentEnemy.target != null)
+        frameCounter++;
+        if (frameCounter == 10)
         {
-            agent.SetDestination(currentEnemy.target.transform.position);
-        }
-        else
-        {
-            agent.SetDestination(currentObject.transform.position);
+            if (currentEnemy.target != null)
+            {
+                agent.SetDestination(currentEnemy.target.transform.position);
+            }
+            else
+            {
+                agent.SetDestination(currentObject.transform.position);
+            }
+            frameCounter = 0;
         }
     }
 

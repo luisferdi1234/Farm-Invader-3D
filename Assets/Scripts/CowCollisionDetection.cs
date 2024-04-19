@@ -30,14 +30,14 @@ public class CowCollisionDetection : MonoBehaviour
         {
             closestApple = null;
             Destroy(gemApple);
-            agent.SetDestination(transform.position);
+            agent.isStopped = true;
         }
         //Makes it so that an apple in secondary slot makes cow stop moving.
         else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
         {
             closestApple = null;
             Destroy(gemApple);
-            agent.SetDestination(transform.position);
+            agent.isStopped = true;
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
@@ -45,10 +45,10 @@ public class CowCollisionDetection : MonoBehaviour
             cowAnimator.SetBool("Walking", false);
         }
         //Makes cow stop walking towards a deleted apple
-        else if (agent.isActiveAndEnabled && agent.hasPath && closestApple == null && gemApple != null)
+        else if (agent.isActiveAndEnabled && agent.isStopped == false && agent.hasPath && closestApple == null && gemApple != null)
         {
             Destroy(gemApple);
-            agent.SetDestination(transform.position);
+            agent.isStopped = true;
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
@@ -85,6 +85,7 @@ public class CowCollisionDetection : MonoBehaviour
             Debug.Log("Apple Detected!");
             AudioManager.instance.PlayRandomAudioClip("cowSounds");
             closestApple = other.gameObject;
+            agent.isStopped = false;
             agent.SetDestination(closestApple.transform.position);
             if (!cowAnimator.enabled)
             {

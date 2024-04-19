@@ -102,6 +102,7 @@ public class PatrollingFarmer : PatrollingEnemy
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
                 agent.enabled = true;
+                agent.speed = 16;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 inChase = true;
@@ -118,6 +119,7 @@ public class PatrollingFarmer : PatrollingEnemy
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
                 agent.enabled = true;
+                agent.speed = 16;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 ScoreManager.Instance.SpottedAlien();
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
