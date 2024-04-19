@@ -80,7 +80,7 @@ public class CowCollisionDetection : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (gemApple != null && other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && closestApple == null)
+        if (gemApple != null && agent.isActiveAndEnabled && other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && closestApple == null)
         {
             Debug.Log("Apple Detected!");
             AudioManager.instance.PlayRandomAudioClip("cowSounds");

@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         stateMachine.UpdateState();
     }

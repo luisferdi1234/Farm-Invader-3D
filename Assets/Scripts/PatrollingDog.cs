@@ -20,9 +20,9 @@ public class PatrollingDog : PatrollingEnemy
         stateMachine = new EnemyStateMachine(new PatrolState(), gameObject);
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
         {
