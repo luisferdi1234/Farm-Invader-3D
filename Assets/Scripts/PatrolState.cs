@@ -15,6 +15,7 @@ public class PatrolState : EnemyState
         currentObject = gameObject;
         agent = currentObject.GetComponent<NavMeshAgent>();
         agent.speed = 5;
+        agent.acceleration = 15f;
         agent.SetDestination(currentEnemy.nextPosition);
     }
 
@@ -29,6 +30,6 @@ public class PatrolState : EnemyState
 
     public void OnExit()
     {
-
+        agent.acceleration = currentEnemy.normalAgentSpeed * 2;
     }
 }

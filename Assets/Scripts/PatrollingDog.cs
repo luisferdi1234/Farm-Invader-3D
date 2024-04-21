@@ -24,18 +24,6 @@ public class PatrollingDog : PatrollingEnemy
     {
         base.FixedUpdate();
 
-        if (agent.enabled)
-        {
-            transform.position += agent.velocity * Time.deltaTime;
-            // Calculate the rotation only if the agent has a non-zero desired velocity
-            if (agent.desiredVelocity != Vector3.zero)
-            {
-                // Smoothly rotate towards the desired velocity using the agent's angular speed
-                Quaternion targetRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, agentRotationSpeed * Time.deltaTime);
-            }
-        }
-
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);
@@ -88,7 +76,7 @@ public class PatrollingDog : PatrollingEnemy
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
             agent.enabled = true;
-            agent.speed = 20;
+            agent.acceleration = normalAgentSpeed * 3;
             dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }
@@ -98,7 +86,7 @@ public class PatrollingDog : PatrollingEnemy
             target = other.gameObject;
             stateMachine.ChangeState(new ChaseState(), gameObject);
             agent.enabled = true;
-            agent.speed = 20;
+            agent.acceleration = normalAgentSpeed * 3;
             dogAnimator.SetBool("Chasing", true);
             AudioManager.instance.PlayRandomAudioClip("dogGrowlSounds");
         }

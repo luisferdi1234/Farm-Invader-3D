@@ -18,13 +18,13 @@ public class Enemy : MonoBehaviour
     public float startingRotation = 0f;
     public float maxRotation;
     public float minRotation;
-    protected float normalAgentSpeed = 0f;
     protected float agentRotationSpeed = 0f;
 
     [HideInInspector] public Animator animator;
     [HideInInspector] public bool hasVision;
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public float normalAgentSpeed = 0f;
 
     protected EnemyStateMachine stateMachine;
 
@@ -54,6 +54,18 @@ public class Enemy : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         stateMachine.UpdateState();
+
+        if (agent.enabled)
+        {
+            transform.position += agent.velocity * Time.deltaTime;
+            // Calculate the rotation only if the agent has a non-zero desired velocity
+            if (agent.velocity != Vector3.zero)
+            {
+                // Smoothly rotate towards the desired velocity using the agent's angular speed
+                Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, agentRotationSpeed * Time.deltaTime);
+            }
+        }
     }
 
     protected virtual void OnCollisionEnter(Collision other)

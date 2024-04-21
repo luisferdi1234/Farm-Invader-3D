@@ -15,6 +15,7 @@ public class ChaseState : EnemyState
         currentObject = gameObject;
         agent = currentObject.GetComponent<NavMeshAgent>();
         agent.isStopped = false;
+        agent.speed = currentEnemy.normalAgentSpeed;
     }
 
     public void OnUpdate()
