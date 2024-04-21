@@ -17,6 +17,18 @@ public class Dog : Enemy
     {
         base.FixedUpdate();
 
+        if (agent.enabled)
+        {
+            transform.position += agent.velocity * Time.deltaTime;
+            // Calculate the rotation only if the agent has a non-zero desired velocity
+            if (agent.desiredVelocity != Vector3.zero)
+            {
+                // Smoothly rotate towards the desired velocity using the agent's angular speed
+                Quaternion targetRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, agentRotationSpeed * Time.deltaTime);
+            }
+        }
+
         if (stateMachine.GetCurrentState().GetType() == typeof(ChaseState) && target == null)
         {
             stateMachine.ChangeState(new DogGuardState(), gameObject);

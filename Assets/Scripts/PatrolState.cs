@@ -14,7 +14,7 @@ public class PatrolState : EnemyState
         currentEnemy = gameObject.GetComponent<PatrollingEnemy>();
         currentObject = gameObject;
         agent = currentObject.GetComponent<NavMeshAgent>();
-        agent.speed = 8;
+        agent.speed = 5;
         agent.SetDestination(currentEnemy.nextPosition);
     }
 

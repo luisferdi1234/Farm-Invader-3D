@@ -15,12 +15,17 @@ public class SearchState : EnemyState
     float rotation;
     private float currentRotation = 0f;
     private float turnOffTimer = 0f;
+    private float connectTransformTimer = 0f;
+    private bool connectTransform;
     public void OnEnter(GameObject gameObject)
     {
         currentObject = gameObject;
         currentEnemy = gameObject.GetComponent<Enemy>();
         spine = currentEnemy.spine;
         currentRotation = currentEnemy.startingRotation;
+        currentEnemy.agent.updatePosition = true;
+        currentEnemy.agent.updateRotation = true;
+        connectTransform = false;
     }
 
     public void OnUpdate()
@@ -47,6 +52,17 @@ public class SearchState : EnemyState
         else if (currentEnemy.agent.velocity.magnitude < 1)
         {
             turnOffTimer += Time.deltaTime;
+        }
+
+        if (connectTransformTimer >= 0.1f && connectTransform == false)
+        {
+            currentEnemy.agent.updatePosition = false;
+            currentEnemy.agent.updateRotation = false;
+            connectTransform = true;
+        }
+        else if (connectTransform == false)
+        {
+            connectTransformTimer += Time.deltaTime;
         }
     }
 

@@ -36,6 +36,17 @@ public class Farmer : Enemy
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (agent.enabled)
+        {
+            transform.position += agent.velocity * Time.deltaTime;
+            // Calculate the rotation only if the agent has a non-zero desired velocity
+            if (agent.desiredVelocity != Vector3.zero)
+            {
+                // Smoothly rotate towards the desired velocity using the agent's angular speed
+                Quaternion targetRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, agentRotationSpeed * Time.deltaTime);
+            }
+        }
         animator.SetFloat("Velocity", agent.velocity.magnitude);
 
         if (stateMachine.GetCurrentState().GetType() == typeof(SearchState) && inChase)
@@ -122,7 +133,7 @@ public class Farmer : Enemy
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
-                agent.speed = 16;
+                agent.speed = normalAgentSpeed;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");
                 inChase = true;
@@ -139,7 +150,7 @@ public class Farmer : Enemy
                 animator.SetBool("Patrolling", false);
                 animator.SetBool("Returning", false);
                 target = other.gameObject;
-                agent.speed = 16;
+                agent.speed = normalAgentSpeed;
                 stateMachine.ChangeState(new ChaseState(), gameObject);
                 ScoreManager.Instance.SpottedAlien();
                 AudioManager.instance.PlayRandomAudioClip("chaseSounds");

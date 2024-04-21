@@ -357,12 +357,17 @@ public class Inventory : MonoBehaviour
         animator.SetBool("CarryingCow", true);
         playerController.moveSpeed = playerController.cowSlowDown;
 
-        slot.transform.parent = spine.transform;
-        slot.transform.position = spine.transform.position + spine.transform.forward * itemRadius * 2;
+        // Calculate the rotation needed to align with player's forward vector
+        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 
-        // Set the initial relative rotation of the cow when picked up
-        Vector3 relativeRotation = new Vector3(0f, transform.eulerAngles.y + 90f, 0f); // Adjust as needed
-        slot.transform.localRotation = Quaternion.Euler(relativeRotation);
+        // Adjust the rotation by an additional 90 degrees
+        targetRotation *= Quaternion.Euler(0, 90, 0);
+
+        // Apply the rotation to the cow object
+        slot.transform.rotation = targetRotation;
+
+        slot.transform.parent = spine.transform;
+        slot.transform.position = spine.transform.position + spine.transform.right * itemRadius * 2;
 
         AudioManager.instance.PlayRandomAudioClip("cowSounds");
     }
@@ -375,6 +380,8 @@ public class Inventory : MonoBehaviour
         cowCollider.enabled = false;
         inventorySlots[4, 0].GetComponent<Animator>().enabled = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
+        inventorySlots[4, 0].GetComponent<NavMeshAgent>().updatePosition = true;
+        inventorySlots[4, 0].GetComponent<NavMeshAgent>().updateRotation = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4, 0].transform.position);
         inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);

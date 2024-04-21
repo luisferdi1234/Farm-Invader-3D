@@ -15,7 +15,7 @@ public class ReturnState : EnemyState
         agent = gameObject.GetComponent<NavMeshAgent>();
 
         agent.SetDestination(currentEnemy.GetSpawnPoint());
-        agent.speed = 8;
+        agent.speed = 5;
     }
 
     public void OnUpdate()

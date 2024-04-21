@@ -25,6 +25,8 @@ public class DogGuardState : EnemyState
             if (idleTimer > maxIdleTime)
             {
                 currentEnemy.agent.isStopped = true;
+                currentEnemy.agent.updatePosition = true;
+                currentEnemy.agent.updateRotation = true;
                 currentEnemy.agent.enabled = false;
                 positionReset = true;
             }
@@ -33,5 +35,7 @@ public class DogGuardState : EnemyState
 
     public void OnExit()
     {
+        currentEnemy.agent.updatePosition = false;
+        currentEnemy.agent.updateRotation = false;
     }
 }

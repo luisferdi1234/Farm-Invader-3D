@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public float startingRotation = 0f;
     public float maxRotation;
     public float minRotation;
+    protected float normalAgentSpeed = 0f;
+    protected float agentRotationSpeed = 0f;
 
     [HideInInspector] public Animator animator;
     [HideInInspector] public bool hasVision;
@@ -30,6 +32,9 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Alien").gameObject;
         agent = GetComponent<NavMeshAgent>();
+        agentRotationSpeed = agent.angularSpeed;
+
+        normalAgentSpeed = agent.speed;
         rb = GetComponent<Rigidbody>();
         spawnPoint = gameObject.transform.position;
         spawnOrientation = transform.rotation;
@@ -42,6 +47,8 @@ public class Enemy : MonoBehaviour
             rotationSpeed *= -1;
             direction *= -1;
         }
+        agent.updatePosition = false;
+        agent.updateRotation = false;
     }
 
     protected virtual void FixedUpdate()

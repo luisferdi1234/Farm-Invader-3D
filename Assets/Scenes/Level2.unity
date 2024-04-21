@@ -744,6 +744,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 345397063}
     m_Modifications:
+    - target: {fileID: 4909370986786842381, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6971420262070536105, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
       propertyPath: m_Name
       value: Cow
@@ -2998,6 +3002,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1471569426}
     m_Modifications:
+    - target: {fileID: 6265836152358492284, guid: d4e26acb5a8f03844a80d5f42c875aaf, type: 3}
+      propertyPath: m_Acceleration
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 8086663833745508990, guid: d4e26acb5a8f03844a80d5f42c875aaf, type: 3}
       propertyPath: m_Name
       value: Farmer
@@ -4051,6 +4059,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3354311016452769293}
   - component: {fileID: 3787939981353379520}
+  - component: {fileID: 7607743038971380839}
+  - component: {fileID: 7607743038971380838}
   m_Layer: 0
   m_Name: NavMeshes
   m_TagString: Untagged
@@ -4058,6 +4068,68 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7607743038971380838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607743038971380837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 151
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.1
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 052b5701aaefc6e4a951b300a76dddea, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &7607743038971380839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607743038971380837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 151
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.1
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: f59f3e6a6046f224e8e40a1bb87d05c2, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1001 &8052108195413438648
 PrefabInstance:
   m_ObjectHideFlags: 0

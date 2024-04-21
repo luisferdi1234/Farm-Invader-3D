@@ -15,22 +15,44 @@ public class CowCollisionDetection : MonoBehaviour
     float idleTimer = 0f;
     float maxIdleTimer = 1f;
 
+    private float rotationSpeed;
+
     private void Start()
     {
         agent = transform.parent.GetComponent<NavMeshAgent>();
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        rotationSpeed = agent.angularSpeed;
         sphereCollider = GetComponent<SphereCollider>();
         inventory  = GameObject.Find("Alien").gameObject.GetComponent<Inventory>(); 
         cowAnimator = transform.parent.GetComponent<Animator>();   
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        //Updates Cow Position by hand
+        if (agent.updatePosition == false)
+        {
+            transform.parent.transform.position += agent.velocity * Time.deltaTime;
+            // Calculate the rotation only if the agent has a non-zero desired velocity
+            if (agent.desiredVelocity != Vector3.zero)
+            {
+                // Calculate rotation to look towards desired velocity
+                Quaternion targetRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
+
+                // Smoothly rotate towards the target rotation
+                transform.parent.transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
+        }
+
         //Gets rid of gem apple upon picking cow up
         if (!sphereCollider.enabled && closestApple != null)
         {
             closestApple = null;
             Destroy(gemApple);
             agent.isStopped = true;
+            agent.updatePosition = true;
+            agent.updateRotation = true;
         }
         //Makes it so that an apple in secondary slot makes cow stop moving.
         else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
@@ -38,6 +60,8 @@ public class CowCollisionDetection : MonoBehaviour
             closestApple = null;
             Destroy(gemApple);
             agent.isStopped = true;
+            agent.updatePosition = true;
+            agent.updateRotation = true;
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
@@ -49,6 +73,8 @@ public class CowCollisionDetection : MonoBehaviour
         {
             Destroy(gemApple);
             agent.isStopped = true;
+            agent.updatePosition = true;
+            agent.updateRotation = true;
             if (!cowAnimator.enabled)
             {
                 cowAnimator.enabled = true;
