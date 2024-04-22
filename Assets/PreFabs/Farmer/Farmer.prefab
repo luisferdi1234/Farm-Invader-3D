@@ -827,7 +827,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2816
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -868,8 +868,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.3
-  m_Speed: 15
-  m_Acceleration: 30
+  m_Speed: 13
+  m_Acceleration: 39
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 0.1
@@ -931,6 +931,7 @@ MonoBehaviour:
   hasVision: 0
   agent: {fileID: 0}
   rb: {fileID: 0}
+  normalAgentSpeed: 0
   detectionAngle: 25
   maxRayDistance: 30
   obstacleMask:

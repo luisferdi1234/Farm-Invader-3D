@@ -36,6 +36,10 @@ public class SearchState : EnemyState
             {
                 currentEnemy.animator.enabled = false;
             }
+            if (currentEnemy.agent.velocity.magnitude <= 1f)
+            {
+                currentEnemy.agent.enabled = false;
+            }
             rotation = currentEnemy.rotationSpeed * currentEnemy.direction * Time.deltaTime;
             spine.transform.Rotate(Vector3.right * rotation);
             currentRotation += rotation;

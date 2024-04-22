@@ -30,6 +30,6 @@ public class PatrolState : EnemyState
 
     public void OnExit()
     {
-        agent.acceleration = currentEnemy.normalAgentSpeed * 2;
+        agent.acceleration = currentEnemy.normalAgentSpeed * 3;
     }
 }

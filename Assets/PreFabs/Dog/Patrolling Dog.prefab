@@ -167,9 +167,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4
-  m_Height: 2
+  m_Height: 1.6
   m_Direction: 2
-  m_Center: {x: 0, y: 0.5, z: 0.1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &4426961054895516801
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,6 +243,7 @@ MonoBehaviour:
   hasVision: 0
   agent: {fileID: 0}
   rb: {fileID: 0}
+  normalAgentSpeed: 0
   positions: []
   nextPosition: {x: 0, y: 0, z: 0}
   maxIdleTime: 5

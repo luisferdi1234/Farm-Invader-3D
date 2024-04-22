@@ -6,7 +6,7 @@ public class DogGuardState : EnemyState
 {
     private Enemy currentEnemy;
     float idleTimer = 0;
-    float maxIdleTime = 5f;
+    float maxIdleTime = .1f;
     bool positionReset = false;
 
     public void OnEnter(GameObject gameObject)
@@ -19,17 +19,17 @@ public class DogGuardState : EnemyState
 
     public void OnUpdate()
     {
-        if (idleTimer <= maxIdleTime && positionReset == false)
+        if (idleTimer >= maxIdleTime && positionReset == false)
+        {
+            currentEnemy.agent.isStopped = true;
+            currentEnemy.agent.updatePosition = true;
+            currentEnemy.agent.updateRotation = true;
+            currentEnemy.agent.enabled = false;
+            positionReset = true;
+        }
+        else if(currentEnemy.agent.velocity.magnitude <= 1f)
         {
             idleTimer += Time.deltaTime;
-            if (idleTimer > maxIdleTime)
-            {
-                currentEnemy.agent.isStopped = true;
-                currentEnemy.agent.updatePosition = true;
-                currentEnemy.agent.updateRotation = true;
-                currentEnemy.agent.enabled = false;
-                positionReset = true;
-            }
         }
     }
 

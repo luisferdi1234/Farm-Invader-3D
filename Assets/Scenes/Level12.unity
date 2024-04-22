@@ -340,11 +340,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8883474802795316604, guid: 6275aa6baf5ae054daf90c1a7b8ed280, type: 3}
   m_PrefabInstance: {fileID: 180934152}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &180934154 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4211605010722598121, guid: 6275aa6baf5ae054daf90c1a7b8ed280, type: 3}
-  m_PrefabInstance: {fileID: 180934152}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &219167532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2022,6 +2017,11 @@ PrefabInstance:
 --- !u!4 &835540810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8883474802795316604, guid: 6275aa6baf5ae054daf90c1a7b8ed280, type: 3}
+  m_PrefabInstance: {fileID: 835540809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &835540811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4211605010722598121, guid: 6275aa6baf5ae054daf90c1a7b8ed280, type: 3}
   m_PrefabInstance: {fileID: 835540809}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &865025948
@@ -4359,7 +4359,7 @@ PrefabInstance:
     - target: {fileID: 2788925448406108920, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
       propertyPath: 'thingsToLookAt.Array.data[1]'
       value: 
-      objectReference: {fileID: 180934154}
+      objectReference: {fileID: 835540811}
     - target: {fileID: 2788925448406108920, guid: b0744d7f8477bbd438706c52161f78d2, type: 3}
       propertyPath: 'thingsToLookAt.Array.data[2]'
       value: 
@@ -5280,7 +5280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8152575924056787463, guid: a35cbbc5ddd36164c8cdaf7c3c7c4590, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.111614
+      value: 31.111614
       objectReference: {fileID: 0}
     - target: {fileID: 8152575924056787463, guid: a35cbbc5ddd36164c8cdaf7c3c7c4590, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5688,7 +5688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3283281276425415112, guid: 73d15824df90f794980fc147a6205045, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.5
+      value: 29.25
       objectReference: {fileID: 0}
     - target: {fileID: 3283281276425415112, guid: 73d15824df90f794980fc147a6205045, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5800,7 +5800,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.33333334
+  m_VoxelSize: 0.29999998
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2af337254644ba54aa57c9b8f73ccf30, type: 2}
   m_BuildHeightMesh: 0
