@@ -45,14 +45,29 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Sprite XboxR1;
     [SerializeField] Sprite XboxL1;
 
+    [SerializeField] GameObject mobileControls;
+    [SerializeField] GameObject eventSystem;
+
     Inventory inventory;
     int currentItemCount = 1;
+    private bool isMobile;
 
     private void Start()
     {
         inventory = GameObject.Find("Alien").GetComponent<Inventory>();
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        CheckConnectedControllers();
+
+        isMobile = Application.isMobilePlatform;
+        if (isMobile)
+        {
+            TurnOffControlImages();
+        }
+        else
+        {
+            CheckConnectedControllers();
+            mobileControls.SetActive(false);
+            eventSystem.SetActive(false);
+        }
     }
 
     private void Update()
@@ -174,6 +189,27 @@ public class InventoryUI : MonoBehaviour
             //Shows how many of each item we have
             UpdateAmountOfItems(currentItem);
         }
+    }
+
+    /// <summary>
+    /// Turns off the on screen control images
+    /// </summary>
+    private void TurnOffControlImages()
+    {
+        Image fireImage = Fire.GetComponent<Image>();
+        fireImage.enabled = false;
+
+        Image rechargeImage = Recharge.GetComponent<Image>();
+        rechargeImage.enabled = false;
+
+        Image useAbilityImage = UseAbility.GetComponent<Image>();
+        useAbilityImage.enabled = false;
+
+        Image inventoryRightImage = InventoryRight.GetComponent<Image>();
+        inventoryRightImage.enabled = false;
+
+        Image inventoryLeftImage = InventoryLeft.GetComponent<Image>();
+        inventoryLeftImage.enabled = false;
     }
 
     /// <summary>
