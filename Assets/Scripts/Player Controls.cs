@@ -107,6 +107,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelSelectPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f1b96d2-a9d9-4b04-accd-0293f879b6b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -393,6 +402,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Touch;Gamepad"",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4960ead-3264-4240-96c0-60d7def95ed4"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""LevelSelectPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -989,6 +1009,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
         m_Player_InventoryLeft = m_Player.FindAction("InventoryLeft", throwIfNotFound: true);
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
+        m_Player_LevelSelectPress = m_Player.FindAction("LevelSelectPress", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1071,6 +1092,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_InventoryRight;
     private readonly InputAction m_Player_InventoryLeft;
     private readonly InputAction m_Player_Restart;
+    private readonly InputAction m_Player_LevelSelectPress;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1084,6 +1106,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
         public InputAction @InventoryLeft => m_Wrapper.m_Player_InventoryLeft;
         public InputAction @Restart => m_Wrapper.m_Player_Restart;
+        public InputAction @LevelSelectPress => m_Wrapper.m_Player_LevelSelectPress;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1120,6 +1143,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @LevelSelectPress.started += instance.OnLevelSelectPress;
+            @LevelSelectPress.performed += instance.OnLevelSelectPress;
+            @LevelSelectPress.canceled += instance.OnLevelSelectPress;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1151,6 +1177,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @LevelSelectPress.started -= instance.OnLevelSelectPress;
+            @LevelSelectPress.performed -= instance.OnLevelSelectPress;
+            @LevelSelectPress.canceled -= instance.OnLevelSelectPress;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1342,6 +1371,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnInventoryRight(InputAction.CallbackContext context);
         void OnInventoryLeft(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
+        void OnLevelSelectPress(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

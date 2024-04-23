@@ -161,6 +161,7 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Standalone: com.DefaultCompany.Farm-Invaders
+    iPhone: com.DefaultCompany.Farm-Invaders
   buildNumber:
     Bratwurst: 0
     Standalone: 0

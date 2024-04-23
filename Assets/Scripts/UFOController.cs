@@ -21,6 +21,7 @@ public class UFOController : MonoBehaviour
     InputAction move;
     InputAction fire;
     InputAction pause;
+    InputAction levelSelect;
 
     private void Awake()
     {
@@ -54,6 +55,13 @@ public class UFOController : MonoBehaviour
         pause = playerControls.Player.Pause;
         pause.Enable();
         pause.performed += Pause;
+
+        if (Application.isMobilePlatform)
+        {
+            levelSelect = playerControls.Player.LevelSelectPress;
+            levelSelect.Enable();
+            levelSelect.performed += Fire;
+        }
     }
 
     private void OnDisable()
@@ -64,6 +72,11 @@ public class UFOController : MonoBehaviour
         fire.Disable();
 
         pause.Disable();
+
+        if (Application.isMobilePlatform)
+        {
+            levelSelect.Disable();
+        }
     }
 
     private void Update()
