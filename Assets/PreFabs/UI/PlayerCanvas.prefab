@@ -591,6 +591,11 @@ MonoBehaviour:
   XboxL1: {fileID: 21300000, guid: 35e4e24c12c49d849b6d0351b26a947a, type: 3}
   mobileControls: {fileID: 2024783369573534264}
   eventSystem: {fileID: 6575479329104360324}
+  mobileUseFire: {fileID: 6958780407404851580}
+  mobileRecharge: {fileID: 3000696759832812614}
+  mobileUseAbility: {fileID: 1335356190171669208}
+  mobileInventoryLeft: {fileID: 2353406662982709546}
+  mobileInventoryRight: {fileID: 9172356400254839787}
 --- !u!114 &3433151498335960344
 MonoBehaviour:
   m_ObjectHideFlags: 0

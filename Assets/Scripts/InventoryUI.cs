@@ -47,27 +47,32 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] GameObject mobileControls;
     [SerializeField] GameObject eventSystem;
+    [SerializeField] GameObject mobileUseFire;
+    [SerializeField] GameObject mobileRecharge;
+    [SerializeField] GameObject mobileUseAbility;
+    [SerializeField] GameObject mobileInventoryLeft;
+    [SerializeField] GameObject mobileInventoryRight;
 
     Inventory inventory;
     int currentItemCount = 1;
-    private bool isMobile;
+    private bool isMobile = true;
 
     private void Start()
     {
         inventory = GameObject.Find("Alien").GetComponent<Inventory>();
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        isMobile = Application.isMobilePlatform;
+        //isMobile = Application.isMobilePlatform;
         if (isMobile)
         {
             TurnOffControlImages();
         }
-        else
-        {
-            CheckConnectedControllers();
-            mobileControls.SetActive(false);
-            eventSystem.SetActive(false);
-        }
+        //else
+        //{
+        //    CheckConnectedControllers();
+        //    mobileControls.SetActive(false);
+        //    eventSystem.SetActive(false);
+        //}
     }
 
     private void Update()
@@ -83,6 +88,8 @@ public class InventoryUI : MonoBehaviour
             Fire.SetActive(false);
             Recharge.SetActive(false);
             UseAbility.SetActive(false);
+
+
         }
         else if (inventory.inventorySlots[inventory.currentInventorySlot, 0] != null)
         {
@@ -91,16 +98,28 @@ public class InventoryUI : MonoBehaviour
             {
                 Fire.SetActive(true);
                 PickUpText.text = "Pick Up";
+                if (isMobile)
+                {
+                    mobileUseFire.SetActive(true);
+                }
             }
             else if (inventory.currentInventorySlot != 0)
             {
                 Fire.SetActive(true);
                 PickUpText.text = "Put Down";
+                if (isMobile)
+                {
+                    mobileUseFire.SetActive(true);
+                }
             }
             else
             {
                 PickUpText.text = " ";
                 Fire.SetActive(false);
+                if (isMobile)
+                {
+                    mobileUseFire.SetActive(false);
+                }
             }
 
             Item currentItem = inventory.inventorySlots[inventory.currentInventorySlot, 0].GetComponent<Item>();
@@ -124,6 +143,27 @@ public class InventoryUI : MonoBehaviour
                 {
                     InventoryRight.SetActive(false);
                 }
+
+                //Turns off mobile controls
+                if (isMobile)
+                {
+                    if (mobileUseAbility.active)
+                    {
+                        mobileUseAbility.SetActive(false);
+                    }
+                    if (mobileRecharge.active)
+                    {
+                        mobileRecharge.SetActive(false);
+                    }
+                    if (mobileInventoryLeft.active)
+                    {
+                        mobileInventoryLeft.SetActive(false);
+                    }
+                    if (mobileInventoryRight.active)
+                    {
+                        mobileInventoryRight.SetActive(false);
+                    }
+                }
             }
             else if (currentItem.isRechargeable && currentItem.energy >= currentItem.maxEnergy)
             {
@@ -142,6 +182,27 @@ public class InventoryUI : MonoBehaviour
                 if (!InventoryRight.active)
                 {
                     InventoryRight.SetActive(true);
+                }
+
+                //Turns off mobile controls
+                if (isMobile)
+                {
+                    if (!mobileUseAbility.active)
+                    {
+                        mobileUseAbility.SetActive(true);
+                    }
+                    if (mobileRecharge.active)
+                    {
+                        mobileRecharge.SetActive(false);
+                    }
+                    if (!mobileInventoryLeft.active)
+                    {
+                        mobileInventoryLeft.SetActive(true);
+                    }
+                    if (!mobileInventoryRight.active)
+                    {
+                        mobileInventoryRight.SetActive(true);
+                    }
                 }
             }
             else if (currentItem.isRechargeable && inventory.nearestItem != null && inventory.nearestItem.GetComponent<Item>().itemName == "Cow")
@@ -162,6 +223,27 @@ public class InventoryUI : MonoBehaviour
                 {
                     InventoryRight.SetActive(true);
                 }
+
+                //Turns off mobile controls
+                if (isMobile)
+                {
+                    if (mobileUseAbility.active)
+                    {
+                        mobileUseAbility.SetActive(false);
+                    }
+                    if (!mobileRecharge.active)
+                    {
+                        mobileRecharge.SetActive(true);
+                    }
+                    if (!mobileInventoryLeft.active)
+                    {
+                        mobileInventoryLeft.SetActive(true);
+                    }
+                    if (!mobileInventoryRight.active)
+                    {
+                        mobileInventoryRight.SetActive(true);
+                    }
+                }
             }
             else
             {
@@ -180,6 +262,27 @@ public class InventoryUI : MonoBehaviour
                 if (!InventoryRight.active)
                 {
                     InventoryRight.SetActive(true);
+                }
+
+                //Turns off mobile controls
+                if (isMobile)
+                {
+                    if (mobileUseAbility.active)
+                    {
+                        mobileUseAbility.SetActive(false);
+                    }
+                    if (mobileRecharge.active)
+                    {
+                        mobileRecharge.SetActive(false);
+                    }
+                    if (!mobileInventoryLeft.active)
+                    {
+                        mobileInventoryLeft.SetActive(true);
+                    }
+                    if (!mobileInventoryRight.active)
+                    {
+                        mobileInventoryRight.SetActive(true);
+                    }
                 }
             }
 
