@@ -221,7 +221,7 @@ public class Inventory : MonoBehaviour
         nearestItem = null;
         inventorySlots[currentInventorySlot, 0].transform.parent = null;
         inventorySlots[currentInventorySlot, 0].transform.position = transform.position;
-
+        
         //Makes items stand up right
         Vector3 currentRotation = new Vector3(0, inventorySlots[currentInventorySlot, 0].transform.rotation.y, 0);
         inventorySlots[currentInventorySlot, 0].transform.localRotation = Quaternion.Euler(currentRotation);
@@ -353,6 +353,7 @@ public class Inventory : MonoBehaviour
     {
         cowCollider.enabled = true;
         slot.GetComponent<Animator>().enabled = false;
+        slot.GetComponent<NavMeshAgent>().isStopped = true;
         slot.GetComponent<NavMeshAgent>().enabled = false;
         animator.SetBool("CarryingCow", true);
         playerController.moveSpeed = playerController.cowSlowDown;
@@ -382,6 +383,7 @@ public class Inventory : MonoBehaviour
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().enabled = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().updatePosition = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().updateRotation = true;
+        inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<CowCollisionDetection>().waitForCowToLand = true;
         inventorySlots[4, 0].GetComponent<NavMeshAgent>().SetDestination(inventorySlots[4, 0].transform.position);
         inventorySlots[4, 0].GetComponent<CowItem>().itemDetector.GetComponent<SphereCollider>().enabled = true;
         animator.SetBool("CarryingCow", false);

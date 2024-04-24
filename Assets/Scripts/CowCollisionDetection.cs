@@ -15,13 +15,14 @@ public class CowCollisionDetection : MonoBehaviour
     float idleTimer = 0f;
     float maxIdleTimer = 1f;
 
+    public bool waitForCowToLand = false;
+    float cowLandingTimer = 0f;
+
     private float rotationSpeed;
 
     private void Start()
     {
         agent = transform.parent.GetComponent<NavMeshAgent>();
-        agent.updatePosition = false;
-        agent.updateRotation = false;
         rotationSpeed = agent.angularSpeed;
         sphereCollider = GetComponent<SphereCollider>();
         inventory  = GameObject.Find("Alien").gameObject.GetComponent<Inventory>(); 
@@ -50,9 +51,12 @@ public class CowCollisionDetection : MonoBehaviour
         {
             closestApple = null;
             Destroy(gemApple);
-            agent.isStopped = true;
-            agent.updatePosition = true;
-            agent.updateRotation = true;
+            if (agent.isActiveAndEnabled)
+            {
+                agent.isStopped = true;
+                agent.updatePosition = true;
+                agent.updateRotation = true;
+            }
         }
         //Makes it so that an apple in secondary slot makes cow stop moving.
         else if (closestApple != null && closestApple.transform.parent != null && closestApple.transform.parent.tag.Contains("Player"))
@@ -103,10 +107,23 @@ public class CowCollisionDetection : MonoBehaviour
         {
             idleTimer += Time.deltaTime;
         }
+
+        //Makes it so cow is on ground .2 seconds before walking to apple if it's nearby
+        if (waitForCowToLand)
+        {
+            cowLandingTimer += Time.deltaTime;
+            if (cowLandingTimer >= .2f)
+            {
+                waitForCowToLand = false;
+                cowLandingTimer = 0f;
+                transform.parent.transform.position = new Vector3(transform.parent.transform.position.x, 0, transform.parent.transform.position.z);
+                Debug.Log("Cow on ground!");
+            }
+        }
     }
     private void OnTriggerStay(Collider other)
     {
-        if (gemApple != null && agent.isActiveAndEnabled && other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && closestApple == null)
+        if (!waitForCowToLand && gemApple != null && agent.isActiveAndEnabled && other.gameObject.name.Contains("Apple") && other.CompareTag("Item") && gameObject.transform.parent.CompareTag("Item") && closestApple == null)
         {
             Debug.Log("Apple Detected!");
             AudioManager.instance.PlayRandomAudioClip("cowSounds");
