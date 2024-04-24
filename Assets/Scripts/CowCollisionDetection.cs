@@ -117,7 +117,6 @@ public class CowCollisionDetection : MonoBehaviour
                 waitForCowToLand = false;
                 cowLandingTimer = 0f;
                 transform.parent.transform.position = new Vector3(transform.parent.transform.position.x, 0, transform.parent.transform.position.z);
-                Debug.Log("Cow on ground!");
             }
         }
     }
