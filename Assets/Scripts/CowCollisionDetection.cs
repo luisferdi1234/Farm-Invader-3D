@@ -112,6 +112,8 @@ public class CowCollisionDetection : MonoBehaviour
             AudioManager.instance.PlayRandomAudioClip("cowSounds");
             closestApple = other.gameObject;
             agent.isStopped = false;
+            agent.updatePosition = false;
+            agent.updateRotation = false;
             agent.SetDestination(closestApple.transform.position);
             if (!cowAnimator.enabled)
             {
