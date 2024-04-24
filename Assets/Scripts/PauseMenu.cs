@@ -37,6 +37,13 @@ public class PauseMenu : MonoBehaviour
     {
         //Waits for score manager to be instantiated
         levelName.text = ScoreManager.Instance.levelName;
+
+        //Turns off restart button on mobile
+        if (Application.isMobilePlatform)
+        {
+            restartImage.SetActive(false);
+        }
+
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         GetComponent<Canvas>().planeDistance = 1;
     }
@@ -124,8 +131,12 @@ public class PauseMenu : MonoBehaviour
         //Turns off player UI
         ui.SetActive(false);
 
-        //Updates restart image
-        CheckConnectedControllers();
+        //Makes it so it only detects controllers on pc
+        if (!Application.isMobilePlatform)
+        {
+            //Updates restart image
+            CheckConnectedControllers();
+        }
 
         //Shows how many cows the player has collected so far
         obtainableCows.text = $"Cows: {ScoreManager.Instance.cows}/{ScoreManager.Instance.maxAmountOfCows}";
