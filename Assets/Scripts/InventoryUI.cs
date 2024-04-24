@@ -62,18 +62,18 @@ public class InventoryUI : MonoBehaviour
         inventory = GameObject.Find("Alien").GetComponent<Inventory>();
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        //isMobile = Application.isMobilePlatform;
+        isMobile = Application.isMobilePlatform;
         if (isMobile)
         {
             TurnOffControlImages();
             TurnOffControlText();
         }
-        //else
-        //{
-        //    CheckConnectedControllers();
-        //    mobileControls.SetActive(false);
-        //    eventSystem.SetActive(false);
-        //}
+        else
+        {
+            CheckConnectedControllers();
+            mobileControls.SetActive(false);
+            eventSystem.SetActive(false);
+        }
     }
 
     private void TurnOffControlText()
