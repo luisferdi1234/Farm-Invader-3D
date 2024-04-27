@@ -3403,6 +3403,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 345397063}
     m_Modifications:
+    - target: {fileID: 1171052657573754818, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171052657573754818, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
+      propertyPath: isAnimated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6971420262070536105, guid: 03c94cc7a47aa634282134094c08d9a8, type: 3}
       propertyPath: m_Name
       value: Cow

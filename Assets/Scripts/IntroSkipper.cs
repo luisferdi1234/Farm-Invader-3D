@@ -17,10 +17,12 @@ public class IntroSkipper : MonoBehaviour
     [SerializeField] GameObject play;
     [SerializeField] GameObject howToPlay;
     [SerializeField] GameObject exit;
+    [SerializeField] GameObject credits;
 
     [SerializeField] TextMeshProUGUI playText;
     [SerializeField] TextMeshProUGUI howToPlayText;
     [SerializeField] TextMeshProUGUI exitText;
+    [SerializeField] TextMeshProUGUI creditsText;
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -58,11 +60,13 @@ public class IntroSkipper : MonoBehaviour
         play.GetComponent<Image>().color = new Color(play.GetComponent<Image>().color.r, play.GetComponent<Image>().color.g, play.GetComponent<Image>().color.b, 1f);
         howToPlay.GetComponent<Image>().color = new Color(howToPlay.GetComponent<Image>().color.r, howToPlay.GetComponent<Image>().color.g, howToPlay.GetComponent<Image>().color.b, 1f);
         exit.GetComponent<Image>().color = new Color(exit.GetComponent<Image>().color.r, exit.GetComponent<Image>().color.g, exit.GetComponent<Image>().color.b, 1f);
+        credits.GetComponent<Image>().color = new Color(exit.GetComponent<Image>().color.r, exit.GetComponent<Image>().color.g, exit.GetComponent<Image>().color.b, 1f);
 
         //Turns on Menu Button Text
         playText.color = new Color(playText.GetComponent<TextMeshProUGUI>().color.r, playText.GetComponent<TextMeshProUGUI>().color.g, playText.GetComponent<TextMeshProUGUI>().color.b, 1f);
         howToPlayText.color = new Color(howToPlayText.GetComponent<TextMeshProUGUI>().color.r, howToPlayText.GetComponent<TextMeshProUGUI>().color.g, howToPlayText.GetComponent<TextMeshProUGUI>().color.b, 1f);
         exitText.color = new Color(exitText.GetComponent<TextMeshProUGUI>().color.r, exitText.GetComponent<TextMeshProUGUI>().color.g, exitText.GetComponent<TextMeshProUGUI>().color.b, 1f);
+        creditsText.color = new Color(exitText.GetComponent<TextMeshProUGUI>().color.r, exitText.GetComponent<TextMeshProUGUI>().color.g, exitText.GetComponent<TextMeshProUGUI>().color.b, 1f);
 
         //Turns off the intro skipper
         gameObject.SetActive(false);
