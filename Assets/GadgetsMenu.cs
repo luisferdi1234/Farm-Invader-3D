@@ -55,7 +55,7 @@ public class GadgetsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("Level17"))
         {
             DopplegangerText.text = $"Doppleganger Decoy: Duration 5s\r\nUse to lure away farmers and dogs. (Does not affect score)";
-            menuDoppleganger.transform.localPosition = new Vector3(640, -40, 0);
+            menuDoppleganger.transform.localPosition = new Vector3(710, -40, 0);
         }
         else
         {
