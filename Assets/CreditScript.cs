@@ -7,6 +7,7 @@ public class CreditScript : MonoBehaviour
 {
     public void ReturnToMenu()
     {
+        GetComponent<AudioSource>().Stop();
         SceneManager.LoadScene("Main Menu");
     }
 }
