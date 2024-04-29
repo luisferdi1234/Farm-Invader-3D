@@ -2759,7 +2759,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PlayTesters:
+  m_text: 'QA Testers:
 
 
     Zach Pacheco
@@ -2771,16 +2771,16 @@ MonoBehaviour:
     Chris
     A.
 
-    Luke Davis
+    Luke "Motion Detector" Davis
 
     Graham Smith
 
     Sophia Notarianni
 
-    Sam Chu
+    Sam
+    Chu
 
-    Noah
-    Thompson'
+    Noah Thompson'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9095222c1b7fda74fbbe774065265c61, type: 2}
   m_sharedMaterial: {fileID: -6246487883841765688, guid: 9095222c1b7fda74fbbe774065265c61, type: 2}

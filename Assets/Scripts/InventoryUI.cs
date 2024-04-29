@@ -53,13 +53,17 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject mobileInventoryLeft;
     [SerializeField] GameObject mobileInventoryRight;
 
+    GameObject alien;
     Inventory inventory;
+    PlayerController playerController;
     int currentItemCount = 1;
     private bool isMobile = true;
 
     private void Start()
     {
-        inventory = GameObject.Find("Alien").GetComponent<Inventory>();
+        alien = GameObject.Find("Alien");
+        playerController = alien.GetComponent<PlayerController>();
+        inventory = alien.GetComponent<Inventory>();
         GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
         isMobile = Application.isMobilePlatform;
@@ -245,7 +249,7 @@ public class InventoryUI : MonoBehaviour
                     }
                 }
             }
-            else if (currentItem.isRechargeable && inventory.nearestItem != null && inventory.nearestItem.GetComponent<Item>().itemName == "Cow")
+            else if ((currentItem.isRechargeable && inventory.nearestItem != null && inventory.nearestItem.GetComponent<Item>().itemName == "Cow") || (playerController.inUFO && ScoreManager.Instance.cows >= 1))
             {
                 if (!isMobile)
                 {
