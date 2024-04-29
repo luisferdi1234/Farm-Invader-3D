@@ -69,6 +69,7 @@ MonoBehaviour:
   foodLove: {fileID: 1000010728489230, guid: 8b40cffea67202d4bbf662b25de4c94a, type: 3}
   agent: {fileID: 0}
   gemApple: {fileID: 0}
+  waitForCowToLand: 0
 --- !u!1001 &4023281180134128574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -813,7 +814,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 1.8
   m_Direction: 2
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &7726869364683194980
 MonoBehaviour:
   m_ObjectHideFlags: 0
